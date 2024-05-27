@@ -25,10 +25,10 @@
                             <a class="nav-link" href="{% url 'inicio_estudiante' %}">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Buscar cursos</a>
+                            <a class="nav-link" href="{% url 'cursos_estudiante' %}">Buscar cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Mis cursos</a>
+                            <a class="nav-link" href="{% url 'cursos_estudiante' %}">Mis cursos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">Mi Perfil</a>
@@ -39,7 +39,7 @@
                             <a class="nav-link" href="{% url 'inicio_profesor' %}">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Mis Cursos</a>
+                            <a class="nav-link" href="{% url 'cursos_profesor' %}">Mis Cursos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">Mi Perfil</a>

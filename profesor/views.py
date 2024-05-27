@@ -27,3 +27,6 @@ def signup_profesor(request):
 
 def inicio_profesor(request):
     return render(request, 'inicio_profesor.html')
+
+def mis_cursos(request):
+    return render(request, 'mis_cursos.html')
