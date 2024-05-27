@@ -1,6 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/">Proyecto IS2</a>
+        {% if user.usuario_estudiante == True %}
+            <a class="navbar-brand" href="{% url 'inicio_estudiante' %}">Proyecto IS2</a>
+        {% elif user.usuario_profesor == True %}
+            <a class="navbar-brand" href="{% url 'inicio_profesor' %}">Proyecto IS2</a>
+        {% else %}
+            <a class="navbar-brand" href="/">Proyecto IS2</a>
+        {% endif %}
         <button class="navbar-toggler" 
         type="button" 
         data-bs-toggle="collapse" 
@@ -14,44 +20,44 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
-                {% if user.usuario_estudiante == True %}
-                <li class="nav-item">
-                    <a class="nav-link" href="estudiante/inicio/">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Buscar cursos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Mis cursos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Mi Perfil</a>
-                </li>
-                {% endif %}
-                {% if user.usuario_profesor == True %}
-                <li class="nav-item">
-                    <a class="nav-link" href="profesor/inicio/">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Mis Cursos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Mi Perfil</a>
-                </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/signout">Cerrar Sesión</a>
-                </li>
+                    {% if user.usuario_estudiante == True %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inicio_estudiante' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Buscar cursos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Mis cursos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Mi Perfil</a>
+                        </li>
+                    {% endif %}
+                    {% if user.usuario_profesor == True %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inicio_profesor' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Mis Cursos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Mi Perfil</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signout">Cerrar Sesión</a>
+                    </li>
                 {% else %}
-                <li class="nav-item">
-                    <a href="/" class="nav-link">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/signup">Registrarse</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/signin">Iniciar Sesión</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signin">Iniciar Sesión</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>
