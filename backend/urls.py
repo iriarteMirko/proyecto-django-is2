@@ -9,4 +9,6 @@ urlpatterns = [
     path('estudiante/', include('estudiante.urls')),
     path('', include('profesor.urls')),
     path('profesor/', include('profesor.urls')),
+    path('', include('curso.urls')),
+    path('curso/', include('curso.urls')),
 ]
