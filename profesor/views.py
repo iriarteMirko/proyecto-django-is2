@@ -29,7 +29,20 @@ def inicio_profesor(request):
     return render(request, 'inicio_profesor.html')
 
 def mis_cursos(request):
-    return render(request, 'cursos_profesor.html')
+    from curso.models import Curso
+    cursos = Curso.objects.all()
+    
+    return render(request, 'cursos_profesor.html', {'cursos': cursos})
+
+def crear_curso(request):
+    from curso.factories import CursoConcreteFactory
+    factory = CursoConcreteFactory()
+    if request.method == 'POST':
+        curso = factory.create_curso(request.POST['nombre'], request.POST['descripcion'], request.user.profesor)
+        if curso:
+            return redirect('cursos_profesor')
+        return render(request, 'crear_curso.html', {'error': 'Datos no válidos. Intente nuevamente.'})
+    return render(request, 'crear_curso.html')
 
 def mi_perfil(request):
     return render(request, 'perfil_profesor.html')

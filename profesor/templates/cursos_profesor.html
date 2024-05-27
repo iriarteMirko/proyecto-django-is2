@@ -9,7 +9,7 @@
 <main class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <a href="" class="btn btn-dark">Crear curso</a>
+            <a href="{% url 'crear_curso' %}" class="btn btn-dark">Crear curso</a>
         </div>
     </div>
 </main>
@@ -32,9 +32,9 @@
                             <td>{{ curso.nombre }}</td>
                             <td>{{ curso.descripcion }}</td>
                             <td>
-                                <a href="{% url 'profesor:ver_curso' curso.id %}" class="btn btn-primary">Ver</a>
-                                <a href="{% url 'profesor:editar_curso' curso.id %}" class="btn btn-warning">Editar</a>
-                                <a href="{% url 'profesor:eliminar_curso' curso.id %}" class="btn btn-danger">Eliminar</a>
+                                <a href="" class="btn btn-dark">Ver</a>
+                                <a href="" class="btn btn-secondary">Editar</a>
+                                <a href="" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
                         {% endfor %}
