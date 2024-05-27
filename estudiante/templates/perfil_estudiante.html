@@ -6,4 +6,21 @@
     </section>
 </main>
 
+<main class="container">
+    <section class="card card-body">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="py-3">Información personal:</h2>
+                <p>Nombre: {{ user.nombre }}</p>
+                <p>Apellido: {{ user.apellidos }}</p>
+                <p>Correo: {{ user.email }}</p>
+            </div>
+        </div>
+        <div class="text-center py-2">
+            <a class="btn btn-secondary mt-3 px-4 py-2" href="">Editar Datos</a>
+            <a class="btn btn-dark mt-3 px-4 py-2" href="">Guardar Cambios</a>
+        </div>
+    </section>
+</main>
+
 {% endblock %}
