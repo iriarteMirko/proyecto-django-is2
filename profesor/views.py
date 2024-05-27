@@ -30,3 +30,6 @@ def inicio_profesor(request):
 
 def mis_cursos(request):
     return render(request, 'cursos_profesor.html')
+
+def mi_perfil(request):
+    return render(request, 'perfil_profesor.html')

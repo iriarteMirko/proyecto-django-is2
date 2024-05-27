@@ -28,5 +28,11 @@ def signup_estudiante(request):
 def inicio_estudiante(request):
     return render(request, 'inicio_estudiante.html')
 
+def buscar_curso(request):
+    return render(request, 'buscar_cursos.html')
+
 def mis_cursos(request):
     return render(request, 'cursos_estudiante.html')
+
+def mi_perfil(request):
+    return render(request, 'perfil_estudiante.html')
