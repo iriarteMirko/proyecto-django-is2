@@ -25,11 +25,13 @@ def signin(request):
         user = authenticate(request, username=correo, password=password)
         if user is not None:
             login(request, user)
-            return redirect('inicio')
+            if user.usuario_estudiante == True:
+                return redirect('inicio_estudiante')
+            return redirect('inicio_profesor')
         return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'Correo o contraseña incorrectos.'})
     return render(request, 'signin.html', {'form': AuthenticationForm})
 
 @login_required
 def signout(request):
     logout(request)
-    return redirect('inicio')
+    return redirect('signin')

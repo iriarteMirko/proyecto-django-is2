@@ -18,9 +18,12 @@ def signup_estudiante(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(email=email, password=password)
             login(request, user)
-            return redirect('inicio')
+            return redirect('inicio_estudiante')
         else:
             return render(request, 'signup_estudiante.html', {'form': form, 'error': 'Datos no válidos. Intente nuevamente.'})
     else:
         form = RegistroEstudianteForm()
     return render(request, 'signup_estudiante.html', {'form': form})
+
+def inicio_estudiante(request):
+    return render(request, 'inicio_estudiante.html')
