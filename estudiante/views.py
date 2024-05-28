@@ -32,7 +32,10 @@ def buscar_curso(request):
     return render(request, 'buscar_cursos.html')
 
 def mis_cursos(request):
-    return render(request, 'cursos_estudiante.html')
+    from curso.models import Curso
+    cursos = Curso.objects.all()
+    
+    return render(request, 'cursos_estudiante.html', {'cursos': cursos})
 
 def mi_perfil(request):
     return render(request, 'perfil_estudiante.html')

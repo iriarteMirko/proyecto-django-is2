@@ -6,4 +6,42 @@
     </section>
 </main>
 
+<main class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a href="{% url 'buscar_cursos' %}" class="btn btn-dark">Buscar Cursos</a>
+        </div>
+    </div>
+</main>
+
+<main class="container py-5">
+    <section class="card card-body">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for curso in cursos %}
+                        <tr>
+                            <td>{{ curso.nombre }}</td>
+                            <td>{{ curso.descripcion }}</td>
+                            <td>
+                                <a href="" class="btn btn-dark">Ver</a>
+                                <a href="" class="btn btn-danger">Retirarse</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
 {% endblock %}
