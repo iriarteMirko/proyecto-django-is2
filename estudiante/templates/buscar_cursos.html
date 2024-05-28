@@ -2,7 +2,37 @@
 
 <main class="container py-5">
     <section class="card card-body">
-        <h1 class="display-1 text-center">Buscar Cursos: </h1>
+        <h1 class="display-1 text-center">Cursos Disponibles: </h1>
+    </section>
+</main>
+
+<main class="container py-5">
+    <section class="card card-body">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for curso in cursos %}
+                        <tr>
+                            <td>{{ curso.nombre }}</td>
+                            <td>{{ curso.descripcion }}</td>
+                            <td>
+                                <a href="" class="btn btn-dark">Ver</a>
+                                <a href="" class="btn btn-primary">Unirse</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </section>
 </main>
 
