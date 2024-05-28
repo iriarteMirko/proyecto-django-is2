@@ -31,8 +31,9 @@ def inicio_profesor(request):
 def mis_cursos(request):
     from curso.models import Curso
     cursos = Curso.objects.all()
+    cursos_prof = [curso for curso in cursos if curso.profesor == request.user.profesor]
     
-    return render(request, 'cursos_profesor.html', {'cursos': cursos})
+    return render(request, 'cursos_profesor.html', {'cursos': cursos_prof})
 
 def crear_curso(request):
     from curso.factories import CursoConcreteFactory
