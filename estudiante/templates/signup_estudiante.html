@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
+
 {% block content %}
+
 <main class="container py-5">
-    <h1 class="display-4 text-center">Registrarse como: Profesor</h1>
-    <form method="POST" action="{% url 'signup_profesor' %}" class="card card-body col-md-4 offset-md-4">
+    <h1 class="display-4 text-center">Soy Estudiante</h1>
+    <form method="POST" action="{% url 'signup_estudiante' %}" class="card card-body col-md-4 offset-md-4">
         {% csrf_token %}
         {% if form.non_field_errors %}
             <p class="text-center mt-3" style="color:red">{{ form.non_field_errors }}</p>
         {% endif %}
         <div class="mb-3">
-            <label for="correo" class="form-label">Correo:</label>
-            <input type="email" name="email" id="correo" class="form-control" placeholder="Ingresar correo" required>
-            {% if form.email.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.email.errors }}</p>
+            <label for="codigo" class="form-label">Código:</label>
+            <input type="text" name="codigo" id="codigo" class="form-control" placeholder="Ingresar codigo" maxlength="8" required>
+            {% if form.codigo.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.codigo.errors }}</p>
             {% endif %}
         </div>
         <div class="mb-3">
@@ -29,6 +31,13 @@
             {% endif %}
         </div>
         <div class="mb-3">
+            <label for="correo" class="form-label">Correo:</label>
+            <input type="email" name="email" id="correo" class="form-control" placeholder="Ingresar correo" required>
+            {% if form.email.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.email.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingresar nombre" required>
             {% if form.nombre.errors %}
@@ -43,17 +52,31 @@
             {% endif %}
         </div>
         <div class="mb-3">
-            <label for="profesion" class="form-label">Profesion:</label>
-            <input type="text" name="profesion" id="profesion" class="form-control" placeholder="Ingresar profesion" required>
-            {% if form.profesion.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.profesion.errors }}</p>
+            <label for="carrera" class="form-label">Carrera:</label>
+            <input type="text" name="carrera" id="carrera" class="form-control" placeholder="Ingresar carrera" required>
+            {% if form.carrera.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.carrera.errors }}</p>
             {% endif %}
         </div>
         <div class="mb-3">
-            <label for="centro_laboral" class="form-label">Centro Laboral:</label>
-            <input type="text" name="centro_laboral" id="centro_laboral" class="form-control" placeholder="Ingresar Centro Laboral" required>
-            {% if form.centro_laboral.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.centro_laboral.errors }}</p>
+            <label for="ciclo" class="form-label">Ciclo:</label>
+            <select name="ciclo" id="ciclo" class="form-control" required>
+                <option value="">Seleccionar ciclo</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            {% if form.ciclo.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.ciclo.errors }}</p>
             {% endif %}
         </div>
         <div class="text-center py-3">
@@ -64,4 +87,5 @@
         {% endif %}
     </form>
 </main>
+
 {% endblock %}

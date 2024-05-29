@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container py-5">
+    <h1 class="display-4 text-center">Soy Profesor</h1>
+    <form method="POST" action="{% url 'signup_profesor' %}" class="card card-body col-md-4 offset-md-4">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <p class="text-center mt-3" style="color:red">{{ form.non_field_errors }}</p>
+        {% endif %}
+        <div class="mb-3">
+            <label for="codigo" class="form-label">Código:</label>
+            <input type="text" name="codigo" id="codigo" class="form-control" placeholder="Ingresar codigo" required>
+            {% if form.codigo.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.codigo.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="password1" class="form-label">Contraseña:</label>
+            <input type="password" name="password1" id="password1" class="form-control" placeholder="Ingresar contraseña" maxlength="15" required>
+            {% if form.password1.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.password1.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">Confirmar Contraseña:</label>
+            <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirmar contraseña" maxlength="15" required>
+            {% if form.password2.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.password2.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo:</label>
+            <input type="email" name="email" id="correo" class="form-control" placeholder="Ingresar correo" required>
+            {% if form.email.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.email.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingresar nombre" required>
+            {% if form.nombre.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.nombre.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="apellidos" class="form-label">Apellidos:</label>
+            <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Ingresar apellidos" required>
+            {% if form.apellidos.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.apellidos.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="profesion" class="form-label">Profesion:</label>
+            <input type="text" name="profesion" id="profesion" class="form-control" placeholder="Ingresar profesion" required>
+            {% if form.profesion.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.profesion.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="centro_laboral" class="form-label">Centro Laboral:</label>
+            <input type="text" name="centro_laboral" id="centro_laboral" class="form-control" placeholder="Ingresar Centro Laboral" required>
+            {% if form.centro_laboral.errors %}
+                <p class="text-center mt-3" style="color:red">{{ form.centro_laboral.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="text-center py-3">
+            <button class="btn btn-dark px-4 py-2">Registrarse</button>
+        </div>
+        {% if error %}
+        <p class="text-center mt-3" style="color:red">{{ error }}</p>
+        {% endif %}
+    </form>
+</main>
+
+{% endblock %}

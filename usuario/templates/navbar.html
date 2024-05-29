@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         {% if user.usuario_estudiante == True %}
-            <a class="navbar-brand" href="{% url 'inicio_estudiante' %}">Proyecto IS2</a>
+            <a class="navbar-brand" href="{% url 'inicio_estudiante' %}">Mentor ULima</a>
         {% elif user.usuario_profesor == True %}
-            <a class="navbar-brand" href="{% url 'inicio_profesor' %}">Proyecto IS2</a>
+            <a class="navbar-brand" href="{% url 'inicio_profesor' %}">Mentor ULima</a>
         {% else %}
-            <a class="navbar-brand" href="/">Proyecto IS2</a>
+            <a class="navbar-brand" href="/">Mentor ULima</a>
         {% endif %}
         <button class="navbar-toggler" 
         type="button" 

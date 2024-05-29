@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 
 <main class="container py-5">
     <section class="card card-body">
@@ -10,17 +12,33 @@
     <section class="card card-body">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h2 class="py-3">Información personal:</h2>
+                <h2 class="py-3">Información Personal:</h2>
+                <p>Código: {{ user.codigo }}</p>
+                <p>Correo: {{ user.email }}</p>
                 <p>Nombre: {{ user.nombre }}</p>
                 <p>Apellido: {{ user.apellidos }}</p>
-                <p>Correo: {{ user.email }}</p>
             </div>
         </div>
         <div class="text-center py-2">
-            <a class="btn btn-secondary mt-3 px-4 py-2" href="">Editar Datos</a>
-            <a class="btn btn-dark mt-3 px-4 py-2" href="">Guardar Cambios</a>
+            <a id="editButton" class="btn btn-secondary mt-3 px-4 py-2" href="#" onclick="toggleButtons()">Editar Datos</a>
+            <a id="saveButton" class="btn btn-dark mt-3 px-4 py-2" href="#" onclick="toggleButtons()" style="display: none;">Guardar Cambios</a>
         </div>
     </section>
 </main>
+
+<script>
+    function toggleButtons() {
+        var editButton = document.getElementById("editButton");
+        var saveButton = document.getElementById("saveButton");
+        
+        if (editButton.style.display === "none") {
+            editButton.style.display = "inline-block";
+            saveButton.style.display = "none";
+        } else {
+            editButton.style.display = "none";
+            saveButton.style.display = "inline-block";
+        }
+    }
+</script>
 
 {% endblock %}

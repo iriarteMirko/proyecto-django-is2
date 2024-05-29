@@ -1,12 +1,14 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 
 <main class="container py-5">
     <h1 class="display-4 text-center">Iniciar Sesión</h1>
     <form method="POST" action="/signin/" class="card card-body col-md-4 offset-md-4">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="correo" class="form-label">Correo:</label>
-            <input type="text" name="correo" id="correo" class="form-control" placeholder="Ingresar correo" required>
+            <label for="codigo" class="form-label">Código:</label>
+            <input type="text" name="codigo" id="codigo" class="form-control" placeholder="Ingresar codigo" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Contraseña:</label>

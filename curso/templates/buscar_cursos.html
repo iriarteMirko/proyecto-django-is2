@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 
 <main class="container py-5">
     <section class="card card-body">
@@ -15,7 +17,6 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripción</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,10 +24,6 @@
                         <tr>
                             <td>{{ curso.nombre }}</td>
                             <td>{{ curso.descripcion }}</td>
-                            <td>
-                                <a href="" class="btn btn-dark">Ver</a>
-                                <a href="" class="btn btn-primary">Unirse</a>
-                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

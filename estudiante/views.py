@@ -14,9 +14,9 @@ def signup_estudiante(request):
         form = RegistroEstudianteForm(request.POST)
         if form.is_valid():
             form.save()
-            email = form.cleaned_data.get('email')
+            codigo = form.cleaned_data.get('codigo')
             password = form.cleaned_data.get('password1')
-            user = authenticate(email=email, password=password)
+            user = authenticate(codigo=codigo, password=password)
             login(request, user)
             return redirect('inicio_estudiante')
         else:

@@ -2,6 +2,6 @@ from django.contrib import admin
 from .models import Usuario
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ['email', 'nombre', 'apellidos', 'usuario_activo', 'usuario_estudiante', 'usuario_profesor', 'usuario_administrador']
+    list_display = ['codigo', 'email', 'nombre', 'apellidos', 'activo', 'es_estudiante', 'es_profesor', 'es_administrador']
 
 admin.site.register(Usuario, UsuarioAdmin)

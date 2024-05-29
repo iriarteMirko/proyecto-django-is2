@@ -9,11 +9,11 @@ class RegistroProfesorForm(UserCreationForm):
     
     class Meta:
         model = Usuario
-        fields = ('email', 'nombre', 'apellidos', 'password1', 'password2')
+        fields = ('codigo', 'email', 'nombre', 'apellidos', 'password1', 'password2')
         
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.usuario_profesor = True
+        user.es_profesor = True
         user.save()
         profesor = Profesor(
             usuario=user,
