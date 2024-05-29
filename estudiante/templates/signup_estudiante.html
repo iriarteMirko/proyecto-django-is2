@@ -3,64 +3,51 @@
 {% block content %}
 
 <main class="container py-5">
-    <h1 class="display-4 text-center">Soy Estudiante</h1>
-    <form method="POST" action="{% url 'signup_estudiante' %}" class="card card-body col-md-4 offset-md-4">
+    <h1 class="display-4 text-center py-5">Soy Estudiante</h1>
+    <form method="POST" action="{% url 'signup_estudiante' %}" class="card card-body col-md-6 offset-md-3">
         {% csrf_token %}
-        {% if form.non_field_errors %}
-            <p class="text-center mt-3" style="color:red">{{ form.non_field_errors }}</p>
-        {% endif %}
-        <div class="mb-3">
-            <label for="codigo" class="form-label">Código:</label>
-            <input type="text" name="codigo" id="codigo" class="form-control" placeholder="Ingresar codigo" maxlength="8" required>
-            {% if form.codigo.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.codigo.errors }}</p>
-            {% endif %}
+        <div class="input-group mb-3">
+            <span class="input-group-text">Código:</span>
+            <input type="text" name="codigo" id="codigo" class="form-control {% if form.codigo.errors %}is-invalid{% endif %}" placeholder="Ingresar codigo" maxlength="8" required>
         </div>
-        <div class="mb-3">
-            <label for="password1" class="form-label">Contraseña:</label>
-            <input type="password" name="password1" id="password1" class="form-control" placeholder="Ingresar contraseña" maxlength="15" required>
-            {% if form.password1.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.password1.errors }}</p>
-            {% endif %}
+        {% if form.codigo.errors %} <p class="text-center" style="color:red">Código inválido o ya existente</p> {% endif %}
+        <div class="input-group mb-3">
+            <span class="input-group-text">Contraseña:</span>
+            <input type="password" name="password1" id="password1" class="form-control {% if form.password1.errors %}is-invalid{% endif %}" placeholder="Ingresar contraseña" maxlength="15" required>
+            <input type="password" name="password2" id="password2" class="form-control {% if form.password2.errors %}is-invalid{% endif %}" placeholder="Confirmar contraseña" maxlength="15" required>
         </div>
-        <div class="mb-3">
-            <label for="password2" class="form-label">Confirmar Contraseña:</label>
-            <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirmar contraseña" maxlength="15" required>
-            {% if form.password2.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.password2.errors }}</p>
-            {% endif %}
+        {% if form.password1.errors or form.password2.errors %} <p class="text-center" style="color:red">Contraseñas inválidas o no coinciden</p> {% endif %}
+        <div class="input-group mb-3">
+            <span class="input-group-text">Correo:</span>
+            <input type="email" name="email" id="correo" class="form-control {% if form.correo.errors %}is-invalid{% endif %}" placeholder="Ingresar correo" required>
         </div>
-        <div class="mb-3">
-            <label for="correo" class="form-label">Correo:</label>
-            <input type="email" name="email" id="correo" class="form-control" placeholder="Ingresar correo" required>
-            {% if form.email.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.email.errors }}</p>
-            {% endif %}
+        {% if form.email.errors %} <p class="text-center" style="color:red">Correo inválido o ya existente</p> {% endif %}
+        <div class="input-group mb-3">
+            <span class="input-group-text">Nombres/Apellidos:</span>
+            <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="50" placeholder="Nombres" required>
+            <input type="text" name="apellidos" id="apellidos" class="form-control {% if form.apellidos.errors %}is-invalid{% endif %}" maxlength="100" placeholder="Apellidos" required>
         </div>
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingresar nombre" required>
-            {% if form.nombre.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.nombre.errors }}</p>
-            {% endif %}
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="carrera">Carrera:</label>
+                <select class="form-select {% if form.carrera.errors %}is-invalid{% endif %}" name="carrera" id="carrera" required>
+                    <option value="">Seleccionar carrera</option>
+                    <option value="1">Arquitectura</option>
+                    <option value="2">Administración</option>
+                    <option value="3">Contabilidad y Finanzas</option>
+                    <option value="4">Economía</option>
+                    <option value="5">Marketing</option>
+                    <option value="6">Negocios Internacionales</option>
+                    <option value="7">Comunicación</option>
+                    <option value="8">Derecho</option>
+                    <option value="9">Ingeniería Civil</option>
+                    <option value="10">Ingeniería Industrial</option>
+                    <option value="11">Ingeniería de Sistemas</option>
+                    <option value="12">Psicología</option>
+            </select>
         </div>
-        <div class="mb-3">
-            <label for="apellidos" class="form-label">Apellidos:</label>
-            <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Ingresar apellidos" required>
-            {% if form.apellidos.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.apellidos.errors }}</p>
-            {% endif %}
-        </div>
-        <div class="mb-3">
-            <label for="carrera" class="form-label">Carrera:</label>
-            <input type="text" name="carrera" id="carrera" class="form-control" placeholder="Ingresar carrera" required>
-            {% if form.carrera.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.carrera.errors }}</p>
-            {% endif %}
-        </div>
-        <div class="mb-3">
-            <label for="ciclo" class="form-label">Ciclo:</label>
-            <select name="ciclo" id="ciclo" class="form-control" required>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="ciclo" >Ciclo:</label>
+            <select class="form-select {% if form.ciclo.errors %}is-invalid{% endif %}" name="ciclo" id="ciclo" required>
                 <option value="">Seleccionar ciclo</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -75,16 +62,13 @@
                 <option value="11">11</option>
                 <option value="12">12</option>
             </select>
-            {% if form.ciclo.errors %}
-                <p class="text-center mt-3" style="color:red">{{ form.ciclo.errors }}</p>
-            {% endif %}
-        </div>
-        <div class="text-center py-3">
-            <button class="btn btn-dark px-4 py-2">Registrarse</button>
         </div>
         {% if error %}
-        <p class="text-center mt-3" style="color:red">{{ error }}</p>
+            <p class="text-center mt-3" style="color:red">{{ error }}</p>
         {% endif %}
+        <div class="text-center py-1">
+            <button class="btn btn-dark px-4 py-2">Registrarse</button>
+        </div>
     </form>
 </main>
 
