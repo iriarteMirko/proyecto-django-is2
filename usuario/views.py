@@ -23,7 +23,7 @@ def signin(request):
         user = authenticate(request, username=codigo, password=password)
         if user is not None:
             login(request, user)
-            if user.usuario_estudiante == True:
+            if user.es_estudiante == True:
                 return redirect('inicio_estudiante')
             return redirect('inicio_profesor')
         return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'Código o contraseña incorrectos.'})

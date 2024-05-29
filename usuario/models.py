@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, codigo, email=None, nombre=None, apellidos=None, password=None, usuario_estudiante=False, usuario_profesor=False):
+    def create_user(self, codigo, email, nombre, apellidos, password=None, es_estudiante=False, es_profesor=False):
         if not codigo:
             raise ValueError('El usuario debe tener un código.')
         if not email:
@@ -17,23 +17,23 @@ class UsuarioManager(BaseUserManager):
             email=self.normalize_email(email),
             nombre=nombre,
             apellidos=apellidos,
-            usuario_estudiante=usuario_estudiante,
-            usuario_profesor=usuario_profesor
+            es_estudiante=es_estudiante,
+            es_profesor=es_profesor
         )
         
         user.set_password(password)
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, codigo, password=None):
+    def create_superuser(self, codigo, email, nombre, apellidos, password=None):
         user = self.create_user(
             codigo=codigo,
-            password=password,
-            email=f'{codigo}@admin.com',
-            nombre='Super',
-            apellidos='User',
+            email=self.normalize_email(email),
+            nombre=nombre,
+            apellidos=apellidos,
+            password=password
         )
-        user.usuario_administrador = True
+        user.es_administrador = True
         user.save(using=self._db)
         return user
 
