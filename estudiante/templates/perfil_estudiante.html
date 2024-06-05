@@ -17,11 +17,13 @@
                 <p>Correo: {{ user.email }}</p>
                 <p>Nombre: {{ user.nombre }}</p>
                 <p>Apellido: {{ user.apellidos }}</p>
+                <p>Carrera: {{ estudiante.carrera }}</p>
+                <p>Ciclo: {{ estudiante.ciclo }}</p>
             </div>
         </div>
         <div class="text-center py-2">
             <a id="editButton" class="btn btn-secondary mt-3 px-4 py-2" href="#" onclick="toggleButtons()">Editar Datos</a>
-            <a id="saveButton" class="btn btn-dark mt-3 px-4 py-2" href="#" onclick="toggleButtons()" style="display: none;">Guardar Cambios</a>
+            <a id="saveButton" class="btn btn-dark mt-3 px-4 py-2" href="" onclick="toggleButtons()" style="display: none;">Guardar Cambios</a>
         </div>
     </section>
 </main>
