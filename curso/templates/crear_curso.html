@@ -3,21 +3,39 @@
 {% block content %}
 
 <main class="container">
-    <h1 class="display-1 text-center py-5">Crear Curso: </h1>
+    <h1 class="display-1 text-center py-5">Crear Curso:</h1>
     <div class="row">
         <div class="col-md-12 text-center" >
             <form method="POST" action="{% url 'crear_curso' %}" class="card card-body col-md-4 offset-md-4">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" class="form-control">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Nombre:</span>
+                    <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="100" placeholder="Nombre" required>
                 </div>
-                <div class="form-group py-3">
-                    <label for="descripcion">Descripción:</label>
-                    <textarea name="descripcion" id="descripcion" class="form-control"></textarea>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Descripción:</span>
+                    <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" maxlength="250" placeholder="Descripción del curso" required></textarea>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="categoria">Categoria:</label>
+                    <select class="form-select {% if form.categoria.errors %}is-invalid{% endif %}" name="categoria" id="categoria" required>
+                        <option value="default">Elige una categoría</option>
+                        <option value="Desarrollo">Desarrollo</option>
+                        <option value="Negocios">Negocios</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Contabilidad">Contabilidad</option>
+                        <option value="Informática y Software">Informática y Software</option>
+                        <option value="Productividad">Productividad</option>
+                        <option value="Diseño">Diseño</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Economía">Economía</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Derecho">Derecho</option>
+                        <option value="Gestión de Proyectos">Gestión de Proyectos</option>
+                    </select>
                 </div>
                 <div class="text-center py-3">
-                    <button class="btn btn-dark px-4 py-2">Crear</button>
+                    <button class="btn btn-dark px-4 py-2">Crear Curso</button>
                 </div>
                 {% if error %}
                 <p class="text-center mt-3" style="color:red">{{ error }}</p>

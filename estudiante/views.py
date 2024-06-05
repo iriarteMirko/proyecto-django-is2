@@ -37,4 +37,5 @@ def mis_cursos(request):
     return render(request, 'cursos_estudiante.html')
 
 def mi_perfil(request):
-    return render(request, 'perfil_estudiante.html')
+    estudiante = request.user.estudiante
+    return render(request, 'perfil_estudiante.html', {'estudiante': estudiante})
