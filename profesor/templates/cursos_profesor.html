@@ -11,28 +11,78 @@
 <main class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <a href="{% url 'crear_curso' %}" class="btn btn-dark">Crear Curso</a>
+            <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Modal-CrearCurso">Crear Curso</a>
         </div>
     </div>
 </main>
+
+
+<div class="modal fade" id="Modal-CrearCurso" tabindex="-1" aria-labelledby="ModalLabel-CrearCurso" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel-CrearCurso">Nuevo Curso</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'crear_curso' %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre:</span>
+                        <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="100" placeholder="Nombre" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="categoria">Categoría:</label>
+                        <select class="form-select {% if form.categoria.errors %}is-invalid{% endif %}" name="categoria" id="categoria" required>
+                            <option value=>Elige una categoría</option>
+                            <option value="Desarrollo">Desarrollo</option>
+                            <option value="Negocios">Negocios</option>
+                            <option value="Finanzas">Finanzas</option>
+                            <option value="Contabilidad">Contabilidad</option>
+                            <option value="Informática y Software">Informática y Software</option>
+                            <option value="Productividad">Productividad</option>
+                            <option value="Diseño">Diseño</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Economía">Economía</option>
+                            <option value="Administración">Administración</option>
+                            <option value="Derecho">Derecho</option>
+                            <option value="Gestión de Proyectos">Gestión de Proyectos</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Descripción:</span>
+                        <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" maxlength="250" placeholder="Descripción del curso" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                        <button class="btn btn-primary">Crear Curso</button>
+                    </div>
+                    {% if error %}
+                    <p class="text-center mt-3" style="color:red">{{ error }}</p>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <main class="container py-5">
     <section class="card card-body">
         <div class="row">
             <div class="col-md-12 text-center">
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         {% for curso in cursos %}
-                        <tr>
-                            <td>{{ curso.nombre }}</td>
-                            <td>{{ curso.descripcion }}</td>
-                        </tr>
+                        <div class="card" style="width: 18rem;">
+                            <img src="" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ curso.nombre }}</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">{{ curso.categoria }}</h6>
+                                <p class="card-text">{{ curso.descripcion }}</p>
+                                <a href="" class="btn btn-primary">Ingresar</a>
+                            </div>
+                        </div>
                         {% endfor %}
                     </tbody>
                 </table>

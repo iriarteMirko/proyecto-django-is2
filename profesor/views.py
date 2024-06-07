@@ -36,14 +36,22 @@ def mis_cursos(request):
     return render(request, 'cursos_profesor.html', {'cursos': cursos_prof})
 
 def crear_curso(request):
-    from curso.factories import CursoConcreteFactory
-    factory = CursoConcreteFactory()
     if request.method == 'POST':
-        curso = factory.create_curso(request.POST['nombre'], request.POST['descripcion'], request.POST['categoria'], request.user.profesor)
-        if curso:
-            return redirect('cursos_profesor')
-        return render(request, 'crear_curso.html', {'error': 'Datos no válidos. Intente nuevamente.'})
-    return render(request, 'crear_curso.html')
+        nombre = request.POST['nombre']
+        descripcion = request.POST['descripcion']
+        categoria = request.POST['categoria']
+        profesor = request.user.profesor
+        if nombre and descripcion and categoria:
+            from curso.factories import CursoConcreteFactory
+            factory = CursoConcreteFactory()
+            curso = factory.create_curso(nombre, descripcion, categoria, profesor)
+            if curso:
+                return redirect('cursos_profesor')
+            else:
+                return render(request, 'cursos_profesor.html', {'error': 'Error al crear el curso. Intente nuevamente.'})
+        else:
+            return render(request, 'cursos_profesor.html', {'error': 'Datos no válidos. Intente nuevamente.'})
+    return redirect('cursos_profesor')
 
 def mi_perfil(request):
     profesor = request.user.profesor
