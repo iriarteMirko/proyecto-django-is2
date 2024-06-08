@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<main class="container py-5">
-    <h1 class="display-4 text-center py-3">Soy Estudiante</h1>
+<main class="container py-4">
+    <h1 class="display-4 text-center">Soy Estudiante</h1>
     <form method="POST" action="{% url 'signup_estudiante' %}" class="card card-body col-md-6 offset-md-3">
         {% csrf_token %}
         <div class="input-group mb-3">
@@ -67,7 +67,7 @@
             <p class="text-center mt-3" style="color:red">{{ error }}</p>
         {% endif %}
         <div class="text-center py-1">
-            <button class="btn btn-dark px-4 py-2">Registrarse</button>
+            <button class="btn btn-primary px-4 py-2">Registrarse</button>
         </div>
     </form>
 </main>

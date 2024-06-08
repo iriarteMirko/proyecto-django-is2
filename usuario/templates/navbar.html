@@ -1,63 +1,61 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container-fluid ms-3">
         {% if user.es_estudiante == True %}
-            <a class="navbar-brand" href="{% url 'inicio_estudiante' %}">Mentor ULima</a>
+            <a class="navbar-brand me-5" href="{% url 'inicio_estudiante' %}">Mentor ULima</a>
         {% elif user.es_profesor == True %}
-            <a class="navbar-brand" href="{% url 'inicio_profesor' %}">Mentor ULima</a>
+            <a class="navbar-brand me-5" href="{% url 'inicio_profesor' %}">Mentor ULima</a>
         {% else %}
-            <a class="navbar-brand" href="/">Mentor ULima</a>
+            <a class="navbar-brand me-5" href="/">Mentor ULima</a>
         {% endif %}
-        <button class="navbar-toggler" 
-        type="button" 
-        data-bs-toggle="collapse" 
-        data-bs-target="#navbarNav" 
-        aria-controls="navbarNav" 
-        aria-expanded="false" 
-        aria-label="Toggle navigation"
-        >
+        <form class="d-flex" role="buscar">
+            <input class="form-control me-2" type="buscar" placeholder="Buscar" aria-label="Buscar">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     {% if user.es_estudiante == True %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'inicio_estudiante' %}">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'buscar_cursos' %}">Buscar cursos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'cursos_estudiante' %}">Mis cursos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'perfil_estudiante' %}">Mi Perfil</a>
-                        </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="{% url 'inicio_estudiante' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="{% url 'buscar_cursos' %}">Buscar cursos</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="{% url 'cursos_estudiante' %}">Cursos</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="{% url 'perfil_estudiante' %}">Perfil</a>
+                    </li>
                     {% endif %}
                     {% if user.es_profesor == True %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'inicio_profesor' %}">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'cursos_profesor' %}">Mis Cursos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'perfil_profesor' %}">Mi Perfil</a>
-                        </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="{% url 'inicio_profesor' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="{% url 'cursos_profesor' %}">Cursos</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="{% url 'perfil_profesor' %}">Perfil</a>
+                    </li>
                     {% endif %}
-                    <li class="nav-item">
+                    <li class="nav-item mx-3">
                         <a class="nav-link" href="/signout">Cerrar Sesión</a>
                     </li>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">Registrarse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signin">Iniciar Sesión</a>
-                    </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link" href="/signup">Registrarse</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link" href="/signin">Iniciar Sesión</a>
+                </li>
                 {% endif %}
             </ul>
         </div>

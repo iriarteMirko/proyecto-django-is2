@@ -2,14 +2,15 @@
 
 {% block content %}
 
-<main class="container py-5">
+<main class="container py-4">
     <section class="card card-body">
-        <h1 class="display-1 text-center">Mi Perfil: </h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="display-4">Mi Perfil:</h1>
+            <a id="editButton" class="btn btn-secondary px-4 py-2" href="#" onclick=toggleButtons()>Editar Información</a>
+            <a id="saveButton" class="btn btn-dark px-4 py-2" href="#" onclick=toggleButtons() style="display: none;">Guardar Cambios</a>
+        </div>
     </section>
-</main>
-
-<main class="container">
-    <section class="card card-body">
+    <section class="card card-body mt-4">
         <div class="row">
             <div class="col-md-12 text-center">
                 <h2 class="py-3">Información Personal:</h2>
@@ -20,10 +21,6 @@
                 <p>Profesión: {{ profesor.profesion }}</p>
                 <p>Centro Laboral: {{ profesor.centro_laboral }}</p>
             </div>
-        </div>
-        <div class="text-center py-2">
-            <a id="editButton" class="btn btn-secondary mt-3 px-4 py-2" href="#" onclick=toggleButtons()>Editar Datos</a>
-            <a id="saveButton" class="btn btn-dark mt-3 px-4 py-2" href="#" onclick=toggleButtons() style="display: none;">Guardar Cambios</a>
         </div>
     </section>
 </main>
