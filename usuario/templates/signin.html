@@ -3,24 +3,29 @@
 {% block content %}
 
 <main class="container py-4">
-    <h1 class="display-4 text-center">Iniciar Sesión</h1>
-    <form method="POST" action="/signin/" class="card card-body col-md-4 offset-md-4">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="codigo" class="form-label">Código:</label>
-            <input type="text" name="codigo" id="codigo" class="form-control {% if error %}is-invalid{% endif %}" maxlength="8" placeholder="Ingresar codigo" required>
+    <div class="d-flex flex-column align-items-center w-lg-50 h-100 px-3 px-lg-5 pt-5">
+        <div class="w-100 mt-auto" style="max-width: 525px;">
+            <h1>Iniciar Sesión</h1>
+            <p class="pb-3 mb-3 mb-lg-4">¿Aún no tienes una cuenta? &nbsp; <a href="/signup">Registrate aquí!</a></p>
+            <form method="POST" action="/signin/">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="codigo" class="form-label">Código:</label>
+                    <input type="text" name="codigo" id="codigo" class="form-control form-control-lg {% if error %}is-invalid{% endif %}" maxlength="8" placeholder="Ingresar código" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" name="password" id="password" class="form-control form-control-lg {% if error %}is-invalid{% endif %}" placeholder="Ingresar contraseña" required>
+                </div>
+                {% if error %}
+                    <p class="text-center mt-3" style="color:red">{{ error }}</p>
+                {% endif %}
+                <div class="text-center py-3">
+                    <button type="submit" class="btn btn-lg btn-success px-4 py-2 w-100">Ingresar</button>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Contraseña:</label>
-            <input type="password" name="password" id="password" class="form-control {% if error %}is-invalid{% endif %}" placeholder="Ingresar contraseña" required>
-        </div>
-        {% if error %}
-            <p class="text-center mt-3" style="color:red">{{ error }}</p>
-        {% endif %}
-        <div class="text-center py-3">
-            <button type="submit" class="btn btn-dark px-4 py-2">Ingresar</button>
-        </div>
-    </form>
+    </div>
 </main>
 
 {% endblock %}

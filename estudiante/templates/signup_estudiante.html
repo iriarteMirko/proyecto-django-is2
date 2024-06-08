@@ -3,73 +3,75 @@
 {% block content %}
 
 <main class="container py-4">
-    <h1 class="display-4 text-center">Soy Estudiante</h1>
-    <form method="POST" action="{% url 'signup_estudiante' %}" class="card card-body col-md-6 offset-md-3">
-        {% csrf_token %}
-        <div class="input-group mb-3">
-            <span class="input-group-text">Código:</span>
-            <input type="text" name="codigo" id="codigo" class="form-control {% if form.codigo.errors %}is-invalid{% endif %}" placeholder="Ingresar codigo" maxlength="8" required>
-        </div>
-        {% if form.codigo.errors %} <p class="text-center" style="color:red">Código inválido o ya existente</p> {% endif %}
-        <div class="input-group mb-3">
-            <span class="input-group-text">Contraseña:</span>
-            <input type="password" name="password1" id="password1" class="form-control {% if form.password1.errors %}is-invalid{% endif %}" placeholder="Ingresar contraseña" maxlength="15" required>
-            <input type="password" name="password2" id="password2" class="form-control {% if form.password2.errors %}is-invalid{% endif %}" placeholder="Confirmar contraseña" maxlength="15" required>
-        </div>
-        {% if form.password1.errors or form.password2.errors %} <p class="text-center" style="color:red">Contraseñas inválidas o no coinciden</p> {% endif %}
-        <div class="input-group mb-3">
-            <span class="input-group-text">Correo:</span>
-            <input type="email" name="email" id="correo" class="form-control {% if form.correo.errors %}is-invalid{% endif %}" placeholder="Ingresar correo" required>
-        </div>
-        {% if form.email.errors %} <p class="text-center" style="color:red">Correo inválido o ya existente</p> {% endif %}
-        <div class="input-group mb-3">
-            <span class="input-group-text">Nombres/Apellidos:</span>
-            <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="50" placeholder="Nombres" required>
-            <input type="text" name="apellidos" id="apellidos" class="form-control {% if form.apellidos.errors %}is-invalid{% endif %}" maxlength="100" placeholder="Apellidos" required>
-        </div>
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="carrera">Carrera:</label>
-                <select class="form-select {% if form.carrera.errors %}is-invalid{% endif %}" name="carrera" id="carrera" required>
-                    <option value=>Seleccionar carrera</option>
-                    <option value="Arquitectura">Arquitectura</option>
-                    <option value="Administración">Administración</option>
-                    <option value="Contabilidad y Finanzas">Contabilidad y Finanzas</option>
-                    <option value="Economía">Economía</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Negocios Internacionales">Negocios Internacionales</option>
-                    <option value="Comunicación">Comunicación</option>
-                    <option value="Derecho">Derecho</option>
-                    <option value="Ingeniería Civil">Ingeniería Civil</option>
-                    <option value="Ingeniería Industrial">Ingeniería Industrial</option>
-                    <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
-                    <option value="Psicología">Psicología</option>
-            </select>
-        </div>
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="ciclo" >Ciclo:</label>
-            <select class="form-select {% if form.ciclo.errors %}is-invalid{% endif %}" name="ciclo" id="ciclo" required>
-                <option value=>Seleccionar ciclo</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select>
-        </div>
-        {% if error %}
-            <p class="text-center mt-3" style="color:red">{{ error }}</p>
-        {% endif %}
-        <div class="text-center py-1">
-            <button class="btn btn-primary px-4 py-2">Registrarse</button>
-        </div>
-    </form>
+    <div class="flex-column align-items-center w-lg-50 h-100 px-3 px-lg-5 pt-5">
+        <h1 class="text-center">Soy Estudiante</h1>
+        <form method="POST" action="{% url 'signup_estudiante' %}" class="card card-body col-md-6 offset-md-3">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <span class="input-group-text">Código:</span>
+                <input type="text" name="codigo" id="codigo" class="form-control {% if form.codigo.errors %}is-invalid{% endif %}" placeholder="Ingresar codigo" maxlength="8" required>
+            </div>
+            {% if form.codigo.errors %} <p class="text-center" style="color:red">Código inválido o ya existente</p> {% endif %}
+            <div class="input-group mb-3">
+                <span class="input-group-text">Contraseña:</span>
+                <input type="password" name="password1" id="password1" class="form-control {% if form.password1.errors %}is-invalid{% endif %}" placeholder="Ingresar contraseña" maxlength="15" required>
+                <input type="password" name="password2" id="password2" class="form-control {% if form.password2.errors %}is-invalid{% endif %}" placeholder="Confirmar contraseña" maxlength="15" required>
+            </div>
+            {% if form.password1.errors or form.password2.errors %} <p class="text-center" style="color:red">Contraseñas inválidas o no coinciden</p> {% endif %}
+            <div class="input-group mb-3">
+                <span class="input-group-text">Correo:</span>
+                <input type="email" name="email" id="correo" class="form-control {% if form.correo.errors %}is-invalid{% endif %}" placeholder="Ingresar correo" required>
+            </div>
+            {% if form.email.errors %} <p class="text-center" style="color:red">Correo inválido o ya existente</p> {% endif %}
+            <div class="input-group mb-3">
+                <span class="input-group-text">Nombres/Apellidos:</span>
+                <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="50" placeholder="Nombres" required>
+                <input type="text" name="apellidos" id="apellidos" class="form-control {% if form.apellidos.errors %}is-invalid{% endif %}" maxlength="100" placeholder="Apellidos" required>
+            </div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="carrera">Carrera:</label>
+                    <select class="form-select {% if form.carrera.errors %}is-invalid{% endif %}" name="carrera" id="carrera" required>
+                        <option value=>Seleccionar carrera</option>
+                        <option value="Arquitectura">Arquitectura</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Contabilidad y Finanzas">Contabilidad y Finanzas</option>
+                        <option value="Economía">Economía</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Negocios Internacionales">Negocios Internacionales</option>
+                        <option value="Comunicación">Comunicación</option>
+                        <option value="Derecho">Derecho</option>
+                        <option value="Ingeniería Civil">Ingeniería Civil</option>
+                        <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                        <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                        <option value="Psicología">Psicología</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="ciclo" >Ciclo:</label>
+                <select class="form-select {% if form.ciclo.errors %}is-invalid{% endif %}" name="ciclo" id="ciclo" required>
+                    <option value=>Seleccionar ciclo</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            {% if error %}
+                <p class="text-center mt-3" style="color:red">{{ error }}</p>
+            {% endif %}
+            <div class="text-center py-1">
+                <button class="btn btn-lg btn-primary px-4 py-2 w-100">Registrarse</button>
+            </div>
+        </form>
+    </div>
 </main>
 
 {% endblock %}
