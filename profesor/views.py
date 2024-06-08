@@ -32,7 +32,7 @@ def inicio_profesor(request):
 def mis_cursos(request):
     from curso.models import Curso
     cursos = Curso.objects.filter(profesor=request.user.profesor)
-    paginator = Paginator(cursos, 6)
+    paginator = Paginator(cursos, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
