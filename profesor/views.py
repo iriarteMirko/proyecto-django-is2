@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from rest_framework import viewsets
@@ -30,16 +31,18 @@ def inicio_profesor(request):
 
 def mis_cursos(request):
     from curso.models import Curso
-    cursos = Curso.objects.all()
-    cursos_prof = [curso for curso in cursos if curso.profesor == request.user.profesor]
+    cursos = Curso.objects.filter(profesor=request.user.profesor)
+    paginator = Paginator(cursos, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     
-    return render(request, 'cursos_profesor.html', {'cursos': cursos_prof})
+    return render(request, 'cursos_profesor.html', {'page_obj': page_obj})
 
 def crear_curso(request):
     if request.method == 'POST':
-        nombre = request.POST['nombre']
-        descripcion = request.POST['descripcion']
-        categoria = request.POST['categoria']
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        categoria = request.POST.get('categoria')
         profesor = request.user.profesor
         if nombre and descripcion and categoria:
             from curso.factories import CursoConcreteFactory
