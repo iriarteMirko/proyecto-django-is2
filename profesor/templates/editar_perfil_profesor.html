@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container py-4 d-flex flex-column justify-content-between" style="min-height: 80vh;">
+    <div class="flex-column align-items-center">
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h1>Editar Perfil:</h1>
+        </div>
+        <section class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h2 class="h4 mb-0">Información Básica</h2>
+                </div>
+                <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
+                    <div class="col-sm-6">
+                        <label class="form-label" for="codigo">Código:</label>
+                        <input class="form-control" type="codigo" value={{ user.codigo }} id="codigo">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="email">Email:</label>
+                        <input class="form-control" type="email" value={{ user.email }} id="email">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="nombre">Nombre:</label>
+                        <input class="form-control" type="text" value={{ user.nombre }} id="nombre">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="apellidos">Apellidos:</label>
+                        <input class="form-control" type="text" value={{ user.apellidos }} id="apellidos">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="profesion">Profesión:</label>
+                        <input class="form-control" type="text" value={{ profesor.profesion }} id="profesion">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="centro_laboral">Centro Laboral:</label>
+                        <input class="form-control" type="text" value={{ profesor.centro_laboral }} id="centro_laboral">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="language">Language</label>
+                        <select class="form-select" id="language">
+                            <option value="" selected="" disabled="">Select language</option>
+                            <option value="English">English</option>
+                            <option value="Français">Français</option>
+                            <option value="Deutsch">Deutsch</option>
+                            <option value="Italiano">Italiano</option>
+                        </select>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end pt-3">
+                        <a class="btn btn-danger px-4 py-2 me-2" href={% url 'perfil_profesor' %}>Cancelar</a>
+                        <a class="btn btn-success px-4 py-2" href="">Guardar Cambios</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+{% endblock %}
