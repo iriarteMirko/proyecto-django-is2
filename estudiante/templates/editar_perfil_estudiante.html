@@ -7,7 +7,8 @@
         <div class="d-flex justify-content-between align-items-center my-3">
             <h1>Editar Perfil:</h1>
         </div>
-        <form method="POST" action="{% url 'editar_perfil_estudiante' %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="{% url 'actualizar_perfil_estudiante' %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+            {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <h2 class="h4 mb-0">Información Básica</h2>
@@ -15,23 +16,23 @@
                 <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
                     <div class="col-sm-6">
                         <label class="form-label" for="codigo">Código:</label>
-                        <input class="form-control" type="text" value="{{ user.codigo }}" id="codigo" maxlength="8">
+                        <input class="form-control" type="text" name="codigo" value={{ user.codigo }} id="codigo" maxlength="8">
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="email">Email:</label>
-                        <input class="form-control" type="email" value="{{ user.email }}" id="email">
+                        <input class="form-control" type="email" name="email" value={{ user.email }} id="email">
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="nombre">Nombre:</label>
-                        <input class="form-control" type="text" value="{{ user.nombre }}" id="nombre" maxlength="50">
+                        <input class="form-control" type="text" name="nombre" value={{ user.nombre }} id="nombre" maxlength="50">
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="apellidos">Apellidos:</label>
-                        <input class="form-control" type="text" value="{{ user.apellidos }}" id="apellidos" maxlength="100">
+                        <input class="form-control" type="text" name="apellidos" value={{ user.apellidos }} id="apellidos" maxlength="100">
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="carrera">Carrera:</label>
-                        <select class="form-select" id="carrera">
+                        <select class="form-select" name="carrera" id="carrera">
                             <option value="{{ estudiante.carrera }}" selected="" disabled="">{{ estudiante.carrera }}</option>
                             <option value="Arquitectura">Arquitectura</option>
                             <option value="Administración">Administración</option>
@@ -49,7 +50,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="ciclo">Ciclo:</label>
-                        <select class="form-select" id="ciclo">
+                        <select class="form-select" name="ciclo" id="ciclo">
                             <option value="{{ estudiante.ciclo }}" selected="" disabled="">{{ estudiante.ciclo }}</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -67,13 +68,15 @@
                     </div>
                     <div class="col-12 d-flex justify-content-end pt-3">
                         <a class="btn btn-secondary px-4 py-2 me-2" href="{% url 'perfil_estudiante' %}">Cancelar</a>
-                        <a class="btn btn-success px-4 py-2" href="">Guardar Cambios</a>
+                        <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
                     </div>
+                    {% if error %}
+                        <h5 class="text-center mt-3" style="color:red">{{ error }}</h5>
+                    {% endif %}
                 </div>
             </div>
         </form>
-
-        <form method="POST" action="{% url 'editar_perfil_estudiante' %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <h2 class="h4 mb-0">Cambiar Contraseña</h2>
@@ -97,7 +100,7 @@
                     </div>
                     <div class="col-12 d-flex justify-content-end pt-3">
                         <a class="btn btn-secondary px-4 py-2 me-2" href="{% url 'perfil_estudiante' %}">Cancelar</a>
-                        <a class="btn btn-success px-4 py-2" href="">Guardar Cambios</a>
+                        <a class="btn btn-success px-4 py-2">Guardar Cambios</a>
                     </div>
                 </div>
             </div>

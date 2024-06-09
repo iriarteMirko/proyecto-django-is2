@@ -47,32 +47,29 @@ def mi_perfil(request):
 
 def editar_perfil(request):
     estudiante = request.user.estudiante
-    if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        apellido = request.POST.get('apellido')
-        email = request.POST.get('email')
-        if nombre and apellido and email:
-            estudiante.nombre = nombre
-            estudiante.apellido = apellido
-            estudiante.email = email
-            estudiante.save()
-            return redirect('perfil_estudiante')
-        else:
-            return render(request, 'editar_perfil_estudiante.html', {'error': 'Datos no válidos. Intente nuevamente.'})
     return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante})
 
 def actualizar_perfil(request):
-    estudiante = request.user.estudiante
+    user = request.user
+    estudiante = user.estudiante
     if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        apellido = request.POST.get('apellido')
+        codigo = request.POST.get('codigo')
         email = request.POST.get('email')
-        if nombre and apellido and email:
-            estudiante.nombre = nombre
-            estudiante.apellido = apellido
-            estudiante.email = email
+        nombre = request.POST.get('nombre')
+        apellidos = request.POST.get('apellidos')
+        carrera = request.POST.get('carrera')
+        ciclo = request.POST.get('ciclo')
+        print(codigo, email, nombre, apellidos, carrera, ciclo)
+        if codigo and email and nombre and apellidos and carrera and ciclo:
+            user.codigo = codigo
+            user.email = email
+            user.nombre = nombre
+            user.apellidos = apellidos
+            estudiante.carrera = carrera
+            estudiante.ciclo = ciclo
             estudiante.save()
+            user.save()
             return redirect('perfil_estudiante')
         else:
-            return render(request, 'perfil_estudiante.html', {'error': 'Datos no válidos. Intente nuevamente.'})
-    return redirect('perfil_estudiante')
+            return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error': 'Datos no válidos. Intente nuevamente.'})
+    return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante})
