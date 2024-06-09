@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from rest_framework import viewsets
+from .factories import CursoConcreteFactory
 from .serializer import ProfesorSerializer
 from .models import Profesor
 from .form import RegistroProfesorForm
@@ -45,7 +46,6 @@ def crear_curso(request):
         categoria = request.POST.get('categoria')
         profesor = request.user.profesor
         if nombre and descripcion and categoria:
-            from curso.factories import CursoConcreteFactory
             factory = CursoConcreteFactory()
             curso = factory.create_curso(nombre, descripcion, categoria, profesor)
             if curso:
@@ -59,3 +59,19 @@ def crear_curso(request):
 def mi_perfil(request):
     profesor = request.user.profesor
     return render(request, 'perfil_profesor.html', {'profesor': profesor})
+
+def editar_perfil(request):
+    profesor = request.user.profesor
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        email = request.POST.get('email')
+        if nombre and apellido and email:
+            profesor.nombre = nombre
+            profesor.apellido = apellido
+            profesor.email = email
+            profesor.save()
+            return redirect('perfil_profesor')
+        else:
+            return render(request, 'editar_perfil_profesor.html', {'error': 'Datos no válidos. Intente nuevamente.'})
+    return render(request, 'editar_perfil_profesor.html', {'profesor': profesor})
