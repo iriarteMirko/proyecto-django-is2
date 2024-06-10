@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, get_user_model
 from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .serializer import EstudianteSerializer
@@ -52,6 +52,7 @@ def editar_perfil(request):
 def actualizar_perfil(request):
     user = request.user
     estudiante = user.estudiante
+    User = get_user_model()
     if request.method == 'POST':
         codigo = request.POST.get('codigo')
         email = request.POST.get('email')
@@ -59,8 +60,13 @@ def actualizar_perfil(request):
         apellidos = request.POST.get('apellidos')
         carrera = request.POST.get('carrera')
         ciclo = request.POST.get('ciclo')
-        print(codigo, email, nombre, apellidos, carrera, ciclo)
         if codigo and email and nombre and apellidos and carrera and ciclo:
+            if codigo != user.codigo:
+                if User.objects.filter(codigo=codigo).exists():
+                    return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error': 'El código ingresado ya está en uso.'})
+            if email != user.email:
+                if User.objects.filter(email=email).exists():
+                    return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error': 'El correo ingresado ya está en uso.'})
             user.codigo = codigo
             user.email = email
             user.nombre = nombre
