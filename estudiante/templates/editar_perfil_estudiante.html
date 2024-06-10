@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -7,7 +7,7 @@
         <div class="d-flex justify-content-between align-items-center my-3">
             <h1>Editar Perfil:</h1>
         </div>
-        <form method="POST" action="{% url 'actualizar_perfil_estudiante' %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="{% url "actualizar_perfil_estudiante" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -67,7 +67,7 @@
                         </select>
                     </div>
                     <div class="col-12 d-flex justify-content-end pt-3">
-                        <a class="btn btn-secondary px-4 py-2 me-2" href="{% url 'perfil_estudiante' %}">Cancelar</a>
+                        <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil_estudiante" %}">Cancelar</a>
                         <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
                     </div>
                     {% if error %}
@@ -76,7 +76,8 @@
                 </div>
             </div>
         </form>
-        <form method="POST" action="" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="{% url "cambiar_contrasena" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+            {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <h2 class="h4 mb-0">Cambiar Contraseña</h2>
@@ -84,24 +85,27 @@
                 <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
                     <div class="col-sm-6">
                         <label class="form-label" for="password">Contraseña Actual:</label>
-                        <input class="form-control" type="password" value="" id="password" maxlength="15">
+                        <input class="form-control" type="password" name="password" id="password" maxlength="15">
                     </div>
                     <div class="col-sm-6">
                         <label class="form"></label>
                         <input class="form-control-plaintext" disabled>
                     </div>
                     <div class="col-sm-6">
-                        <label class="form-label" for="new-pass">Nueva Contraseña:</label>
-                        <input class="form-control" type="password" value="" id="new-pass" maxlength="15">
+                        <label class="form-label" for="new_pass">Nueva Contraseña:</label>
+                        <input class="form-control" type="password" name="new_password" id="new_password" maxlength="15">
                     </div>
                     <div class="col-sm-6">
-                        <label class="form-label" for="confirm-pass">Confirmar Contraseña:</label>
-                        <input class="form-control" type="password" value="" id="confirm-pass" maxlength="15">
+                        <label class="form-label" for="confirm_pass">Confirmar Contraseña:</label>
+                        <input class="form-control" type="password" name="confirm_password" id="confirm_password" maxlength="15">
                     </div>
                     <div class="col-12 d-flex justify-content-end pt-3">
-                        <a class="btn btn-secondary px-4 py-2 me-2" href="{% url 'perfil_estudiante' %}">Cancelar</a>
-                        <a class="btn btn-success px-4 py-2">Guardar Cambios</a>
+                        <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil_estudiante" %}">Cancelar</a>
+                        <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
                     </div>
+                    {% if error1 %}
+                        <h5 class="text-center mt-3" style="color:red">{{ error1 }}</h5>
+                    {% endif %}
                 </div>
             </div>
         </form>

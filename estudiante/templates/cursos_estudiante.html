@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -6,7 +6,7 @@
     <div class="flex-column align-items-center">
         <div class="d-flex justify-content-between align-items-center my-3">
             <h1>Mis Cursos:</h1>
-            <a class="btn btn-primary px-4 py-2" href="{% url 'buscar_cursos' %}" >Buscar Cursos</a>
+            <a class="btn btn-primary px-4 py-2" href="{% url "buscar_cursos" %}" >Buscar Cursos</a>
         </div>
         <div class="row">
             {% for curso in page_obj %}

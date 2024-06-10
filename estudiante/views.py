@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, get_user_model
+from django.contrib.auth import login, authenticate, get_user_model, logout
 from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .serializer import EstudianteSerializer
@@ -17,13 +17,13 @@ def signup_estudiante(request):
             form.save()
             codigo = form.cleaned_data.get('codigo')
             password = form.cleaned_data.get('password1')
+            if not codigo.isdigit():
+                return render(request, 'signup_estudiante.html', {'form': form, 'error': 'El código debe ser un número entero.'})
             user = authenticate(codigo=codigo, password=password)
             login(request, user)
             return redirect('inicio_estudiante')
-        else:
-            return render(request, 'signup_estudiante.html', {'form': form, 'error': 'Datos no válidos. Intente nuevamente.'})
-    else:
-        form = RegistroEstudianteForm()
+        return render(request, 'signup_estudiante.html', {'form': form, 'error': 'Datos no válidos. Intente nuevamente.'})
+    form = RegistroEstudianteForm()
     return render(request, 'signup_estudiante.html', {'form': form})
 
 def inicio_estudiante(request):
@@ -61,6 +61,8 @@ def actualizar_perfil(request):
         carrera = request.POST.get('carrera')
         ciclo = request.POST.get('ciclo')
         if codigo and email and nombre and apellidos and carrera and ciclo:
+            if not codigo.isdigit():
+                return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error': 'El código debe ser un número entero.'})
             if codigo != user.codigo:
                 if User.objects.filter(codigo=codigo).exists():
                     return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error': 'El código ingresado ya está en uso.'})
@@ -76,6 +78,27 @@ def actualizar_perfil(request):
             estudiante.save()
             user.save()
             return redirect('perfil_estudiante')
-        else:
-            return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error': 'Datos no válidos. Intente nuevamente.'})
+        return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error': 'Datos no válidos. Intente nuevamente.'})
     return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante})
+
+def cambiar_contrasena(request):
+    user = request.user
+    estudiante = user.estudiante
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        if user.check_password(password):
+            if new_password == confirm_password:
+                user.set_password(new_password)
+                user.save()
+                logout(request)
+                return redirect('signin')
+            return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error1': 'Las contraseñas no coinciden.'})
+        return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error1': 'Contraseña incorrecta.'})
+    return render(request, 'editar_perfil_estudiante.html', {'estudiante': estudiante, 'error1': 'Datos no válidos. Intente nuevamente.'})
+
+def eliminar_cuenta(request):
+    user = request.user
+    user.delete()
+    return redirect('signup_estudiante')

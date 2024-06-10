@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
 <main class="container py-4">
     <div class="my-3 d-flex justify-content-between align-items-center">
         <h1>Mi Perfil:</h1>
-        <a class="btn btn-secondary px-4 py-2" href="{% url 'editar_perfil_estudiante' %}">Editar Información</a>
+        <a class="btn btn-secondary px-4 py-2" href="{% url "editar_perfil_estudiante" %}">Editar Información</a>
     </div>
     <section class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
         <div class="card-body">
