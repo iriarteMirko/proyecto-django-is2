@@ -101,4 +101,4 @@ def cambiar_contrasena(request):
 def eliminar_cuenta(request):
     user = request.user
     user.delete()
-    return redirect('signup_estudiante')
+    return redirect('inicio')

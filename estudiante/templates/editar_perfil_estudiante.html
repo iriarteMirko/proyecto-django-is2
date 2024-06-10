@@ -11,7 +11,7 @@
             {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center">
-                    <h2 class="h4 mb-0">Información Básica</h2>
+                    <h2 class="h4 mb-0">Información personal</h2>
                 </div>
                 <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
                     <div class="col-sm-6">
@@ -76,11 +76,11 @@
                 </div>
             </div>
         </form>
-        <form method="POST" action="{% url "cambiar_contrasena" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="{% url "cambiar_contrasena_estudiante" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center">
-                    <h2 class="h4 mb-0">Cambiar Contraseña</h2>
+                    <h2 class="h4 mb-0">Cambiar contraseña</h2>
                 </div>
                 <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
                     <div class="col-sm-6">
@@ -107,6 +107,28 @@
                         <h5 class="text-center mt-3" style="color:red">{{ error1 }}</h5>
                     {% endif %}
                 </div>
+            </div>
+        </form>
+        <form method="POST" action="{% url "eliminar_cuenta_estudiante" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
+                    <h2 class="h4 mb-0">Eliminar cuenta</h2>
+                </div>
+                <div class="alert alert-warning d-flex mb-4">
+                    <i class="ai-triangle-alert fs-xl me-2"></i>
+                    <p class="mb-0">Si eliminas tu cuenta, perderas el acceso a la plataforma y todo el contenido relacionado con tu cuenta. ¿Estás seguro de que quieres eliminar tu cuenta?</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="confirm" required>
+                    <label class="form-check-label text-dark fw-medium" for="confirm">Si, quiero eliminar mi cuenta.</label>
+                </div>
+                <div class="d-flex flex-column flex-sm-row justify-content-end pt-4 mt-sm-2 mt-md-3">
+                    <button class="btn btn-danger px-4 py-2">Eliminar Cuenta</button>
+                </div>
+                {% if error2 %}
+                    <h5 class="text-center mt-3" style="color:red">{{ error2 }}</h5>
+                {% endif %}
             </div>
         </form>
     </div>
