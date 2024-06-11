@@ -12,11 +12,3 @@ class Curso(models.Model):
     
     def __str__(self):
         return self.nombre
-
-class Matricula(models.Model):
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-    fecha_matricula = models.DateTimeField(auto_now_add=True)
-    
-    def __str__(self):
-        return f'{self.curso.nombre} - {self.estudiante.usuario.codigo}'

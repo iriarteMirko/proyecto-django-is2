@@ -44,13 +44,13 @@ def mis_cursos(request):
 
 @login_required
 def crear_curso(request):
+    factory = CursoConcreteFactory()
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         descripcion = request.POST.get('descripcion')
         categoria = request.POST.get('categoria')
         profesor = request.user.profesor
         if nombre and descripcion and categoria:
-            factory = CursoConcreteFactory()
             curso = factory.create_curso(nombre, descripcion, categoria, profesor)
             if curso:
                 return redirect('cursos_profesor')
