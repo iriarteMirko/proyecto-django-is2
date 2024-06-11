@@ -50,12 +50,22 @@ def crear_curso(request):
         descripcion = request.POST.get('descripcion')
         categoria = request.POST.get('categoria')
         profesor = request.user.profesor
-        if nombre and descripcion and categoria:
-            curso = factory.create_curso(nombre, descripcion, categoria, profesor)
-            if curso:
-                return redirect('cursos_profesor')
-            else:
-                return render(request, 'cursos_profesor.html', {'error': 'Error al crear el curso. Intente nuevamente.'})
-        else:
-            return render(request, 'cursos_profesor.html', {'error': 'Datos no válidos. Intente nuevamente.'})
-    return redirect('cursos_profesor')
+        curso = factory.create_curso(nombre=nombre, descripcion=descripcion, categoria=categoria, profesor=profesor)
+        if curso:
+            return redirect('cursos_profesor')
+        return render(request, 'crear_curso.html', {'error': 'Datos no válidos. Intente nuevamente.'})
+    return render(request, 'crear_curso.html')
+
+@login_required
+def crear_seccion(request, curso_id):
+    factory = CursoConcreteFactory()
+    if request.method == 'POST':
+        from curso.models import Curso
+        curso = Curso.objects.get(id=curso_id)
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        seccion = factory.create_seccion(curso=curso, nombre=nombre, descripcion=descripcion)
+        if seccion:
+            return redirect('detalle_curso', curso_id=curso_id)
+        return render(request, 'crear_seccion.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso})
+    return render(request, 'crear_seccion.html', {'curso': curso})
