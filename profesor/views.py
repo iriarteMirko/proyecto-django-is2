@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .factories import CursoConcreteFactory
@@ -55,11 +55,3 @@ def crear_curso(request):
         else:
             return render(request, 'cursos_profesor.html', {'error': 'Datos no válidos. Intente nuevamente.'})
     return redirect('cursos_profesor')
-
-def mi_perfil(request):
-    profesor = request.user.profesor
-    return render(request, 'perfil_profesor.html', {'profesor': profesor})
-
-def editar_perfil(request):
-    profesor = request.user.profesor
-    return render(request, 'editar_perfil.html', {'profesor': profesor})

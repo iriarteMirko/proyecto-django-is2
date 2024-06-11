@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .serializer import EstudianteSerializer
@@ -40,11 +40,3 @@ def buscar_curso(request):
 
 def mis_cursos(request):
     return render(request, 'cursos_estudiante.html')
-
-def mi_perfil(request):
-    estudiante = request.user.estudiante
-    return render(request, 'perfil_estudiante.html', {'estudiante': estudiante})
-
-def editar_perfil(request):
-    estudiante = request.user.estudiante
-    return render(request, 'editar_perfil.html', {'estudiante': estudiante})

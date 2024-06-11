@@ -34,6 +34,30 @@ def signout(request):
     logout(request)
     return redirect('signin')
 
+@login_required
+def mi_perfil(request):
+    user = request.user
+    contexto = {'user': user}
+    if user.es_estudiante:
+        estudiante = user.estudiante
+        contexto['estudiante'] = estudiante
+    elif user.es_profesor:
+        profesor = user.profesor
+        contexto['profesor'] = profesor
+    return render(request, 'perfil.html', contexto)
+
+@login_required
+def editar_perfil(request):
+    user = request.user
+    contexto = {'user': user}
+    if user.es_estudiante:
+        estudiante = user.estudiante
+        contexto['estudiante'] = estudiante
+    elif user.es_profesor:
+        profesor = user.profesor
+        contexto['profesor'] = profesor
+    return render(request, 'editar_perfil.html', contexto)
+
 def validar_datos(request, user):
     codigo = request.POST.get('codigo')
     email = request.POST.get('email')
@@ -84,7 +108,7 @@ def actualizar_perfil(request):
             else:
                 return render(request, 'editar_perfil.html', {'estudiante': estudiante, 'error': 'Datos no válidos. Intente nuevamente.'})
             user.save()
-            return redirect('perfil_estudiante')
+            return redirect('perfil')
         
         elif user.es_profesor:
             profesor = user.profesor
@@ -97,7 +121,7 @@ def actualizar_perfil(request):
             else:
                 return render(request, 'editar_perfil.html', {'profesor': profesor, 'error': 'Datos no válidos. Intente nuevamente.'})
             user.save()
-            return redirect('perfil_profesor')
+            return redirect('perfil')
         
     contexto = {'user': user}
     if user.es_estudiante:
