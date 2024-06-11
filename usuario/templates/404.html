@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main class="container py-4 d-flex flex-column justify-content-between" style="min-height: 80vh;">
+    <div class="flex-column align-items-center">
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h1 class="display-1">404</h1>
+        </div>
+        <div class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+            <div class="card-body">
+                <h2 class="h4 mb-0">Página no encontrada</h2>
+                <p class="mt-2">La página que buscas no existe.</p>
+            </div>
+        </div>
+        <div class="col">
+            {% if user.es_estudiante == True %}
+            <a class="btn btn-outline-dark btn-lg px-4 py-2 w-100" href="{% url 'inicio_estudiante' %}">
+                Inicio
+            </a>
+            {% elif user.es_profesor == True %}
+            <a class="btn btn-outline-dark btn-lg px-4 py-2 w-100" href="{% url 'inicio_profesor' %}">
+                Inicio
+            </a>
+            {% else %}
+            <a class="btn btn-outline-dark btn-lg px-4 py-2 w-100" href="{% url 'inicio' %}">
+                Inicio
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}
