@@ -7,7 +7,7 @@
         <div class="d-flex justify-content-between align-items-center my-3">
             <h1>Editar Perfil:</h1>
         </div>
-        <form method="POST" action="{% url "actualizar_perfil_estudiante" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="{% url "actualizar_perfil" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -30,6 +30,7 @@
                         <label class="form-label" for="apellidos">Apellidos:</label>
                         <input class="form-control" type="text" name="apellidos" value={{ user.apellidos }} id="apellidos" maxlength="100">
                     </div>
+                    {% if user.es_estudiante == True %}
                     <div class="col-sm-6">
                         <label class="form-label" for="carrera">Carrera:</label>
                         <select class="form-select" name="carrera" id="carrera">
@@ -66,8 +67,22 @@
                             <option value="12">12</option>
                         </select>
                     </div>
+                    {% elif user.es_profesor == True %}
+                    <div class="col-sm-6">
+                        <label class="form-label" for="profesion">Profesión:</label>
+                        <input class="form-control" type="text" value="{{ profesor.profesion }}" id="profesion" maxlength="100">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="centro_laboral">Centro Laboral:</label>
+                        <input class="form-control" type="text" value="{{ profesor.centro_laboral }}" id="centro_laboral" maxlength="100">
+                    </div>
+                    {% endif %}
                     <div class="col-12 d-flex justify-content-end pt-3">
+                        {% if user.es_estudiante == True %}
                         <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil_estudiante" %}">Cancelar</a>
+                        {% elif user.es_profesor == True %}
+                        <a class="btn btn-secondary px-4 py-2 me-2" href="{% url 'perfil_profesor' %}">Cancelar</a>
+                        {% endif %}
                         <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
                     </div>
                     {% if error %}
@@ -76,7 +91,7 @@
                 </div>
             </div>
         </form>
-        <form method="POST" action="{% url "cambiar_contrasena_estudiante" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="{% url "cambiar_contrasena" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -100,7 +115,11 @@
                         <input class="form-control" type="password" name="confirm_password" id="confirm_password" maxlength="15">
                     </div>
                     <div class="col-12 d-flex justify-content-end pt-3">
+                        {% if user.es_estudiante == True %}
                         <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil_estudiante" %}">Cancelar</a>
+                        {% elif user.es_profesor == True %}
+                        <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil_profesor" %}">Cancelar</a>
+                        {% endif %}
                         <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
                     </div>
                     {% if error1 %}
@@ -109,7 +128,7 @@
                 </div>
             </div>
         </form>
-        <form method="POST" action="{% url "eliminar_cuenta_estudiante" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="{% url "eliminar_cuenta" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
@@ -126,9 +145,6 @@
                 <div class="d-flex flex-column flex-sm-row justify-content-end pt-4 mt-sm-2 mt-md-3">
                     <button class="btn btn-danger px-4 py-2">Eliminar Cuenta</button>
                 </div>
-                {% if error2 %}
-                    <h5 class="text-center mt-3" style="color:red">{{ error2 }}</h5>
-                {% endif %}
             </div>
         </form>
     </div>

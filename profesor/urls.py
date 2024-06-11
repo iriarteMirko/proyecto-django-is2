@@ -15,5 +15,4 @@ urlpatterns = [
     path('cursos/', views.mis_cursos, name='cursos_profesor'),
     path('crear_curso/', views.crear_curso, name='crear_curso'),
     
-    
 ]
