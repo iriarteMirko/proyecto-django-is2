@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .factories import CursoConcreteFactory
@@ -27,9 +28,11 @@ def signup_profesor(request):
         form = RegistroProfesorForm()
     return render(request, 'signup_profesor.html', {'form': form})
 
+@login_required
 def inicio_profesor(request):
     return render(request, 'inicio_profesor.html')
 
+@login_required
 def mis_cursos(request):
     from curso.models import Curso
     cursos = Curso.objects.filter(profesor=request.user.profesor)
@@ -39,6 +42,7 @@ def mis_cursos(request):
     
     return render(request, 'cursos_profesor.html', {'page_obj': page_obj})
 
+@login_required
 def crear_curso(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')

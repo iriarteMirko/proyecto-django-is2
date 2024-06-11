@@ -155,3 +155,6 @@ def eliminar_cuenta(request):
     user = request.user
     user.delete()
     return redirect('inicio')
+
+def error_404_view(request, exception):
+    return render(request, '404.html', status=404)

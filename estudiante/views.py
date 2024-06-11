@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .serializer import EstudianteSerializer
@@ -26,9 +27,11 @@ def signup_estudiante(request):
     form = RegistroEstudianteForm()
     return render(request, 'signup_estudiante.html', {'form': form})
 
+@login_required
 def inicio_estudiante(request):
     return render(request, 'inicio_estudiante.html')
 
+@login_required
 def buscar_curso(request):
     from curso.models import Curso
     cursos = Curso.objects.all()
@@ -38,5 +41,6 @@ def buscar_curso(request):
     
     return render(request, 'buscar_cursos.html', {'page_obj': page_obj})
 
+@login_required
 def mis_cursos(request):
     return render(request, 'cursos_estudiante.html')
