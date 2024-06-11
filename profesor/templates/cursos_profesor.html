@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -21,7 +21,7 @@
                                 <h4 class="card-title text-truncate" style="white-space: nowrap;">{{ curso.nombre }}</h4>
                                 <h6 class="card-subtitle mb-2 text-body-secondary">{{ curso.categoria }}</h6>
                             </div>
-                            <a href="" class="btn btn-primary">Ingresar</a>
+                            <a href="{% url "detalle_curso" curso.id %}" class="btn btn-primary">Ingresar</a>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{% url 'crear_curso' %}">
+                <form method="POST" action="{% url "crear_curso" %}">
                     {% csrf_token %}
                     <div class="input-group mb-3">
                         <span class="input-group-text">Nombre:</span>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -69,3 +69,10 @@ def crear_seccion(request, curso_id):
             return redirect('detalle_curso', curso_id=curso_id)
         return render(request, 'crear_seccion.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso})
     return render(request, 'crear_seccion.html', {'curso': curso})
+
+@login_required
+def detalle_curso(request, curso_id):
+    from curso.models import Curso
+    curso = get_object_or_404(Curso, id=curso_id)
+    secciones = curso.seccion_set.all()
+    return render(request, 'detalle_curso.html', {'curso': curso, 'secciones': secciones})

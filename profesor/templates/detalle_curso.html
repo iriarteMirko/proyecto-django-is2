@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main class="container py-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>{{ curso.nombre }}</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Categoría: {{ curso.categoria }}</h5>
+            <p class="card-text">{{ curso.descripcion }}</p>
+        </div>
+    </div>
+    <div class="mt-4">
+        <h3>Secciones del Curso</h3>
+        <ul class="list-group">
+        {% for seccion in secciones %}
+            <li class="list-group-item">
+                <h5>{{ seccion.nombre }}</h5>
+                <p>{{ seccion.descripcion }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+        <a class="btn btn-success mt-3" href="{% url "crear_seccion" curso.id %}">Agregar Sección</a>
+    </div>
+</main>
+
+{% endblock %}
