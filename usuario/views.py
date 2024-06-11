@@ -158,6 +158,4 @@ def eliminar_cuenta(request):
 
 def error_404_view(request, exception):
     user = request.user
-    if user.is_authenticated():
-        return render(request, '404.html', {'user': user}, status=404)
-    return render(request, '404.html', status=404)
+    return render(request, '404.html', {'user': user}, status=404)
