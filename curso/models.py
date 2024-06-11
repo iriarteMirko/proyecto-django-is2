@@ -1,5 +1,4 @@
 from django.db import models
-from estudiante.admin import Estudiante
 from profesor.models import Profesor
 
 class Curso(models.Model):
