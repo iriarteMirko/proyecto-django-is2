@@ -3,7 +3,7 @@
 {% block content %}
 
 <main class="container py-4">
-    <div class="flex-column align-items-center pt-5">
+    <div class="flex-column align-items-center p-5">
         <h1 class="text-center">Soy Profesor</h1>
         <form method="POST" action="{% url 'signup_profesor' %}" class="card card-body col-md-6 offset-md-3">
             {% csrf_token %}
