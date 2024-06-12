@@ -91,6 +91,94 @@
                 </div>
             </div>
         </form>
+        <form method="POST" enctype="multipart/form-data" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h2 class="h4 mb-0">Imagen de perfil</h2>
+                </div>
+                <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <a id="profileImageLink" 
+                                class="d-flex flex-column justify-content-end position-relative overflow-hidden rounded-circle bg-size-cover bg-position-center flex-shrink-0" 
+                                style="width: 250px; height: 250px; background-size: cover; background-position: center; background-image: url({{ user.profile_image.url|default:'https://imgur.com/CuXg45K.jpg' }});" 
+                                aria-label="Subir imagen">
+                            </a>
+                        </div>
+                        <div class="ps-3">
+                            <div>
+                                <h3 class="h6 mb-1">Imagen de perfil</h3>
+                                <p class="fs-sm text-body-secondary mb-0">La imagen debe estar en formato PNG o JPG y no debe ser mayor a 5MB.</p>
+                            </div>
+                            <div class="mt-3">
+                                <label class="btn btn-primary me-2" for="profileImageInput">Subir imagen</label>
+                                <input type="file" id="profileImageInput" name="profile_image" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                                <button class="btn btn-danger" onclick="setDefaultImage(event)">Quitar imagen</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end pt-3">
+                        <div>
+                            {% if user.es_estudiante %}
+                            <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil" %}">Cancelar</a>
+                            {% elif user.es_profesor %}
+                            <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil" %}">Cancelar</a>
+                            {% endif %}
+                            <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
+                        </div>
+                    </div>
+                    {% if error1 %}
+                        <h5 class="text-center mt-3" style="color:red">{{ error1 }}</h5>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+        
+        <script>
+            function previewImage(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                // Validar el tipo de archivo
+                const validImageTypes = ['image/jpeg', 'image/png'];
+                if (!validImageTypes.includes(file.type)) {
+                    alert('Solo se permiten archivos PNG o JPG.');
+                    event.target.value = ''; // Limpiar el input
+                    return;
+                }
+                
+                // Validar el tamaño del archivo
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                if (file.size > maxSize) {
+                    alert('El archivo no debe ser mayor a 5MB.');
+                    event.target.value = ''; // Limpiar el input
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(){
+                    const output = document.getElementById('profileImageLink');
+                    output.style.backgroundImage = `url(${reader.result})`;
+                }
+                reader.readAsDataURL(file);
+            }
+            
+            function setDefaultImage(event) {
+                event.preventDefault();
+                const defaultImageUrl = 'https://imgur.com/CuXg45K.jpg';
+                const output = document.getElementById('profileImageLink');
+                output.style.backgroundImage = `url(${defaultImageUrl})`;
+            }
+            
+            document.addEventListener("DOMContentLoaded", function() {
+                const profileImageLink = document.getElementById('profileImageLink');
+                if (!profileImageLink.style.backgroundImage || profileImageLink.style.backgroundImage === 'none') {
+                    profileImageLink.style.backgroundImage = 'url(https://imgur.com/CuXg45K.jpg)';
+                }
+            });
+        </script>
+        
         <form method="POST" action="{% url "cambiar_contrasena" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             {% csrf_token %}
             <div class="card-body">
