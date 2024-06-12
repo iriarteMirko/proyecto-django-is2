@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
     <div class="container-fluid ms-3">
         {% if user.es_estudiante == True %}
-            <a class="navbar-brand me-5" href="{% url 'inicio_estudiante' %}">Mentor ULima</a>
+            <a class="navbar-brand me-5" href="{% url 'inicio_estudiante' %}">MentorULima</a>
         {% elif user.es_profesor == True %}
-            <a class="navbar-brand me-5" href="{% url 'inicio_profesor' %}">Mentor ULima</a>
+            <a class="navbar-brand me-5" href="{% url 'inicio_profesor' %}">MentorULima</a>
         {% else %}
-            <a class="navbar-brand me-5" href="/">Mentor ULima</a>
+            <a class="navbar-brand me-5" href="/">MentorULima</a>
         {% endif %}
         <form class="d-flex" role="buscar">
             <input class="form-control me-2" type="buscar" placeholder="Buscar" aria-label="Buscar">
