@@ -82,7 +82,6 @@ def validar_datos(request, user):
 @login_required
 def actualizar_perfil(request):
     user = request.user
-    
     if request.method == 'POST':
         datos_comunes, error = validar_datos(request, user)
         if error:
@@ -91,7 +90,6 @@ def actualizar_perfil(request):
                 return render(request, 'editar_perfil.html', {'estudiante': estudiante, 'error': error})
             profesor = user.profesor
             return render(request, 'editar_perfil.html', {'profesor': profesor, 'error': error})
-        
         user.codigo = datos_comunes['codigo']
         user.email = datos_comunes['email']
         user.nombre = datos_comunes['nombre']
@@ -109,7 +107,6 @@ def actualizar_perfil(request):
                 return render(request, 'editar_perfil.html', {'estudiante': estudiante, 'error': 'Datos no válidos. Intente nuevamente.'})
             user.save()
             return redirect('perfil')
-        
         elif user.es_profesor:
             profesor = user.profesor
             profesion = request.POST.get('profesion')
@@ -132,6 +129,16 @@ def actualizar_perfil(request):
         contexto['profesor'] = profesor
     
     return render(request, 'editar_perfil.html', contexto)
+
+@login_required
+def cambiar_imagen(request):
+    user = request.user
+    if request.method == 'POST':
+        imagen = request.FILES.get('imagen')
+        user.imagen = imagen
+        user.save()
+        return redirect('perfil')
+    return render(request, 'editar_perfil.html', {'user': user, 'error': 'Datos no válidos. Intente nuevamente.'})
 
 @login_required
 def cambiar_contrasena(request):

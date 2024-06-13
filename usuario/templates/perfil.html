@@ -10,9 +10,10 @@
     <section class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
         <div class="card-body">
             <div class="row justify-content-center">
-                <div class="col-md-2">
-                    <img src="https://imgur.com/CuXg45K.jpg" class="img-fluid rounded-circle">
-                </div>
+                <a class="d-flex flex-column justify-content-end position-relative overflow-hidden rounded-circle bg-size-cover bg-position-center flex-shrink-0" 
+                    style="width: 200px; height: 200px; background-size: cover; background-position: center; background-image: url({% if user.imagen %} {{ user.imagen.url }} {% else %} {{ 'https://imgur.com/CuXg45K.jpg' }} {% endif %});" 
+                    aria-label="Cambiar imagen de perfil">
+                </a>
                 <div class="col-md-12 text-center my-3">
                     <h1>{{ user.nombre }} {{ user.apellidos }}</h1>
                 </div>
