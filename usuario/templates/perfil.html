@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <a class="d-flex flex-column justify-content-end position-relative overflow-hidden rounded-circle bg-size-cover bg-position-center flex-shrink-0" 
-                    style="width: 200px; height: 200px; background-size: cover; background-position: center; background-image: url({% if user.imagen %} {{ user.imagen.url }} {% else %} {{ 'https://imgur.com/CuXg45K.jpg' }} {% endif %});" 
+                    style="width: 200px; height: 200px; background-size: cover; background-position: center; background-image: url({% if user.imagen %} {{ user.imagen.url }} {% else %} 'https://imgur.com/CuXg45K.jpg' {% endif %});" 
                     aria-label="Cambiar imagen de perfil">
                 </a>
                 <div class="col-md-12 text-center my-3">
