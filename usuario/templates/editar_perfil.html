@@ -81,17 +81,30 @@
                         {% if user.es_estudiante == True %}
                         <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil" %}">Cancelar</a>
                         {% elif user.es_profesor == True %}
-                        <a class="btn btn-secondary px-4 py-2 me-2" href="{% url 'perfil' %}">Cancelar</a>
+                        <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil" %}">Cancelar</a>
                         {% endif %}
                         <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
                     </div>
                     {% if error %}
-                        <h5 class="text-center mt-3" style="color:red">{{ error }}</h5>
+                    <div class="toast-container position-fixed top-0 end-0 pt-5 mt-5">
+                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                            <div class="toast-header">
+                                <svg class="bd-placeholder-img rounded me-2" width="20" height="20" aria-hidden="false">
+                                    <rect width="100%" height="100%" fill="#ff2c2c"></rect>
+                                </svg>
+                                <strong class="me-auto">Error de validación de datos</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body" style="color:red">
+                                {{ error }}
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
                 </div>
             </div>
         </form>
-        <form method="POST" action="{% url 'cambiar_imagen' %}" enctype="multipart/form-data" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <form method="POST" action="{% url "cambiar_imagen" %}" enctype="multipart/form-data" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             {% csrf_token %}
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -102,7 +115,7 @@
                         <div>
                             <a id="profileImageLink" 
                                 class="d-flex flex-column justify-content-end position-relative overflow-hidden rounded-circle bg-size-cover bg-position-center flex-shrink-0" 
-                                style="width: 200px; height: 200px; background-size: cover; background-position: center; background-image: url({% if user.imagen %} {{ user.imagen.url }} {% else %} 'https://imgur.com/CuXg45K.jpg' {% endif %});" 
+                                style="width: 200px; height: 200px; background-size: cover; background-position: center; background-image: url({% if user.imagen %} {{ user.imagen.url }} {% else %} https://imgur.com/CuXg45K.jpg {% endif %});" 
                                 aria-label="Cambiar imagen de perfil">
                             </a>
                         </div>
@@ -121,9 +134,9 @@
                     <div class="col-12 d-flex justify-content-end pt-3">
                         <div>
                             {% if user.es_estudiante %}
-                            <a class="btn btn-secondary px-4 py-2 me-2" href="{% url 'perfil' %}">Cancelar</a>
+                            <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil" %}">Cancelar</a>
                             {% elif user.es_profesor %}
-                            <a class="btn btn-secondary px-4 py-2 me-2" href="{% url 'perfil' %}">Cancelar</a>
+                            <a class="btn btn-secondary px-4 py-2 me-2" href="{% url "perfil" %}">Cancelar</a>
                             {% endif %}
                             <button class="btn btn-success px-4 py-2" onclick="handleFormSubmit()">Guardar Cambios</button>
                         </div>
@@ -166,7 +179,20 @@
                         <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
                     </div>
                     {% if error2 %}
-                        <h5 class="text-center mt-3" style="color:red">{{ error2 }}</h5>
+                    <div class="toast-container position-fixed top-0 end-0 pt-5 mt-5">
+                        <div id="liveToast2" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                            <div class="toast-header">
+                                <svg class="bd-placeholder-img rounded me-2" width="20" height="20" aria-hidden="false">
+                                    <rect width="100%" height="100%" fill="#ff2c2c"></rect>
+                                </svg>
+                                <strong class="me-auto">Error de validación de contraseña</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body" style="color:red">
+                                {{ error2 }}
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
                 </div>
             </div>
@@ -194,48 +220,68 @@
 </main>
 
 <script>
+    // Funciones para los mensajes de error
+    document.addEventListener("DOMContentLoaded", function() {
+        var errorExists = "{{ error }}" !== "";
+        var error2Exists = "{{ error2 }}" !== "";
+        if (errorExists) {
+            var toastEl = document.getElementById('liveToast');
+            var toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+            toast.show();
+        }
+        if (error2Exists) {
+            var toastEl2 = document.getElementById('liveToast2');
+            var toast2 = new bootstrap.Toast(toastEl2, { delay: 5000 });
+            toast2.show();
+        }
+    });
+
+    // Funciones para la imagen de perfil
     function previewImage(event) {
         const file = event.target.files[0];
         if (!file) return;
         // Validar el tipo de archivo
-        const validImageTypes = ['image/jpeg', 'image/png'];
+        const validImageTypes = ["image/jpeg", "image/png"];
         if (!validImageTypes.includes(file.type)) {
-            alert('Solo se permiten archivos PNG o JPG.');
-            event.target.value = ''; // Limpiar el input
+            alert("Solo se permiten archivos PNG o JPG.");
+            event.target.value = ""; // Limpiar el input
             return;
         }
         // Validar el tamaño del archivo
         const maxSize = 5 * 1024 * 1024; // 5MB
         if (file.size > maxSize) {
-            alert('El archivo no debe ser mayor a 5MB.');
-            event.target.value = ''; // Limpiar el input
+            alert("El archivo no debe ser mayor a 5MB.");
+            event.target.value = ""; // Limpiar el input
             return;
         }
         const reader = new FileReader();
         reader.onload = function(){
-            const output = document.getElementById('profileImageLink');
+            const output = document.getElementById("profileImageLink");
             output.style.backgroundImage = `url(${reader.result})`;
         }
         reader.readAsDataURL(file);
     }
+
     function setDefaultImage(event) {
         event.preventDefault();
-        const defaultImageUrl = 'https://imgur.com/CuXg45K.jpg';
-        const output = document.getElementById('profileImageLink');
+        const defaultImageUrl = "https://imgur.com/CuXg45K.jpg";
+        const output = document.getElementById("profileImageLink");
         output.style.backgroundImage = `url(${defaultImageUrl})`;
-        document.getElementById('profileImageInput').value = ''; // Limpia el input
+        document.getElementById("profileImageInput").value = ""; // Limpia el input
     }
+
     function handleFormSubmit() {
-        const fileInput = document.getElementById('profileImageInput');
+        const fileInput = document.getElementById("profileImageInput");
         if (!fileInput.value) {
             // Si no hay una imagen seleccionada, limpia el input para evitar cambiar la imagen
-            fileInput.name = '';
+            fileInput.name = "";
         }
     }
+
     document.addEventListener("DOMContentLoaded", function() {
-        const profileImageLink = document.getElementById('profileImageLink');
-        if (!profileImageLink.style.backgroundImage || profileImageLink.style.backgroundImage === 'none') {
-            profileImageLink.style.backgroundImage = 'url(https://imgur.com/CuXg45K.jpg)';
+        const profileImageLink = document.getElementById("profileImageLink");
+        if (!profileImageLink.style.backgroundImage || profileImageLink.style.backgroundImage === "none") {
+            profileImageLink.style.backgroundImage = "url(https://imgur.com/CuXg45K.jpg)";
         }
     });
 </script>

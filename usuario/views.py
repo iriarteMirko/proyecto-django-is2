@@ -172,6 +172,37 @@ def cambiar_contrasena(request):
     return render(request, 'editar_perfil.html', {'user': user, 'error2': 'Datos no válidos. Intente nuevamente.'})
 
 @login_required
+def cambiar_contrasena(request):
+    user = request.user
+    contexto = {'user': user}
+    if user.es_estudiante:
+        estudiante = user.estudiante
+        contexto['estudiante'] = estudiante
+    elif user.es_profesor:
+        profesor = user.profesor
+        contexto['profesor'] = profesor
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        if user.check_password(password):
+            if new_password == confirm_password:
+                error = validar_password(new_password)
+                if error:
+                    contexto['error2'] = error
+                    return render(request, 'editar_perfil.html', contexto)
+                user.set_password(new_password)
+                user.save()
+                logout(request)
+                return redirect('signin')
+            contexto['error2'] = 'Las contraseñas no coinciden.'
+            return render(request, 'editar_perfil.html', contexto)
+        contexto['error2'] = 'Contraseña incorrecta.'
+        return render(request, 'editar_perfil.html', contexto)
+    contexto['error2'] = 'Datos no válidos. Intente nuevamente.'
+    return render(request, 'editar_perfil.html', contexto)
+
+@login_required
 def eliminar_cuenta(request):
     user = request.user
     user.delete()
