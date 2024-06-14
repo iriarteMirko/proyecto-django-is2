@@ -134,60 +134,6 @@
                 </div>
             </div>
         </form>
-        
-        <script>
-            function previewImage(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-                
-                // Validar el tipo de archivo
-                const validImageTypes = ['image/jpeg', 'image/png'];
-                if (!validImageTypes.includes(file.type)) {
-                    alert('Solo se permiten archivos PNG o JPG.');
-                    event.target.value = ''; // Limpiar el input
-                    return;
-                }
-                
-                // Validar el tamaño del archivo
-                const maxSize = 5 * 1024 * 1024; // 5MB
-                if (file.size > maxSize) {
-                    alert('El archivo no debe ser mayor a 5MB.');
-                    event.target.value = ''; // Limpiar el input
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(){
-                    const output = document.getElementById('profileImageLink');
-                    output.style.backgroundImage = `url(${reader.result})`;
-                }
-                reader.readAsDataURL(file);
-            }
-            
-            function setDefaultImage(event) {
-                event.preventDefault();
-                const defaultImageUrl = 'https://imgur.com/CuXg45K.jpg';
-                const output = document.getElementById('profileImageLink');
-                output.style.backgroundImage = `url(${defaultImageUrl})`;
-                document.getElementById('profileImageInput').value = ''; // Clear the file input
-            }
-            
-            function handleFormSubmit() {
-                const fileInput = document.getElementById('profileImageInput');
-                if (!fileInput.value) {
-                    // If no new image is selected, clear the file input name to prevent changing the image
-                    fileInput.name = '';
-                }
-            }
-            
-            document.addEventListener("DOMContentLoaded", function() {
-                const profileImageLink = document.getElementById('profileImageLink');
-                if (!profileImageLink.style.backgroundImage || profileImageLink.style.backgroundImage === 'none') {
-                    profileImageLink.style.backgroundImage = 'url(https://imgur.com/CuXg45K.jpg)';
-                }
-            });
-        </script>
-        
         <form method="POST" action="{% url "cambiar_contrasena" %}" class="card py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
             {% csrf_token %}
             <div class="card-body">
@@ -219,8 +165,8 @@
                         {% endif %}
                         <button class="btn btn-success px-4 py-2">Guardar Cambios</button>
                     </div>
-                    {% if error1 %}
-                        <h5 class="text-center mt-3" style="color:red">{{ error1 }}</h5>
+                    {% if error2 %}
+                        <h5 class="text-center mt-3" style="color:red">{{ error2 }}</h5>
                     {% endif %}
                 </div>
             </div>
@@ -246,5 +192,52 @@
         </form>
     </div>
 </main>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        // Validar el tipo de archivo
+        const validImageTypes = ['image/jpeg', 'image/png'];
+        if (!validImageTypes.includes(file.type)) {
+            alert('Solo se permiten archivos PNG o JPG.');
+            event.target.value = ''; // Limpiar el input
+            return;
+        }
+        // Validar el tamaño del archivo
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            alert('El archivo no debe ser mayor a 5MB.');
+            event.target.value = ''; // Limpiar el input
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(){
+            const output = document.getElementById('profileImageLink');
+            output.style.backgroundImage = `url(${reader.result})`;
+        }
+        reader.readAsDataURL(file);
+    }
+    function setDefaultImage(event) {
+        event.preventDefault();
+        const defaultImageUrl = 'https://imgur.com/CuXg45K.jpg';
+        const output = document.getElementById('profileImageLink');
+        output.style.backgroundImage = `url(${defaultImageUrl})`;
+        document.getElementById('profileImageInput').value = ''; // Limpia el input
+    }
+    function handleFormSubmit() {
+        const fileInput = document.getElementById('profileImageInput');
+        if (!fileInput.value) {
+            // Si no hay una imagen seleccionada, limpia el input para evitar cambiar la imagen
+            fileInput.name = '';
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        const profileImageLink = document.getElementById('profileImageLink');
+        if (!profileImageLink.style.backgroundImage || profileImageLink.style.backgroundImage === 'none') {
+            profileImageLink.style.backgroundImage = 'url(https://imgur.com/CuXg45K.jpg)';
+        }
+    });
+</script>
 
 {% endblock %}

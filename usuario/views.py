@@ -65,6 +65,8 @@ def validar_datos(request, user):
     apellidos = request.POST.get('apellidos')
     if not (codigo and email and nombre and apellidos):
         return None, 'Datos no válidos. Intente nuevamente.'
+    if len(codigo) != 8:
+        return None, 'El código debe tener 8 dígitos.'
     if not codigo.isdigit():
         return None, 'El código debe ser un número entero.'
     User = get_user_model()
@@ -138,7 +140,16 @@ def cambiar_imagen(request):
         user.imagen = imagen
         user.save()
         return redirect('perfil')
-    return render(request, 'editar_perfil.html', {'user': user, 'error': 'Datos no válidos. Intente nuevamente.'})
+    return render(request, 'editar_perfil.html', {'user': user, 'error1': 'Datos no válidos. Intente nuevamente.'})
+
+def validar_password(password):
+    if len(password) < 8:
+        return 'La contraseña debe tener al menos 8 caracteres.'
+    if password.isdigit() or password.isalpha():
+        return 'La contraseña debe tener al menos un número y una letra.'
+    if password.islower() or password.isupper():
+        return 'La contraseña debe tener al menos una letra mayúscula y una minúscula.'
+    return None
 
 @login_required
 def cambiar_contrasena(request):
@@ -149,13 +160,16 @@ def cambiar_contrasena(request):
         confirm_password = request.POST.get('confirm_password')
         if user.check_password(password):
             if new_password == confirm_password:
+                error = validar_password(new_password)
+                if error:
+                    return render(request, 'editar_perfil.html', {'user': user, 'error2': error})
                 user.set_password(new_password)
                 user.save()
                 logout(request)
                 return redirect('signin')
-            return render(request, 'editar_perfil.html', {'user': user, 'error': 'Las contraseñas no coinciden.'})
-        return render(request, 'editar_perfil.html', {'user': user, 'error': 'Contraseña incorrecta.'})
-    return render(request, 'editar_perfil.html', {'user': user, 'error': 'Datos no válidos. Intente nuevamente.'})
+            return render(request, 'editar_perfil.html', {'user': user, 'error2': 'Las contraseñas no coinciden.'})
+        return render(request, 'editar_perfil.html', {'user': user, 'error2': 'Contraseña incorrecta.'})
+    return render(request, 'editar_perfil.html', {'user': user, 'error2': 'Datos no válidos. Intente nuevamente.'})
 
 @login_required
 def eliminar_cuenta(request):
