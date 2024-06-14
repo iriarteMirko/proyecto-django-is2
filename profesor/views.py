@@ -50,6 +50,7 @@ def crear_curso(request):
         descripcion = request.POST.get('descripcion')
         categoria = request.POST.get('categoria')
         profesor = request.user.profesor
+        # Crear curso
         curso = factory.create_curso(nombre=nombre, descripcion=descripcion, categoria=categoria, profesor=profesor)
         if curso:
             return redirect('cursos_profesor')
@@ -64,6 +65,7 @@ def crear_seccion(request, curso_id):
         curso = Curso.objects.get(id=curso_id)
         nombre = request.POST.get('nombre')
         descripcion = request.POST.get('descripcion')
+        # Crear sección
         seccion = factory.create_seccion(curso=curso, nombre=nombre, descripcion=descripcion)
         if seccion:
             return redirect('detalle_curso', curso_id=curso_id)
