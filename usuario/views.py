@@ -154,26 +154,6 @@ def validar_password(password):
 @login_required
 def cambiar_contrasena(request):
     user = request.user
-    if request.method == 'POST':
-        password = request.POST.get('password')
-        new_password = request.POST.get('new_password')
-        confirm_password = request.POST.get('confirm_password')
-        if user.check_password(password):
-            if new_password == confirm_password:
-                error = validar_password(new_password)
-                if error:
-                    return render(request, 'editar_perfil.html', {'user': user, 'error2': error})
-                user.set_password(new_password)
-                user.save()
-                logout(request)
-                return redirect('signin')
-            return render(request, 'editar_perfil.html', {'user': user, 'error2': 'Las contraseñas no coinciden.'})
-        return render(request, 'editar_perfil.html', {'user': user, 'error2': 'Contraseña incorrecta.'})
-    return render(request, 'editar_perfil.html', {'user': user, 'error2': 'Datos no válidos. Intente nuevamente.'})
-
-@login_required
-def cambiar_contrasena(request):
-    user = request.user
     contexto = {'user': user}
     if user.es_estudiante:
         estudiante = user.estudiante
