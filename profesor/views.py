@@ -36,6 +36,8 @@ def inicio_profesor(request):
 def mis_cursos(request):
     from curso.models import Curso
     cursos = Curso.objects.filter(profesor=request.user.profesor)
+    if not cursos:
+        return render(request, 'cursos_profesor.html')
     paginator = Paginator(cursos, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -54,7 +56,7 @@ def crear_curso(request):
         curso = factory.create_curso(nombre=nombre, descripcion=descripcion, categoria=categoria, profesor=profesor)
         if curso:
             return redirect('cursos_profesor')
-        return render(request, 'crear_curso.html', {'error': 'Datos no válidos. Intente nuevamente.'})
+        return render(request, 'crear_curso.html', {'error2': 'Datos no válidos. Intente nuevamente.'})
     return render(request, 'crear_curso.html')
 
 @login_required

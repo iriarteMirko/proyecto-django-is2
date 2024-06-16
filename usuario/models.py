@@ -42,7 +42,7 @@ class Usuario(AbstractBaseUser):
     email = models.EmailField('Correo electrónico', max_length=100, unique=True)
     nombre = models.CharField('Nombre', max_length=50)
     apellidos = models.CharField('Apellidos', max_length=100)
-    imagen = models.ImageField('Imagen', upload_to='usuarios/', null=True, blank=True)
+    imagen = models.ImageField('Imagen', upload_to='usuarios/', null=True, blank=True, default='usuarios/default.jpg')
     activo = models.BooleanField('Activo', default=True)
     es_estudiante = models.BooleanField('Estudiante', default=False)
     es_profesor = models.BooleanField('Profesor', default=False)

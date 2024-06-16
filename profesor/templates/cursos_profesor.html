@@ -6,8 +6,11 @@
     <div class="flex-column align-items-center">
         <div class="d-flex justify-content-between align-items-center my-3">
             <h1>Mis Cursos:</h1>
+            {% if page_obj %}
             <a class="btn btn-success px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-CrearCurso">Crear Curso</a>
+            {% endif %}
         </div>
+        {% if page_obj %}
         <div class="row">
             {% for curso in page_obj %}
                 {% if forloop.counter0|divisibleby:2 %}
@@ -27,6 +30,12 @@
                 </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 50vh;">
+            <h1 class="text-center text-primary display-1">Crea tu primer curso</h1>
+            <a class="btn btn-primary px-5 py-2 mt-3" data-bs-toggle="modal" data-bs-target="#Modal-CrearCurso">Crear Curso</a>
+        </div>
+        {% endif %}
     </div>
     <div class="row mt-auto">
         <div class="col-md-12">
@@ -94,7 +103,7 @@
                         <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" maxlength="250" placeholder="Descripción del curso" required></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger" data-bs-dismiss="modal">Salir</button>
+                        <a class="btn btn-danger" data-bs-dismiss="modal">Salir</a>
                         <button class="btn btn-success">Crear</button>
                     </div>
                     {% if error %}
