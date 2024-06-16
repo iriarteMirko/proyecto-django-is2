@@ -225,12 +225,12 @@
         var errorExists = "{{ error }}" !== "";
         var error2Exists = "{{ error2 }}" !== "";
         if (errorExists) {
-            var toastEl = document.getElementById('liveToast');
+            var toastEl = document.getElementById("liveToast");
             var toast = new bootstrap.Toast(toastEl, { delay: 5000 });
             toast.show();
         }
         if (error2Exists) {
-            var toastEl2 = document.getElementById('liveToast2');
+            var toastEl2 = document.getElementById("liveToast2");
             var toast2 = new bootstrap.Toast(toastEl2, { delay: 5000 });
             toast2.show();
         }
