@@ -35,7 +35,7 @@ def inicio_profesor(request):
 @login_required
 def mis_cursos(request):
     from curso.models import Curso
-    cursos = Curso.objects.filter(profesor=request.user.profesor)
+    cursos = Curso.objects.filter(profesor=request.user.profesor).order_by('ultima_modificacion')
     if not cursos:
         return render(request, 'cursos_profesor.html')
     paginator = Paginator(cursos, 8)
