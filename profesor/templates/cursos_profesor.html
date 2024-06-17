@@ -81,6 +81,10 @@
                         <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="100" placeholder="Nombre" required>
                     </div>
                     <div class="input-group mb-3">
+                        <span class="input-group-text">Descripción:</span>
+                        <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" maxlength="250" placeholder="Descripción del curso" required></textarea>
+                    </div>
+                    <div class="input-group mb-3">
                         <label class="input-group-text" for="categoria">Categoría:</label>
                         <select class="form-select {% if form.categoria.errors %}is-invalid{% endif %}" name="categoria" id="categoria" required>
                             <option value=>Elige una categoría</option>
@@ -99,8 +103,14 @@
                         </select>
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">Descripción:</span>
-                        <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" maxlength="250" placeholder="Descripción del curso" required></textarea>
+                        <label class="input-group-text" for="nivel">Nivel:</label>
+                        <select class="form-select {% if form.nivel.errors %}is-invalid{% endif %}" name="nivel" id="nivel" required>
+                            <option value=>Elige un nivel</option>
+                            <option value="Principiante">Principiante</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado">Avanzado</option>
+                            <option value="Experto">Experto</option>
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-danger" data-bs-dismiss="modal">Salir</a>

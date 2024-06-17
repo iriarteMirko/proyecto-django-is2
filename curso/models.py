@@ -6,7 +6,8 @@ class Curso(models.Model):
     nombre = models.CharField(max_length=100, blank=False, null=False)
     descripcion = models.TextField(max_length=250, blank=False, null=False)
     categoria = models.CharField(max_length=100, blank=False, null=False)
-    calificacion = models.FloatField(default=0.0)
+    nivel = models.CharField(max_length=100, blank=False, null=False)
+    calificacion = models.FloatField(default=0.0, blank=False, null=False)
     fecha_creacion = models.DateField(auto_now_add=True)
     ultima_modificacion = models.DateField(auto_now=True)
     

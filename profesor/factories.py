@@ -4,7 +4,7 @@ from seccion.models import Seccion
 
 class CursoFactory(ABC):
     @abstractmethod
-    def create_curso(self, nombre, descripcion, categoria, profesor):
+    def create_curso(self, profesor, nombre, descripcion, categoria, nivel):
         pass
     
     @abstractmethod
@@ -12,8 +12,8 @@ class CursoFactory(ABC):
         pass
 
 class CursoConcreteFactory(CursoFactory):
-    def create_curso(self, nombre, descripcion, categoria, profesor):
-        curso = Curso.objects.create(nombre=nombre, descripcion=descripcion, categoria=categoria, profesor=profesor)
+    def create_curso(self, profesor, nombre, descripcion, categoria, nivel):
+        curso = Curso.objects.create(profesor=profesor, nombre=nombre, descripcion=descripcion, categoria=categoria, nivel=nivel)
         return curso
     
     def create_seccion(self, curso, nombre, descripcion):
