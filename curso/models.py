@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Avg
 from profesor.models import Profesor
+from estudiante.models import Estudiante
 
 class Curso(models.Model):
     CATEGORIA_OPCIONES = [
@@ -17,20 +18,21 @@ class Curso(models.Model):
         ('Derecho', 'Derecho'),
         ('Gestión de Proyectos', 'Gestión de Proyectos'),
     ]
-    
     NIVEL_OPCIONES = [
         ('Principiante', 'Principiante'),
         ('Intermedio', 'Intermedio'),
         ('Avanzado', 'Avanzado'),
         ('Experto', 'Experto'),
     ]
-    
-    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100, blank=False, null=False)
     descripcion = models.TextField(max_length=250, blank=False, null=False)
     categoria = models.CharField(max_length=100, choices=CATEGORIA_OPCIONES, blank=False, null=False)
     nivel = models.CharField(max_length=100, choices=NIVEL_OPCIONES, blank=False, null=False)
     calificacion_promedio = models.FloatField(default=0, editable=False)
+    
+    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
+    estudiantes = models.ManyToManyField(Estudiante, through='Inscripcion')
+    
     fecha_creacion = models.DateField(auto_now_add=True)
     ultima_modificacion = models.DateField(auto_now=True)
     
