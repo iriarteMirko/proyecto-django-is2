@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -44,3 +44,42 @@ def buscar_curso(request):
 @login_required
 def mis_cursos(request):
     return render(request, 'cursos_estudiante.html')
+
+@login_required
+def inscribir_curso(request, curso_id):
+    from curso.models import Curso
+    curso = get_list_or_404(Curso, id=curso_id)
+    estudiante = request.user.estudiante
+    curso.estudiantes.add(estudiante)
+    return redirect('detalle_curso', curso_id=curso.id)
+
+@login_required
+def desinscribir_curso(request, curso_id):
+    from curso.models import Curso
+    curso = get_list_or_404(Curso, id=curso_id)
+    estudiante = request.user.estudiante
+    curso.estudiantes.remove(estudiante)
+    return redirect('detalle_curso', curso_id=curso.id)
+
+@login_required
+def detalle_curso(request, curso_id):
+    from curso.models import Curso
+    curso = get_list_or_404(Curso, id=curso_id)
+    return render(request, 'detalle_curso.html', {'curso': curso})
+
+@login_required
+def calificar_curso(request, curso_id):
+    from curso.models import Curso
+    from calificacion.models import Calificacion
+    curso = get_list_or_404(Curso, id=curso_id)
+    estudiante = request.user.estudiante
+    if request.method == 'POST':
+        calificacion_valor = int(request.POST.get('calificacion'))
+        calificacion, created = Calificacion.objects.update_or_create(
+            curso=curso,
+            estudiante=estudiante,
+            defaults={'calificacion': calificacion_valor},
+        )
+        curso.actualizar_calificacion_promedio()
+        return redirect('detalle_curso', curso_id=curso.id)
+    return render(request, 'calificacion/calificar_curso.html', {'curso': curso})

@@ -71,7 +71,7 @@ def crear_seccion(request, curso_id):
         # Crear sección
         seccion = factory.create_seccion(curso=curso, nombre=nombre, descripcion=descripcion)
         if seccion:
-            return redirect('detalle_curso', curso_id=curso_id)
+            return redirect('detalle_curso', curso_id=curso.id)
         return render(request, 'crear_seccion.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso})
     return render(request, 'crear_seccion.html', {'curso': curso})
 
