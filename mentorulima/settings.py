@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'profesor',
     'curso',
     'seccion',
-    'matricula',
+    'inscripcion',
     'calificacion',
 ]
 
