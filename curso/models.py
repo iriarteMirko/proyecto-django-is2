@@ -31,7 +31,7 @@ class Curso(models.Model):
     calificacion_promedio = models.FloatField(default=0, editable=False)
     
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
-    estudiantes = models.ManyToManyField(Estudiante, through='Inscripcion')
+    estudiantes = models.ManyToManyField(Estudiante, through='inscripcion')
     
     fecha_creacion = models.DateField(auto_now_add=True)
     ultima_modificacion = models.DateField(auto_now=True)
