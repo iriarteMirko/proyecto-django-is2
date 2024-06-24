@@ -1,6 +1,7 @@
 from django.db import models
 from curso.models import Curso
 from estudiante.models import Estudiante
+from inscripcion.models import Inscripcion
 
 class Calificacion(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
@@ -12,3 +13,13 @@ class Calificacion(models.Model):
     
     def __str__(self):
         return f'{self.curso.nombre} - {self.estudiante.usuario.nombre}: {self.calificacion}'
+
+    def save(self, *args, **kwargs):
+        if not Inscripcion.objects.filter(curso=self.curso, estudiante=self.estudiante).exists():
+            raise ValueError("El estudiante debe estar inscrito en el curso para calificarlo.")
+        super().save(*args, **kwargs)
+        self.curso.actualizar_calificacion_promedio()
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        self.curso.actualizar_calificacion_promedio()
