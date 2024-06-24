@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -43,12 +43,25 @@ def buscar_curso(request):
 
 @login_required
 def mis_cursos(request):
-    return render(request, 'cursos_estudiante.html')
+    from inscripcion.models import Inscripcion
+    inscripciones = Inscripcion.objects.filter(estudiante=request.user.estudiante).order_by('fecha_inscripcion')
+    if not inscripciones:
+        return render(request, 'cursos_estudiante.html')
+    cursos = [inscripcion.curso for inscripcion in inscripciones]
+    return render(request, 'cursos_estudiante.html', {'cursos': cursos})
+
+@login_required
+def detalle_curso(request, curso_id):
+    from curso.models import Curso
+    curso = get_object_or_404(Curso, id=curso_id)
+    secciones = curso.seccion_set.all()
+    return render(request, 'detalle_curso.html', {'curso': curso, 'secciones': secciones})
+
 
 @login_required
 def inscribir_curso(request, curso_id):
     from curso.models import Curso
-    curso = get_list_or_404(Curso, id=curso_id)
+    curso = get_object_or_404(Curso, id=curso_id)
     estudiante = request.user.estudiante
     curso.estudiantes.add(estudiante)
     return redirect('detalle_curso', curso_id=curso.id)
@@ -56,22 +69,16 @@ def inscribir_curso(request, curso_id):
 @login_required
 def desinscribir_curso(request, curso_id):
     from curso.models import Curso
-    curso = get_list_or_404(Curso, id=curso_id)
+    curso = get_object_or_404(Curso, id=curso_id)
     estudiante = request.user.estudiante
     curso.estudiantes.remove(estudiante)
     return redirect('detalle_curso', curso_id=curso.id)
 
 @login_required
-def detalle_curso(request, curso_id):
-    from curso.models import Curso
-    curso = get_list_or_404(Curso, id=curso_id)
-    return render(request, 'detalle_curso.html', {'curso': curso})
-
-@login_required
 def calificar_curso(request, curso_id):
     from curso.models import Curso
     from calificacion.models import Calificacion
-    curso = get_list_or_404(Curso, id=curso_id)
+    curso = get_object_or_404(Curso, id=curso_id)
     estudiante = request.user.estudiante
     if request.method == 'POST':
         calificacion_valor = int(request.POST.get('calificacion'))

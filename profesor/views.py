@@ -48,13 +48,13 @@ def mis_cursos(request):
 def crear_curso(request):
     factory = CursoConcreteFactory()
     if request.method == 'POST':
-        profesor = request.user.profesor
         nombre = request.POST.get('nombre')
         descripcion = request.POST.get('descripcion')
         categoria = request.POST.get('categoria')
         nivel = request.POST.get('nivel')
+        profesor = request.user.profesor
         # Crear curso
-        curso = factory.create_curso(profesor=profesor, nombre=nombre, descripcion=descripcion, categoria=categoria, nivel=nivel)
+        curso = factory.create_curso(nombre=nombre, descripcion=descripcion, categoria=categoria, nivel=nivel, profesor=profesor)
         if curso:
             return redirect('cursos_profesor')
         return render(request, 'crear_curso.html', {'error2': 'Datos no válidos. Intente nuevamente.'})

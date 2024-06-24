@@ -6,10 +6,10 @@
     <div class="flex-column align-items-center">
         <div class="d-flex justify-content-between align-items-center my-3">
             <h1>Mis Cursos:</h1>
-            <a class="btn btn-primary px-4 py-2" href="{% url "buscar_cursos" %}" >Buscar Cursos</a>
+            <a class="btn btn-primary px-4 py-2" href="{% url "buscar_cursos" %}">Buscar Cursos</a>
         </div>
         <div class="row">
-            {% for curso in page_obj %}
+            {% for curso in cursos %}
                 {% if forloop.counter0|divisibleby:2 %}
                     <div class="w-100"></div>
                 {% endif %}
@@ -21,38 +21,11 @@
                                 <h4 class="card-title text-truncate" style="white-space: nowrap;">{{ curso.nombre }}</h4>
                                 <h6 class="card-subtitle mb-2 text-body-secondary">{{ curso.categoria }}</h6>
                             </div>
-                            <a href="" class="btn btn-primary">Ingresar</a>
+                            <a href="{% url "detalle_curso_estudiante" curso.id %}" class="btn btn-primary">Ingresar</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-        </div>
-    </div>
-    <div class="row mt-auto">
-        <div class="col-md-12">
-            <nav aria-label="Page navigation" class="mt-4">
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                    {% for num in page_obj.paginator.page_range %}
-                    <li class="page-item {% if page_obj.number == num %}active{% endif %}">
-                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                    </li>
-                    {% endfor %}
-                    {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
         </div>
     </div>
 </main>

@@ -20,7 +20,6 @@ class Curso(models.Model):
     NIVEL_OPCIONES = [
         ('Principiante', 'Principiante'),
         ('Intermedio', 'Intermedio'),
-        
         ('Avanzado', 'Avanzado'),
         ('Experto', 'Experto'),
     ]
