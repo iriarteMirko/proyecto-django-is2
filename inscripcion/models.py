@@ -9,4 +9,4 @@ class Inscripcion(models.Model):
     fecha_inscripcion = models.DateField(auto_now_add=True)
     
     def __str__(self):
-        return f'{self.estudiante.usuario.username} inscrito en {self.curso.nombre}'
+        return f'{self.estudiante.usuario.nombre} inscrito en {self.curso.nombre}'
