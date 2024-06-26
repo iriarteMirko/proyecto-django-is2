@@ -1,5 +1,6 @@
 from django.db import models
 from usuario.models import Usuario
+from django.core.exceptions import ValidationError
 
 class Estudiante(models.Model):
     CARRERA_OPCIONES = [
@@ -26,3 +27,7 @@ class Estudiante(models.Model):
     
     def __str__(self):
         return f'{self.usuario.nombre} {self.usuario.apellidos}'
+    
+    def clean(self):
+        if self.usuario.es_profesor:
+            raise ValidationError("El usuario no puede ser estudiante y profesor al mismo tiempo.")

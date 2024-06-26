@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.exceptions import ValidationError
 
 class UsuarioManager(BaseUserManager):
     def create_user(self, codigo, email, nombre, apellidos, password=None, es_estudiante=False, es_profesor=False):
@@ -59,6 +60,10 @@ class Usuario(AbstractBaseUser):
     
     def __str__(self):
         return self.codigo
+    
+    def clean(self):
+        if self.es_estudiante and self.es_profesor:
+            raise ValidationError('Un usuario no puede ser estudiante y profesor al mismo tiempo.')
     
     def has_perm(self, perm, obj=None):
         return self.es_administrador
