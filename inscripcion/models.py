@@ -10,6 +10,8 @@ class Inscripcion(models.Model):
     
     class Meta:
         unique_together = ('curso', 'estudiante')
+        verbose_name = 'Inscripción'
+        verbose_name_plural = 'Inscripciones'
     
     def __str__(self):
         return f'{self.estudiante.usuario.nombre} inscrito en {self.curso.nombre}'

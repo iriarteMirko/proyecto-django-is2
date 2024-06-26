@@ -53,6 +53,10 @@ class Usuario(AbstractBaseUser):
     USERNAME_FIELD = 'codigo'
     REQUIRED_FIELDS = ['email', 'nombre', 'apellidos']
     
+    class Meta:
+        verbose_name = 'Usuario'
+        verbose_name_plural = 'Usuarios'
+    
     def __str__(self):
         return self.codigo
     

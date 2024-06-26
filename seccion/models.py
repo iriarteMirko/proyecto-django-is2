@@ -6,5 +6,9 @@ class Seccion(models.Model):
     nombre = models.CharField(max_length=100, blank=False, null=False)
     descripcion = models.TextField(max_length=250)
     
+    class Meta:
+        verbose_name = 'Sección'
+        verbose_name_plural = 'Secciones'
+    
     def __str__(self):
         return self.curso.nombre + ' - ' + self.nombre

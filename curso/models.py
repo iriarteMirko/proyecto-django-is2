@@ -32,6 +32,10 @@ class Curso(models.Model):
     ultima_modificacion = models.DateField(auto_now=True)
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     
+    class Meta:
+        verbose_name = 'Curso'
+        verbose_name_plural = 'Cursos'
+    
     def __str__(self):
         return self.nombre
     

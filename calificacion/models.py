@@ -10,6 +10,8 @@ class Calificacion(models.Model):
     
     class Meta:
         unique_together = ('curso', 'estudiante')
+        verbose_name = 'Calificación'
+        verbose_name_plural = 'Calificaciones'
     
     def __str__(self):
         return f'{self.curso.nombre} - {self.estudiante.usuario.nombre}: {self.calificacion}'

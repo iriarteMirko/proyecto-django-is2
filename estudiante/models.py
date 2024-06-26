@@ -20,5 +20,9 @@ class Estudiante(models.Model):
     carrera = models.CharField(max_length=100, choices=CARRERA_OPCIONES, blank=False, null=False)
     ciclo = models.PositiveIntegerField(blank=False, null=False, choices=[(i, i) for i in range(1, 13)])
     
+    class Meta:
+        verbose_name = 'Estudiante'
+        verbose_name_plural = 'Estudiantes'
+    
     def __str__(self):
         return f'{self.usuario.nombre} {self.usuario.apellidos}'
