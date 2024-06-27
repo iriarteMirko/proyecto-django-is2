@@ -13,6 +13,12 @@ urlpatterns = [
     path('profesor/', include('profesor.urls')),
     path('', include('curso.urls')),
     path('curso/', include('curso.urls')),
+    path('', include('seccion.urls')),
+    path('seccion/', include('seccion.urls')),
+    path('', include('inscripcion.urls')),
+    path('inscripcion/', include('inscripcion.urls')),
+    path('', include('calificacion.urls')),
+    path('calificacion/', include('calificacion.urls')),
 ]
 
 if settings.DEBUG:
