@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from .serializer import CalificacionSerializer
 from .models import Calificacion
-from curso.models import Curso
-from estudiante.models import Estudiante
+from apps.curso.models import Curso
+from apps.estudiante.models import Estudiante
 
 class CalificacionViewSet(viewsets.ModelViewSet):
     serializer_class = CalificacionSerializer

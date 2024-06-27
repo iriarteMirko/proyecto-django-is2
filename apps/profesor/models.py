@@ -1,5 +1,5 @@
 from django.db import models
-from usuario.models import Usuario
+from apps.usuario.models import Usuario
 from django.core.exceptions import ValidationError
 
 class Profesor(models.Model):

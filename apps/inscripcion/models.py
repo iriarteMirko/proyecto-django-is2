@@ -1,6 +1,6 @@
 from django.db import models
-from curso.models import Curso
-from estudiante.models import Estudiante
+from apps.curso.models import Curso
+from apps.estudiante.models import Estudiante
 
 
 class Inscripcion(models.Model):

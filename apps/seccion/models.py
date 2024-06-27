@@ -1,5 +1,5 @@
 from django.db import models
-from curso.models import Curso
+from apps.curso.models import Curso
 
 class Seccion(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)

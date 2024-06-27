@@ -1,7 +1,7 @@
 from django.db import models
-from curso.models import Curso
-from estudiante.models import Estudiante
-from inscripcion.models import Inscripcion
+from apps.curso.models import Curso
+from apps.estudiante.models import Estudiante
+from apps.inscripcion.models import Inscripcion
 
 class Calificacion(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)

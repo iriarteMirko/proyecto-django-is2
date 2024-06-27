@@ -34,7 +34,7 @@ def inicio_profesor(request):
 
 @login_required
 def mis_cursos(request):
-    from curso.models import Curso
+    from apps.curso.models import Curso
     cursos = Curso.objects.filter(profesor=request.user.profesor).order_by('ultima_modificacion')
     if not cursos:
         return render(request, 'profesor/cursos_profesor.html')
@@ -64,7 +64,7 @@ def crear_curso(request):
 def crear_seccion(request, curso_id):
     factory = CursoConcreteFactory()
     if request.method == 'POST':
-        from curso.models import Curso
+        from apps.curso.models import Curso
         curso = Curso.objects.get(id=curso_id)
         nombre = request.POST.get('nombre')
         descripcion = request.POST.get('descripcion')
@@ -77,7 +77,7 @@ def crear_seccion(request, curso_id):
 
 @login_required
 def detalle_curso(request, curso_id):
-    from curso.models import Curso
+    from apps.curso.models import Curso
     curso = get_object_or_404(Curso, id=curso_id)
     secciones = curso.seccion_set.all()
     return render(request, 'profesor/detalle_curso.html', {'curso': curso, 'secciones': secciones})

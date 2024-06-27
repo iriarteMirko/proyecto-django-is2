@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Avg
-from profesor.models import Profesor
+from apps.profesor.models import Profesor
 
 class Curso(models.Model):
     CATEGORIA_OPCIONES = [

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from curso.models import Curso
-from seccion.models import Seccion
+from apps.curso.models import Curso
+from apps.seccion.models import Seccion
 
 class CursoFactory(ABC):
     @abstractmethod

@@ -33,7 +33,7 @@ def inicio_estudiante(request):
 
 @login_required
 def buscar_curso(request):
-    from curso.models import Curso
+    from apps.curso.models import Curso
     cursos = Curso.objects.all()
     paginator = Paginator(cursos, 8)
     page_number = request.GET.get('page')
@@ -43,7 +43,7 @@ def buscar_curso(request):
 
 @login_required
 def mis_cursos(request):
-    from inscripcion.models import Inscripcion
+    from apps.inscripcion.models import Inscripcion
     inscripciones = Inscripcion.objects.filter(estudiante=request.user.estudiante).order_by('fecha_inscripcion')
     if not inscripciones:
         return render(request, 'estudiante/cursos_estudiante.html')
@@ -52,7 +52,7 @@ def mis_cursos(request):
 
 @login_required
 def detalle_curso(request, curso_id):
-    from curso.models import Curso
+    from apps.curso.models import Curso
     curso = get_object_or_404(Curso, id=curso_id)
     secciones = curso.seccion_set.all()
     return render(request, 'estudiante/detalle_curso.html', {'curso': curso, 'secciones': secciones})
@@ -60,7 +60,7 @@ def detalle_curso(request, curso_id):
 
 @login_required
 def inscribir_curso(request, curso_id):
-    from curso.models import Curso
+    from apps.curso.models import Curso
     curso = get_object_or_404(Curso, id=curso_id)
     estudiante = request.user.estudiante
     curso.estudiantes.add(estudiante)
@@ -68,7 +68,7 @@ def inscribir_curso(request, curso_id):
 
 @login_required
 def desinscribir_curso(request, curso_id):
-    from curso.models import Curso
+    from apps.curso.models import Curso
     curso = get_object_or_404(Curso, id=curso_id)
     estudiante = request.user.estudiante
     curso.estudiantes.remove(estudiante)
@@ -76,8 +76,8 @@ def desinscribir_curso(request, curso_id):
 
 @login_required
 def calificar_curso(request, curso_id):
-    from curso.models import Curso
-    from calificacion.models import Calificacion
+    from apps.curso.models import Curso
+    from apps.calificacion.models import Calificacion
     curso = get_object_or_404(Curso, id=curso_id)
     estudiante = request.user.estudiante
     if request.method == 'POST':

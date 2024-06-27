@@ -22,4 +22,4 @@ urlpatterns = [
 ]
 
 # Configuración de la vista personalizada para errores 404
-handler404 = 'usuario.views.error_404_view'
+handler404 = 'apps.usuario.views.error_404_view'

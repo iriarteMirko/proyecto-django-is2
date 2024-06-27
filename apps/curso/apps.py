@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class InscripcionConfig(AppConfig):
+class CursoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'inscripcion'
+    name = 'apps.curso'

@@ -39,13 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework', # Rest Framework
     'corsheaders', # Corsheaders
-    'usuario',
-    'estudiante',
-    'profesor',
-    'curso',
-    'seccion',
-    'inscripcion',
-    'calificacion',
+    'apps.usuario',
+    'apps.estudiante',
+    'apps.profesor',
+    'apps.curso',
+    'apps.seccion',
+    'apps.inscripcion',
+    'apps.calificacion',
 ]
 
 MIDDLEWARE = [
