@@ -23,26 +23,26 @@ def signup_profesor(request):
             login(request, user)
             return redirect('inicio_profesor')
         else:
-            return render(request, 'signup_profesor.html', {'form': form, 'error': 'Datos no válidos. Intente nuevamente.'})
+            return render(request, 'profesor/signup_profesor.html', {'form': form, 'error': 'Datos no válidos. Intente nuevamente.'})
     else:
         form = RegistroProfesorForm()
-    return render(request, 'signup_profesor.html', {'form': form})
+    return render(request, 'profesor/signup_profesor.html', {'form': form})
 
 @login_required
 def inicio_profesor(request):
-    return render(request, 'inicio_profesor.html')
+    return render(request, 'profesor/inicio_profesor.html')
 
 @login_required
 def mis_cursos(request):
     from curso.models import Curso
     cursos = Curso.objects.filter(profesor=request.user.profesor).order_by('ultima_modificacion')
     if not cursos:
-        return render(request, 'cursos_profesor.html')
+        return render(request, 'profesor/cursos_profesor.html')
     paginator = Paginator(cursos, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'cursos_profesor.html', {'page_obj': page_obj})
+    return render(request, 'profesor/cursos_profesor.html', {'page_obj': page_obj})
 
 @login_required
 def crear_curso(request):
@@ -57,8 +57,8 @@ def crear_curso(request):
         curso = factory.create_curso(nombre=nombre, descripcion=descripcion, categoria=categoria, nivel=nivel, profesor=profesor)
         if curso:
             return redirect('cursos_profesor')
-        return render(request, 'crear_curso.html', {'error2': 'Datos no válidos. Intente nuevamente.'})
-    return render(request, 'crear_curso.html')
+        return render(request, 'profesor/crear_curso.html', {'error2': 'Datos no válidos. Intente nuevamente.'})
+    return render(request, 'profesor/crear_curso.html')
 
 @login_required
 def crear_seccion(request, curso_id):
@@ -72,12 +72,12 @@ def crear_seccion(request, curso_id):
         seccion = factory.create_seccion(curso=curso, nombre=nombre, descripcion=descripcion)
         if seccion:
             return redirect('detalle_curso', curso_id=curso.id)
-        return render(request, 'crear_seccion.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso})
-    return render(request, 'crear_seccion.html', {'curso': curso})
+        return render(request, 'profesor/crear_seccion.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso})
+    return render(request, 'profesor/crear_seccion.html', {'curso': curso})
 
 @login_required
 def detalle_curso(request, curso_id):
     from curso.models import Curso
     curso = get_object_or_404(Curso, id=curso_id)
     secciones = curso.seccion_set.all()
-    return render(request, 'detalle_curso.html', {'curso': curso, 'secciones': secciones})
+    return render(request, 'profesor/detalle_curso.html', {'curso': curso, 'secciones': secciones})

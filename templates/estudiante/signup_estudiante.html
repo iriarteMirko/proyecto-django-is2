@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 
 {% block content %}
 
 <main class="container py-4">
     <div class="flex-column align-items-center p-5">
-        <h1 class="text-center">Soy Profesor</h1>
-        <form method="POST" action="{% url "signup_profesor" %}" class="card card-body col-md-6 offset-md-3">
+        <h1 class="text-center">Soy Estudiante</h1>
+        <form method="POST" action="{% url "signup_estudiante" %}" class="card card-body col-md-6 offset-md-3">
             {% csrf_token %}
             <div class="input-group mb-3">
                 <span class="input-group-text">Código:</span>
@@ -29,12 +29,40 @@
                 <input type="text" name="apellidos" id="apellidos" class="form-control {% if form.apellidos.errors %}is-invalid{% endif %}" maxlength="100" placeholder="Apellidos" required>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text">Profesión:</span>
-                <input type="text" name="profesion" id="profesion" class="form-control" maxlength="100" placeholder="Ingresar profesion" required>
+                <label class="input-group-text" for="carrera">Carrera:</label>
+                    <select class="form-select {% if form.carrera.errors %}is-invalid{% endif %}" name="carrera" id="carrera" required>
+                        <option value=>Seleccionar carrera</option>
+                        <option value="Arquitectura">Arquitectura</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Contabilidad y Finanzas">Contabilidad y Finanzas</option>
+                        <option value="Economía">Economía</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Negocios Internacionales">Negocios Internacionales</option>
+                        <option value="Comunicación">Comunicación</option>
+                        <option value="Derecho">Derecho</option>
+                        <option value="Ingeniería Civil">Ingeniería Civil</option>
+                        <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                        <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                        <option value="Psicología">Psicología</option>
+                </select>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text">Centro Laboral:</span>
-                <input type="text" name="centro_laboral" id="centro_laboral" class="form-control" maxlength="100" placeholder="Ingresar Centro Laboral" required>
+                <label class="input-group-text" for="ciclo" >Ciclo:</label>
+                <select class="form-select {% if form.ciclo.errors %}is-invalid{% endif %}" name="ciclo" id="ciclo" required>
+                    <option value=>Seleccionar ciclo</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
             </div>
             {% if error %}
                 <p class="text-center mt-3" style="color:red">{{ error }}</p>

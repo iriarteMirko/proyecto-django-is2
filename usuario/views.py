@@ -11,10 +11,10 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
 
 def inicio(request):
-    return render(request, 'inicio.html')
+    return render(request, 'usuario/inicio.html')
 
 def signup(request):
-    return render(request, 'signup.html')
+    return render(request, 'usuario/signup.html')
 
 def signin(request):
     if request.method == 'POST':
@@ -26,8 +26,8 @@ def signin(request):
             if user.es_estudiante == True:
                 return redirect('inicio_estudiante')
             return redirect('inicio_profesor')
-        return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'Código o contraseña incorrectos.'})
-    return render(request, 'signin.html', {'form': AuthenticationForm})
+        return render(request, 'usuario/signin.html', {'form': AuthenticationForm, 'error': 'Código o contraseña incorrectos.'})
+    return render(request, 'usuario/signin.html', {'form': AuthenticationForm})
 
 @login_required
 def signout(request):
@@ -44,7 +44,7 @@ def mi_perfil(request):
     elif user.es_profesor:
         profesor = user.profesor
         contexto['profesor'] = profesor
-    return render(request, 'perfil.html', contexto)
+    return render(request, 'usuario/perfil.html', contexto)
 
 @login_required
 def editar_perfil(request):
@@ -56,7 +56,7 @@ def editar_perfil(request):
     elif user.es_profesor:
         profesor = user.profesor
         contexto['profesor'] = profesor
-    return render(request, 'editar_perfil.html', contexto)
+    return render(request, 'usuario/editar_perfil.html', contexto)
 
 def validar_datos(request, user):
     codigo = request.POST.get('codigo')
@@ -89,9 +89,9 @@ def actualizar_perfil(request):
         if error:
             if user.es_estudiante:
                 estudiante = user.estudiante
-                return render(request, 'editar_perfil.html', {'estudiante': estudiante, 'error': error})
+                return render(request, 'usuario/editar_perfil.html', {'estudiante': estudiante, 'error': error})
             profesor = user.profesor
-            return render(request, 'editar_perfil.html', {'profesor': profesor, 'error': error})
+            return render(request, 'usuario/editar_perfil.html', {'profesor': profesor, 'error': error})
         user.codigo = datos_comunes['codigo']
         user.email = datos_comunes['email']
         user.nombre = datos_comunes['nombre']
@@ -106,7 +106,7 @@ def actualizar_perfil(request):
                 estudiante.ciclo = ciclo
                 estudiante.save()
             else:
-                return render(request, 'editar_perfil.html', {'estudiante': estudiante, 'error': 'Datos no válidos. Intente nuevamente.'})
+                return render(request, 'usuario/editar_perfil.html', {'estudiante': estudiante, 'error': 'Datos no válidos. Intente nuevamente.'})
             user.save()
             return redirect('perfil')
         elif user.es_profesor:
@@ -118,7 +118,7 @@ def actualizar_perfil(request):
                 profesor.centro_laboral = centro_laboral
                 profesor.save()
             else:
-                return render(request, 'editar_perfil.html', {'profesor': profesor, 'error': 'Datos no válidos. Intente nuevamente.'})
+                return render(request, 'usuario/editar_perfil.html', {'profesor': profesor, 'error': 'Datos no válidos. Intente nuevamente.'})
             user.save()
             return redirect('perfil')
         
@@ -130,7 +130,7 @@ def actualizar_perfil(request):
         profesor = user.profesor
         contexto['profesor'] = profesor
     
-    return render(request, 'editar_perfil.html', contexto)
+    return render(request, 'usuario/editar_perfil.html', contexto)
 
 @login_required
 def cambiar_imagen(request):
@@ -140,7 +140,7 @@ def cambiar_imagen(request):
         user.imagen = imagen
         user.save()
         return redirect('perfil')
-    return render(request, 'editar_perfil.html', {'user': user, 'error1': 'Datos no válidos. Intente nuevamente.'})
+    return render(request, 'usuario/editar_perfil.html', {'user': user, 'error1': 'Datos no válidos. Intente nuevamente.'})
 
 def validar_password(password):
     if len(password) < 8:
@@ -170,17 +170,17 @@ def cambiar_contrasena(request):
                 error = validar_password(new_password)
                 if error:
                     contexto['error2'] = error
-                    return render(request, 'editar_perfil.html', contexto)
+                    return render(request, 'usuario/editar_perfil.html', contexto)
                 user.set_password(new_password)
                 user.save()
                 logout(request)
                 return redirect('signin')
             contexto['error2'] = 'Las contraseñas no coinciden.'
-            return render(request, 'editar_perfil.html', contexto)
+            return render(request, 'usuario/editar_perfil.html', contexto)
         contexto['error2'] = 'Contraseña incorrecta.'
-        return render(request, 'editar_perfil.html', contexto)
+        return render(request, 'usuario/editar_perfil.html', contexto)
     contexto['error2'] = 'Datos no válidos. Intente nuevamente.'
-    return render(request, 'editar_perfil.html', contexto)
+    return render(request, 'usuario/editar_perfil.html', contexto)
 
 @login_required
 def eliminar_cuenta(request):
@@ -190,4 +190,4 @@ def eliminar_cuenta(request):
 
 def error_404_view(request, exception):
     user = request.user
-    return render(request, '404.html', {'user': user}, status=404)
+    return render(request, 'base/404.html', {'user': user}, status=404)
