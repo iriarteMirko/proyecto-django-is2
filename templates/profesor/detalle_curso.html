@@ -3,35 +3,63 @@
 {% block content %}
 
 <main class="container py-4" style="min-height: 80vh;">
+    <!-- Título y botones -->
     <div class="row">
         <!-- Barra lateral -->
         <div class="col-md-3">
-            <h4>Secciones del Curso</h4>
-            <ul class="list-group mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1>{{ curso.nombre }}</h1>
+            </div>
+            <ul class="list-group mb-3 custom-sidebar">
+                <li class="list-group-item">
+                    <a href="#informacion-curso">Información del curso</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#material-curso">Material del curso</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#asesoria">Asesoría</a>
+                </li>
                 {% for seccion in secciones %}
                     <li class="list-group-item">
                         <a href="#seccion-{{ seccion.id }}">{{ seccion.nombre }}</a>
                     </li>
                 {% endfor %}
             </ul>
-            <a class="btn btn-success w-100" href="{% url 'crear_seccion' curso.id %}">Agregar Sección</a>
         </div>
         <!-- Contenido del curso -->
         <div class="col-md-9">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1>{{ curso.nombre }}</h1>
-                <a class="btn btn-secondary" href="">Editar Curso</a>
-            </div>
-            <div class="card">
+            <div id="informacion-curso" class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">Categoría: {{ curso.categoria }}</h5>
-                    <p class="card-text">{{ curso.descripcion }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">Información del curso</h5>
+                        <a class="btn btn-secondary px-4 py-2" href="">Editar curso</a>
+                    </div>
+                    <p class="card-text">Aquí puedes incluir información general del curso.</p>
+                </div>
+            </div>
+            <div id="material-curso" class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">Material del curso</h5>
+                        <a class="btn btn-success px-4 py-2" href="">Agregar sección</a>
+                    </div>
+                    <p class="card-text">Aquí puedes incluir el material del curso.</p>
+                </div>
+            </div>
+            <div id="asesoria" class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">Asesoría</h5>
+                        <a class="btn btn-success px-4 py-2" href="">Agregar asesoría</a>
+                    </div>
+                    <p class="card-text">Aquí puedes incluir información sobre asesorías.</p>
                 </div>
             </div>
             <!-- Secciones del curso -->
             {% for seccion in secciones %}
                 <div id="seccion-{{ seccion.id }}" class="card mt-4">
-                    <div class="card-body">003
+                    <div class="card-body">
                         <h5 class="card-title">{{ seccion.nombre }}</h5>
                         <p class="card-text">{{ seccion.descripcion }}</p>
                     </div>
