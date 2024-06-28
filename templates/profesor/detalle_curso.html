@@ -8,17 +8,18 @@
         <!-- Barra lateral -->
         <div class="col-md-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1>{{ curso.nombre }}</h1>
+                <h2>{{ curso.nombre }}</h2>
+                <h5 class="text-secondary">Curso</h5>
             </div>
             <ul class="list-group mb-3 custom-sidebar">
                 <li class="list-group-item">
-                    <a href="#" onclick="showContent('informacion-curso')">Información del curso</a>
+                    <a href="#" onclick="showContent('informacion-curso', this)">Información del curso</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" onclick="showContent('material-curso')">Material del curso</a>
+                    <a href="#" onclick="showContent('material-curso', this)">Material del curso</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" onclick="showContent('asesoria')">Asesoría</a>
+                    <a href="#" onclick="showContent('asesoria', this)">Asesoría</a>
                 </li>
             </ul>
         </div>
@@ -59,7 +60,7 @@
 </main>
 
 <script>
-    function showContent(id) {
+    function showContent(id, element) {
         const contents = document.querySelectorAll('.content');
         contents.forEach(content => content.style.display = 'none');
         
@@ -67,6 +68,10 @@
         if (activeContent) {
             activeContent.style.display = 'block';
         }
+        // Manejo de la clase activa en la barra lateral
+        const links = document.querySelectorAll('.custom-sidebar .list-group-item a');
+        links.forEach(link => link.classList.remove('active'));
+        element.classList.add('active');
     }
 </script>
 
