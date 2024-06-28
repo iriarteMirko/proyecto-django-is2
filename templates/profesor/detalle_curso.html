@@ -2,28 +2,42 @@
 
 {% block content %}
 
-<main class="container py-4 d-flex flex-column justify-content-between" style="min-height: 80vh;">
-    <div class="flex-column align-items-center">
-        <div class="d-flex justify-content-between align-items-center my-3">
-            <h1>{{ curso.nombre }}</h1>
-            <a class="btn btn-secondary px-4 py-2" href="">Editar Curso</a>
+<main class="container py-4" style="min-height: 80vh;">
+    <div class="row">
+        <!-- Barra lateral -->
+        <div class="col-md-3">
+            <h4>Secciones del Curso</h4>
+            <ul class="list-group mb-3">
+                {% for seccion in secciones %}
+                    <li class="list-group-item">
+                        <a href="#seccion-{{ seccion.id }}">{{ seccion.nombre }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <a class="btn btn-success w-100" href="{% url 'crear_seccion' curso.id %}">Agregar Sección</a>
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Categoría: {{ curso.categoria }}</h5>
-            <p class="card-text">{{ curso.descripcion }}</p>
+        <!-- Contenido del curso -->
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1>{{ curso.nombre }}</h1>
+                <a class="btn btn-secondary" href="">Editar Curso</a>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Categoría: {{ curso.categoria }}</h5>
+                    <p class="card-text">{{ curso.descripcion }}</p>
+                </div>
+            </div>
+            <!-- Secciones del curso -->
+            {% for seccion in secciones %}
+                <div id="seccion-{{ seccion.id }}" class="card mt-4">
+                    <div class="card-body">003
+                        <h5 class="card-title">{{ seccion.nombre }}</h5>
+                        <p class="card-text">{{ seccion.descripcion }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
-    <div class="mt-4">
-        <h3>Secciones del Curso</h3>
-        <ul class="list-group">
-        {% for seccion in secciones %}
-            <li class="list-group-item">
-                <h5>{{ seccion.nombre }}</h5>
-                <p>{{ seccion.descripcion }}</p>
-            </li>
-        {% endfor %}
-        </ul>
-        <a class="btn btn-success mt-3" href="{% url "crear_seccion" curso.id %}">Agregar Sección</a>
     </div>
 </main>
 

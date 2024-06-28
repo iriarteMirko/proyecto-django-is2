@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from rest_framework import viewsets
 from .serializer import UsuarioSerializer
 from .models import Usuario
@@ -25,7 +26,10 @@ def signin(request):
             login(request, user)
             if user.es_estudiante == True:
                 return redirect('inicio_estudiante')
-            return redirect('inicio_profesor')
+            elif user.es_profesor == True:
+                return redirect('inicio_profesor')
+            else:
+                return redirect(reverse('admin:index'))
         return render(request, 'usuario/signin.html', {'form': AuthenticationForm, 'error': 'Código o contraseña incorrectos.'})
     return render(request, 'usuario/signin.html', {'form': AuthenticationForm})
 
