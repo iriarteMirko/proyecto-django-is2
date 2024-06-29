@@ -24,7 +24,7 @@ class Curso(models.Model):
         ('Experto', 'Experto'),
     ]
     nombre = models.CharField(max_length=100, blank=False, null=False)
-    descripcion = models.TextField(max_length=250, blank=True, null=True)
+    descripcion = models.TextField(max_length=500, blank=True, null=True)
     categoria = models.CharField(max_length=100, choices=CATEGORIA_OPCIONES, blank=False, null=False)
     nivel = models.CharField(max_length=100, choices=NIVEL_OPCIONES, blank=False, null=False)
     calificacion_promedio = models.FloatField(default=0, editable=False)

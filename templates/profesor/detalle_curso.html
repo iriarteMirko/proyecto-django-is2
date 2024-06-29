@@ -27,11 +27,13 @@
             <!-- Información del curso -->
             <div id="informacion-curso" class="card mb-4 content">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title">Información del curso</h5>
                         <a class="btn btn-secondary px-4 py-2" href="">Editar curso</a>
                     </div>
-                    <p class="card-text">Aquí puedes incluir información general del curso.</p>
+                    <div>
+                        <p class="card-text">{{ curso.descripcion }}</p>
+                    </div>
                 </div>
             </div>
             <!-- Material del curso -->
