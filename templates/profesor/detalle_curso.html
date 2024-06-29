@@ -15,7 +15,7 @@
                     <a href="#" onclick="showContent('informacion-curso', this)">Información del curso</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" onclick="showContent('material-curso', this)">Material del curso</a>
+                    <a href="#" onclick="showContent('contenido-curso', this)">Contenido del curso</a>
                 </li>
                 <li class="list-group-item">
                     <a href="#" onclick="showContent('asesoria', this)">Asesoría</a>
@@ -27,33 +27,54 @@
             <!-- Información del curso -->
             <div id="informacion-curso" class="card mb-4 content">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title">Información del curso</h5>
+                    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
+                        <h3 class="card-title mb-0">{{ curso.nombre }}</h3>
                         <a class="btn btn-secondary px-4 py-2" href="">Editar curso</a>
                     </div>
-                    <div>
+                    <div class="mb-3">
+                        <h5 class="card-title">Descripción:</h5>
                         <p class="card-text">{{ curso.descripcion }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="card-title">Categoría:</h5>
+                        <p class="card-text">{{ curso.categoria }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="card-title">Nivel:</h5>
+                        <p class="card-text">{{ curso.nivel }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="card-title">Fecha de creación:</h5>
+                        <p class="card-text">{{ curso.fecha_creacion }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="card-title">Última modificación:</h5>
+                        <p class="card-text">{{ curso.ultima_modificacion }}</p>
                     </div>
                 </div>
             </div>
-            <!-- Material del curso -->
-            <div id="material-curso" class="card mb-4 content" style="display: none;">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">Material del curso</h5>
+            <!-- Contenido del curso -->
+            <div id="contenido-curso" class="card mb-4 content" style="display: none;">
+                <div class="card-body"> 
+                    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
+                        <h3 class="card-title mb-0">Contenido del curso</h3>
                         <a class="btn btn-success px-4 py-2" href="">Agregar sección</a>
                     </div>
-                    <p class="card-text">Aquí puedes incluir el material del curso.</p>
+                    <div class="mb-3">
+                        <p class="card-text">Aquí puedes incluir el contenido del curso.</p>
+                    </div>
                 </div>
             </div>
             <!-- Asesoría -->
             <div id="asesoria" class="card mb-4 content" style="display: none;">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">Asesoría</h5>
+                    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
+                        <h3 class="card-title mb-0">Asesoría</h3>
                         <a class="btn btn-success px-4 py-2" href="">Agregar asesoría</a>
                     </div>
-                    <p class="card-text">Aquí puedes incluir información sobre asesorías.</p>
+                    <div class="mb-3">
+                        <p class="card-text">Aquí puedes incluir el contenido del curso.</p>
+                    </div>
                 </div>
             </div>
         </div>
