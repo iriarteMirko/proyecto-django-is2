@@ -5,12 +5,12 @@
 <main class="container py-4" style="min-height: 80vh;">
     <div class="row">
         <!-- Barra lateral -->
-        <div class="col-md-3">
+        <div class="col-md-3 my-3">
             <div class="col-12 mb-3">
                 <h1>{{ curso.nombre }}</h1>
                 <h5 class="text-secondary">Curso</h5>
             </div>
-            <ul class="list-group mb-3 custom-sidebar">
+            <ul class="list-group mb-3 custom-sidebar card">
                 <li class="list-group-item">
                     <a href="#" onclick="showContent('informacion-curso', this)">Información del curso</a>
                 </li>
@@ -23,12 +23,12 @@
             </ul>
         </div>
         <!-- Contenido del curso -->
-        <div class="col-md-9">
+        <div class="col-md-9 my-3">
             <!-- Información del curso -->
             <div id="informacion-curso" class="card mb-4 content">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
-                        <h3 class="card-title mb-0">{{ curso.nombre }}</h3>
+                        <h1 class="card-title mb-0">{{ curso.nombre }}</h1>
                         <a class="btn btn-secondary px-4 py-2" href="">Editar curso</a>
                     </div>
                     <div class="mb-3">
@@ -57,7 +57,7 @@
             <div id="contenido-curso" class="card mb-4 content" style="display: none;">
                 <div class="card-body"> 
                     <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
-                        <h3 class="card-title mb-0">Contenido del curso</h3>
+                        <h1 class="card-title mb-0">Contenido del curso</h1>
                         <a class="btn btn-success px-4 py-2" href="">Agregar sección</a>
                     </div>
                     <div class="mb-3">
@@ -69,7 +69,7 @@
             <div id="asesoria" class="card mb-4 content" style="display: none;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
-                        <h3 class="card-title mb-0">Asesoría</h3>
+                        <h1 class="card-title mb-0">Asesoría</h1>
                         <a class="btn btn-success px-4 py-2" href="">Agregar asesoría</a>
                     </div>
                     <div class="mb-3">
