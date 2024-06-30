@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .factories import CursoConcreteFactory
 from .serializer import ProfesorSerializer
@@ -33,18 +32,6 @@ def inicio_profesor(request):
     return render(request, 'profesor/inicio_profesor.html')
 
 @login_required
-def mis_cursos(request):
-    from apps.curso.models import Curso
-    cursos = Curso.objects.filter(profesor=request.user.profesor).order_by('ultima_modificacion')
-    if not cursos:
-        return render(request, 'profesor/cursos_profesor.html')
-    paginator = Paginator(cursos, 8)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    
-    return render(request, 'profesor/cursos_profesor.html', {'page_obj': page_obj})
-
-@login_required
 def crear_curso(request):
     factory = CursoConcreteFactory()
     if request.method == 'POST':
@@ -74,10 +61,3 @@ def crear_seccion(request, curso_id):
             return redirect('detalle_curso', curso_id=curso.id)
         return render(request, 'profesor/crear_seccion.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso})
     return render(request, 'profesor/crear_seccion.html', {'curso': curso})
-
-@login_required
-def detalle_curso(request, curso_id):
-    from apps.curso.models import Curso
-    curso = get_object_or_404(Curso, id=curso_id)
-    secciones = curso.seccion_set.all()
-    return render(request, 'profesor/detalle_curso.html', {'curso': curso, 'secciones': secciones})
