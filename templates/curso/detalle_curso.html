@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h1 class="card-title mb-0">{{ curso.nombre }}</h1>
-                        <a class="btn btn-secondary px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-EditarCurso">Editar curso</a>
+                        <a class="btn btn-secondary px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-EditarCurso">Editar Curso</a>
                     </div>
                     <div class="card custom-card">
                         <div class="mb-3">
@@ -106,7 +106,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text">Descripción:</span>
                         <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" 
-                        maxlength="500" placeholder="Descripción del curso" required>{{ curso.descripcion }}</textarea>
+                        maxlength="500" placeholder="Descripción del curso" style="height: 150px;" required>{{ curso.descripcion }}</textarea>
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="categoria">Categoría:</label>
@@ -138,7 +138,7 @@
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
-                        <button class="btn btn-primary">Editar</button>
+                        <button class="btn btn-primary">Guardar cambios</button>
                     </div>
                     {% if error %}
                     <p class="text-center mt-3" style="color:red">{{ error }}</p>
