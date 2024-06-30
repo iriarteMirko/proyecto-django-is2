@@ -10,6 +10,6 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('lista-de-cursos/', views.mis_cursos, name='cursos_profesor'),
     path('<int:curso_id>/<str:curso_nombre>/', views.detalle_curso, name='detalle_curso_profesor'),
-    path('editar-curso/', views.editar_curso, name='editar_curso'),
+    path('editar-curso/<int:curso_id>/', views.editar_curso, name='editar_curso'),
     
 ]

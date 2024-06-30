@@ -25,7 +25,7 @@
         <!-- Contenido del curso -->
         <div class="col-md-9 my-3">
             <!-- Información del curso -->
-            <div id="informacion-curso" class="card mb-4 content">
+            <div id="informacion-curso" class="card mb-4 content" style="display: block;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h1 class="card-title mb-0">{{ curso.nombre }}</h1>
@@ -96,12 +96,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{% url "editar_curso" %}">
+                <form method="POST" action="{% url "editar_curso" curso.id %}">
                     {% csrf_token %}
                     <div class="input-group mb-3">
                         <span class="input-group-text">Nombre:</span>
                         <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" 
-                        maxlength="100" placeholder="Nombre" value={{ curso.nombre }} required>
+                        maxlength="100" placeholder="Nombre" value="{{ curso.nombre }}" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Descripción:</span>

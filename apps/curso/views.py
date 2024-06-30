@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .serializer import CursoSerializer
+from .form import CursoForm
 from .models import Curso
 
 class CursoViewSet(viewsets.ModelViewSet):
@@ -34,7 +35,7 @@ def editar_curso(request, curso_id):
         form = CursoForm(request.POST, instance=curso)
         if form.is_valid():
             form.save()
-            return redirect('detalle_curso', curso_id=curso.id, curso_nombre=curso.nombre)
+            return redirect('detalle_curso_profesor', curso_id=curso.id, curso_nombre=curso.nombre)
     else:
         form = CursoForm(instance=curso)
-    return render(request, 'curso/editar_curso.html', {'form': form})
+    return render(request, 'curso/editar_curso.html', {'form': form, 'curso': curso})
