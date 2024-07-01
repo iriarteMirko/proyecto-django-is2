@@ -12,13 +12,13 @@
             </div>
             <ul class="list-group mb-3 custom-sidebar card">
                 <li class="list-group-item">
-                    <a href="#" class="active" onclick="showContent('informacion-curso-contenedor', this)">Información del curso</a>
+                    <a class="active" onclick="showContent('informacion-curso-contenedor', this)">Información del curso</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" onclick="showContent('contenido-curso', this)">Contenido del curso</a>
+                    <a onclick="showContent('contenido-curso', this)">Contenido del curso</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" onclick="showContent('asesoria', this)">Asesoría</a>
+                    <a onclick="showContent('asesoria', this)">Asesoría</a>
                 </li>
             </ul>
         </div>
@@ -86,7 +86,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h1 class="card-title mb-0">Contenido del curso</h1>
-                            <a class="btn btn-success px-4 py-2" href="">Agregar sección</a>
+                            <a class="btn btn-success px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-AgregarSeccion">Agregar sección</a>
                         </div>
                         <div class="card custom-card mb-0">
                             <div class="mb-0">
@@ -168,6 +168,40 @@
                     <div class="modal-footer">
                         <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
                         <button class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                    {% if error %}
+                    <p class="text-center mt-3" style="color:red">{{ error }}</p>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar sección -->
+<div class="modal fade" id="Modal-AgregarSeccion" tabindex="-1" aria-labelledby="ModalLabel-AgregarSeccion" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel-AgregarSeccion">Agregar Sección</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url "crear_seccion" curso.id %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre:</span>
+                        <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" 
+                        maxlength="100" placeholder="Nombre" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Descripción:</span>
+                        <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" 
+                        maxlength="500" placeholder="Descripción de la sección" style="height: 150px;" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+                        <button class="btn btn-primary">Agregar sección</button>
                     </div>
                     {% if error %}
                     <p class="text-center mt-3" style="color:red">{{ error }}</p>

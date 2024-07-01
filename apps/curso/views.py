@@ -25,7 +25,7 @@ def mis_cursos(request):
 def detalle_curso(request, curso_id, curso_nombre):
     curso = get_object_or_404(Curso, id=curso_id)
     secciones = curso.seccion_set.all()
-    print(curso_nombre)
+    print(secciones)
     return render(request, 'curso/detalle_curso.html', {'curso': curso, 'secciones': secciones})
 
 @login_required

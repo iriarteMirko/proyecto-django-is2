@@ -44,8 +44,8 @@ def crear_curso(request):
         curso = factory.create_curso(nombre=nombre, descripcion=descripcion, categoria=categoria, nivel=nivel, profesor=profesor)
         if curso:
             return redirect('cursos_profesor')
-        return render(request, 'profesor/crear_curso.html', {'error2': 'Datos no válidos. Intente nuevamente.'})
-    return render(request, 'profesor/crear_curso.html')
+        return render(request, 'profesor/cursos_profesor.html', {'error2': 'Datos no válidos. Intente nuevamente.'})
+    return render(request, 'profesor/cursos_profesor.html')
 
 @login_required
 def crear_seccion(request, curso_id):
@@ -58,6 +58,6 @@ def crear_seccion(request, curso_id):
         # Crear sección
         seccion = factory.create_seccion(curso=curso, nombre=nombre, descripcion=descripcion)
         if seccion:
-            return redirect('detalle_curso', curso_id=curso.id)
-        return render(request, 'profesor/crear_seccion.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso})
-    return render(request, 'profesor/crear_seccion.html', {'curso': curso})
+            return redirect('detalle_curso_profesor', curso_id=curso.id, curso_nombre=curso.nombre)
+        return render(request, 'profesor/detalle_curso.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso})
+    return render(request, 'profesor/detalle_curso.html', {'curso': curso})
