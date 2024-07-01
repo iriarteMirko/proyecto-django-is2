@@ -1,0 +1,62 @@
+{% extends "curso/detalle_curso.html" %}
+
+{% block innercontent %}
+
+<!-- Contenedor para la información del curso y eliminación -->
+<div id="informacion-curso-contenedor" class="content" style="display: block;">
+    <!-- Información del curso -->
+    <div class="card p-xl-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="card-title mb-0">{{ curso.nombre }}</h1>
+                <a class="btn btn-secondary px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-EditarCurso">Editar Curso</a>
+            </div>
+            <div class="card custom-card mb-0">
+                <div class="mb-3">
+                    <h4 class="card-title">Descripción:</h4>
+                    <p class="card-text">{{ curso.descripcion }}</p>
+                </div>
+                <div class="mb-3">
+                    <h4 class="card-title">Categoría:</h4>
+                    <p class="card-text">{{ curso.categoria }}</p>
+                </div>
+                <div class="mb-3">
+                    <h4 class="card-title">Nivel:</h4>
+                    <p class="card-text">{{ curso.nivel }}</p>
+                </div>
+                <div class="mb-3">
+                    <h4 class="card-title">Fecha de creación:</h4>
+                    <p class="card-text">{{ curso.fecha_creacion }}</p>
+                </div>
+                <div class="mb-0">
+                    <h4 class="card-title">Última modificación:</h4>
+                    <p class="card-text">{{ curso.ultima_modificacion }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Eliminar curso -->
+    <div class="card p-xl-3">
+        <form method="POST" action="{% url "eliminar_curso" curso.id %}">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
+                    <h2 class="card-title mb-0">Eliminar curso</h2>
+                </div>
+                <div class="alert alert-warning d-flex mb-4">
+                    <i class="ai-triangle-alert fs-xl me-2"></i>
+                    <p class="mb-0">Si eliminas este curso, perderás el acceso y todo el contenido relacionado con este curso. ¿Estás seguro de que quieres eliminar este curso?</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="confirm" required>
+                    <label class="form-check-label text-dark fw-medium" for="confirm">Si, quiero eliminar este curso.</label>
+                </div>
+                <div class="d-flex flex-column flex-sm-row justify-content-end pt-4 mt-sm-2 mt-md-3">
+                    <button class="btn btn-danger px-4 py-2">Eliminar Curso</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
