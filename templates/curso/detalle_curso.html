@@ -89,9 +89,29 @@
                             <a class="btn btn-success px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-AgregarSeccion">Agregar sección</a>
                         </div>
                         <div class="card custom-card mb-0">
+                            {% if secciones %}
+                                <div class="accordion" id="accordionPanelsStayOpenExample">
+                                    {% for seccion in secciones %}
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                            {{ seccion.nombre }}
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                            <div class="accordion-body">
+                                                <strong>{{ seccion.nombre }}.</strong> {{ seccion.nombre }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
                             <div class="mb-0">
                                 <p class="card-text">Aquí puedes incluir el contenido del curso.</p>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
