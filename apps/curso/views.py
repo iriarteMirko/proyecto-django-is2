@@ -39,3 +39,9 @@ def editar_curso(request, curso_id):
     else:
         form = CursoForm(instance=curso)
     return render(request, 'curso/editar_curso.html', {'form': form, 'curso': curso})
+
+@login_required
+def eliminar_curso(request, curso_id):
+    curso = get_object_or_404(Curso, id=curso_id)
+    curso.delete()
+    return redirect('cursos_profesor')
