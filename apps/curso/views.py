@@ -48,6 +48,7 @@ def eliminar_curso(request, curso_id):
 @login_required
 def informacion_curso(request, curso_id, curso_nombre):
     curso = get_object_or_404(Curso, id=curso_id)
+    print(request.path)
     return render(request, 'curso/informacion_curso.html', {'curso': curso})
 
 @login_required

@@ -1,0 +1,95 @@
+<!-- Modal para editar curso -->
+<div class="modal fade" id="Modal-EditarCurso" tabindex="-1" aria-labelledby="ModalLabel-EditarCurso" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel-EditarCurso">Editar Curso</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url "editar_curso" curso.id %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre:</span>
+                        <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" 
+                        maxlength="100" placeholder="Nombre" value="{{ curso.nombre }}" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Descripción:</span>
+                        <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" 
+                        maxlength="500" placeholder="Descripción del curso" style="height: 150px;" required>{{ curso.descripcion }}</textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="categoria">Categoría:</label>
+                        <select class="form-select {% if form.categoria.errors %}is-invalid{% endif %}" name="categoria" id="categoria" required>
+                            <option value="{{ curso.categoria }}">{{ curso.categoria }}</option>
+                            <option value="Desarrollo">Desarrollo</option>
+                            <option value="Negocios">Negocios</option>
+                            <option value="Finanzas">Finanzas</option>
+                            <option value="Contabilidad">Contabilidad</option>
+                            <option value="Informática y Software">Informática y Software</option>
+                            <option value="Productividad">Productividad</option>
+                            <option value="Diseño">Diseño</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Economía">Economía</option>
+                            <option value="Administración">Administración</option>
+                            <option value="Derecho">Derecho</option>
+                            <option value="Gestión de Proyectos">Gestión de Proyectos</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="nivel">Nivel:</label>
+                        <select class="form-select {% if form.nivel.errors %}is-invalid{% endif %}" name="nivel" id="nivel" required>
+                            <option value="{{ curso.nivel }}">{{ curso.nivel }}</option>
+                            <option value="Principiante">Principiante</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado">Avanzado</option>
+                            <option value="Experto">Experto</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+                        <button class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                    {% if error %}
+                    <p class="text-center mt-3" style="color:red">{{ error }}</p>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar sección -->
+<div class="modal fade" id="Modal-AgregarSeccion" tabindex="-1" aria-labelledby="ModalLabel-AgregarSeccion" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel-AgregarSeccion">Agregar Sección</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url "crear_seccion" curso.id %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre:</span>
+                        <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" 
+                        maxlength="100" placeholder="Nombre" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Descripción:</span>
+                        <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" 
+                        maxlength="500" placeholder="Descripción de la sección" style="height: 150px;" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+                        <button class="btn btn-primary">Agregar sección</button>
+                    </div>
+                    {% if error %}
+                    <p class="text-center mt-3" style="color:red">{{ error }}</p>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
