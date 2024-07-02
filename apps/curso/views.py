@@ -60,3 +60,10 @@ def contenido_curso(request, curso_id, curso_nombre):
 def asesoria_curso(request, curso_id, curso_nombre):
     curso = get_object_or_404(Curso, id=curso_id)
     return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'page': 'asesoria'})
+
+@login_required
+def estudiantes_curso(request, curso_id, curso_nombre):
+    curso = get_object_or_404(Curso, id=curso_id)
+    inscripciones = curso.inscripcion_set.all()
+    estudiantes = [inscripcion.estudiante for inscripcion in inscripciones]
+    return render(request, 'curso/estudiantes_curso.html', {'curso': curso, 'estudiantes': estudiantes, 'page': 'estudiantes'})

@@ -12,13 +12,16 @@
             </div>
             <ul class="list-group mb-3 custom-sidebar card">
                 <li class="list-group-item">
-                    <a href="{% url "informacion_curso" curso.id curso.nombre %}" class="{% if page != 'contenido' and page != 'asesoria' %}active{% endif %}">Información del curso</a>
+                    <a href="{% url "informacion_curso" curso.id curso.nombre %}" class="{% if if page not in ['contenido', 'asesoria', 'estudiantes'] %}active{% endif %}">Información del curso</a>
                 </li>
                 <li class="list-group-item">
                     <a href="{% url "contenido_curso" curso.id curso.nombre %}" class="{% if page == 'contenido' %}active{% endif %}">Contenido del curso</a>
                 </li>
                 <li class="list-group-item">
                     <a href="{% url "asesoria_curso" curso.id curso.nombre %}" class="{% if page == 'asesoria' %}active{% endif %}">Asesoría</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url "estudiantes_curso" curso.id curso.nombre %}" class="{% if page == 'estudiantes' %}active{% endif %}">Estudiantes</a>
                 </li>
             </ul>
         </div>
