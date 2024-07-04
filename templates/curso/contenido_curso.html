@@ -14,16 +14,57 @@
                 {% if secciones %}
                     <div class="accordion" id="accordionPanelsStayOpenExample">
                         {% for seccion in secciones %}
-                        <div class="accordion-item">
+                        <div class="accordion-item" style="--bs-accordion-active-bg: #F2F3F4; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(93, 109, 126, 0.25);">
                             <h2 class="accordion-header" id="heading{{ forloop.counter }}">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
                                 data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
-                                {{ seccion.nombre }}
+                                <h5><b>{{ seccion.nombre }}</b></h1>
                                 </button>
                             </h2>
                             <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}">
                                 <div class="accordion-body">
-                                    <strong>{{ seccion.nombre }}.</strong> {{ seccion.descripcion }}
+                                    <strong>Descripción: </strong> {{ seccion.descripcion }}
+                                    <!-- Botones al final de cada sección -->
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <a class="btn btn-primary" href="#">Añadir material</a>
+                                        <div>
+                                            <a class="btn btn-secondary" href="#">Editar</a>
+                                            <a class="btn btn-danger" href="#">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal para editar sección -->
+                        <div class="modal fade" id="Modal-EditarSeccion" tabindex="-1" aria-labelledby="ModalLabel-EditarSeccion" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="ModalLabel-EditarSeccion">Editar Sección</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="{% url 'editar_seccion' seccion.id %}">
+                                            {% csrf_token %}
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Nombre:</span>
+                                                <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}"
+                                                placeholder="Nombre de la sección" value="{{ seccion.nombre }}" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Descripción:</span>
+                                                <textarea name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}"
+                                                placeholder="Descripción de la sección" style="height: 150px;" required>{{ seccion.descripcion }}</textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                            </div>
+                                            {% if error %}
+                                            <p class="text-center mt-3" style="color:red">{{ error }}</p>
+                                            {% endif %}
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -34,6 +75,40 @@
                     <p class="card-text">Aquí puedes incluir el contenido del curso.</p>
                 </div>
                 {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar sección -->
+<div class="modal fade" id="Modal-AgregarSeccion" tabindex="-1" aria-labelledby="ModalLabel-AgregarSeccion" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel-AgregarSeccion">Agregar Sección</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url "crear_seccion" curso.id %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre:</span>
+                        <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" 
+                        maxlength="100" placeholder="Nombre" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Descripción:</span>
+                        <textarea type="text" name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}" 
+                        maxlength="500" placeholder="Descripción de la sección" style="height: 150px;" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+                        <button class="btn btn-primary">Agregar sección</button>
+                    </div>
+                    {% if error %}
+                    <p class="text-center mt-3" style="color:red">{{ error }}</p>
+                    {% endif %}
+                </form>
             </div>
         </div>
     </div>

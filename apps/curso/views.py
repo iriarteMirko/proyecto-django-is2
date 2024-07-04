@@ -48,7 +48,8 @@ def eliminar_curso(request, curso_id):
 @login_required
 def informacion_curso(request, curso_id, curso_nombre):
     curso = get_object_or_404(Curso, id=curso_id)
-    return render(request, 'curso/informacion_curso.html', {'curso': curso})
+    secciones = curso.seccion_set.all()
+    return render(request, 'curso/informacion_curso.html', {'curso': curso, 'secciones': secciones})
 
 @login_required
 def contenido_curso(request, curso_id, curso_nombre):

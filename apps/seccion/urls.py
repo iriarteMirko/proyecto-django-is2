@@ -8,4 +8,6 @@ router.register(r'secciones', views.SeccionViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
+    path('<int:seccion_id>/editar-seccion/', views.editar_seccion, name='editar_seccion'),
+    path('<int:seccion_id>/eliminar-seccion/', views.eliminar_seccion, name='eliminar_seccion'),
 ]
