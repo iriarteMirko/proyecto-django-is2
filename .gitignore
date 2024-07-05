@@ -1,7 +1,5 @@
 # Ignora archivos de imagenes
-*.png
-*.jpg
-*.jpeg
+media/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
