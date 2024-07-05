@@ -33,7 +33,7 @@ class UsuarioManager(BaseUserManager):
             nombre=nombre,
             apellidos=apellidos,
             password=password
-        )
+        )   
         user.es_administrador = True
         user.save(using=self._db)
         return user
@@ -43,7 +43,7 @@ class Usuario(AbstractBaseUser):
     email = models.EmailField('Correo electrónico', max_length=100, unique=True)
     nombre = models.CharField('Nombre', max_length=50)
     apellidos = models.CharField('Apellidos', max_length=100)
-    imagen = models.ImageField('Imagen', upload_to='usuarios/', default='usuarios/default.jpg')
+    imagen = models.ImageField('Imagen', upload_to='usuarios/', default='usuarios/default-avatar.jpg')
     activo = models.BooleanField('Activo', default=True)
     es_estudiante = models.BooleanField('Estudiante', default=False)
     es_profesor = models.BooleanField('Profesor', default=False)
