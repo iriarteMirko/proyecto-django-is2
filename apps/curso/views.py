@@ -34,10 +34,7 @@ def editar_curso(request, curso_id):
         form = CursoForm(request.POST, instance=curso)
         if form.is_valid():
             form.save()
-            return redirect('informacion_curso', curso_id=curso.id, curso_nombre=curso.nombre)
-    else:
-        form = CursoForm(instance=curso)
-    return render(request, 'curso/editar_curso.html', {'form': form, 'curso': curso})
+    return redirect('informacion_curso', curso_id=curso.id, curso_nombre=curso.nombre)
 
 @login_required
 def eliminar_curso(request, curso_id):

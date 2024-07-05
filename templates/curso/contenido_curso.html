@@ -12,7 +12,7 @@
             </div>
             <div class="card custom-card mb-0">
                 {% if secciones %}
-                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion" id="accordionPanelsStayOpen">
                         {% for seccion in secciones %}
                         <div class="accordion-item" style="--bs-accordion-active-bg: #F2F3F4; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(93, 109, 126, 0.25);">
                             <h2 class="accordion-header" id="heading{{ forloop.counter }}">
@@ -24,7 +24,7 @@
                             <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}">
                                 <div class="accordion-body">
                                     <strong>Descripción: </strong> {{ seccion.descripcion }}
-                                    <!-- Botones al final de cada sección -->
+                                    <!-- Botones de cada sección -->
                                     <div class="d-flex justify-content-between mt-3">
                                         <a class="btn btn-primary" href="#">Añadir material</a>
                                         <div>
