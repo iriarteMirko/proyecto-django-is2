@@ -50,7 +50,7 @@ def contenido_curso(request, curso_id, curso_nombre):
 @login_required
 def asesoria_curso(request, curso_id, curso_nombre):
     curso = get_object_or_404(Curso, id=curso_id)
-    asesorias = curso.asesoria.all()
+    asesorias = curso.asesoria_set.all()
     return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'page': 'asesoria'})
 
 @login_required
