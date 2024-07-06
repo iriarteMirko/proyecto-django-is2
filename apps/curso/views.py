@@ -22,10 +22,10 @@ def mis_cursos(request):
     return render(request, 'curso/cursos_profesor.html', {'page_obj': page_obj})
 
 @login_required
-def detalle_curso(request, curso_id, curso_nombre):
+def informacion_curso(request, curso_id, curso_nombre):
     curso = get_object_or_404(Curso, id=curso_id)
     secciones = curso.seccion_set.all()
-    return render(request, 'curso/informacion_curso.html', {'curso': curso, 'secciones': secciones})
+    return render(request, 'curso/informacion_curso.html', {'curso': curso, 'secciones': secciones, 'page': 'informacion'})
 
 @login_required
 def editar_curso(request, curso_id):
@@ -41,12 +41,6 @@ def eliminar_curso(request, curso_id):
     curso = get_object_or_404(Curso, id=curso_id)
     curso.delete()
     return redirect('cursos_profesor')
-
-@login_required
-def informacion_curso(request, curso_id, curso_nombre):
-    curso = get_object_or_404(Curso, id=curso_id)
-    secciones = curso.seccion_set.all()
-    return render(request, 'curso/informacion_curso.html', {'curso': curso, 'secciones': secciones})
 
 @login_required
 def contenido_curso(request, curso_id, curso_nombre):
