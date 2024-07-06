@@ -28,8 +28,13 @@
                                     <div class="d-flex justify-content-between mt-3">
                                         <a class="btn btn-primary" href="#">Añadir material</a>
                                         <div>
-                                            <a class="btn btn-secondary" href="#">Editar</a>
-                                            <a class="btn btn-danger" href="#">Eliminar</a>
+                                            <!-- Botón para editar sección -->
+                                            <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarSeccion">Editar</a>
+                                            <!-- Botón para eliminar sección -->
+                                            <form method="POST" action="{% url "eliminar_seccion" seccion.id %}" style="display: inline-block;">
+                                                {% csrf_token %}
+                                                <button class="btn btn-danger">Eliminar</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +49,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{% url 'editar_seccion' seccion.id %}">
+                                        <form method="POST" action="{% url "editar_seccion" seccion.id %}">
                                             {% csrf_token %}
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Nombre:</span>
