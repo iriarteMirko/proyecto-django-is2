@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Asesoria
 
-# Register your models here.
+class AsesoriaAdmin(admin.ModelAdmin):
+    list_display = ['curso', 'fecha_hora', 'duracion', 'tema', 'notas']
+    
+admin.site.register(Asesoria, AsesoriaAdmin)
