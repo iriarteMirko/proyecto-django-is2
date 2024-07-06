@@ -29,7 +29,7 @@
                                         <a class="btn btn-primary" href="#">Añadir material</a>
                                         <div>
                                             <!-- Botón para editar sección -->
-                                            <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarSeccion">Editar</a>
+                                            <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarSeccion-{{ seccion.id }}">Editar</a>
                                             <!-- Botón para eliminar sección -->
                                             <form method="POST" action="{% url "eliminar_seccion" seccion.id %}" style="display: inline-block;">
                                                 {% csrf_token %}
@@ -40,34 +40,31 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal para editar sección -->
-                        <div class="modal fade" id="Modal-EditarSeccion" tabindex="-1" aria-labelledby="ModalLabel-EditarSeccion" aria-hidden="true">
+                        <!-- Modal para editar sección específica -->
+                        <div class="modal fade" id="Modal-EditarSeccion-{{ seccion.id }}" tabindex="-1" aria-labelledby="ModalLabel-EditarSeccion-{{ seccion.id }}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="ModalLabel-EditarSeccion">Editar Sección</h1>
+                                        <h1 class="modal-title fs-5" id="ModalLabel-EditarSeccion-{{ seccion.id }}">Editar Sección</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{% url "editar_seccion" seccion.id %}">
+                                        <form method="POST" action="{% url 'editar_seccion' seccion.id %}">
                                             {% csrf_token %}
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Nombre:</span>
-                                                <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}"
+                                                <input type="text" name="nombre" id="nombre-{{ seccion.id }}" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}"
                                                 placeholder="Nombre de la sección" value="{{ seccion.nombre }}" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Descripción:</span>
-                                                <textarea name="descripcion" id="descripcion" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}"
+                                                <textarea name="descripcion" id="descripcion-{{ seccion.id }}" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}"
                                                 placeholder="Descripción de la sección" style="height: 150px;" required>{{ seccion.descripcion }}</textarea>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary">Guardar cambios</button>
                                             </div>
-                                            {% if error %}
-                                            <p class="text-center mt-3" style="color:red">{{ error }}</p>
-                                            {% endif %}
                                         </form>
                                     </div>
                                 </div>
