@@ -31,9 +31,7 @@
                                             <!-- Botón para editar sección -->
                                             <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarSeccion-{{ seccion.id }}">Editar</a>
                                             <!-- Botón para eliminar sección -->
-                                            <form method="POST" action="{% url "eliminar_seccion" seccion.id %}" style="display: inline-block;">
-                                                {% csrf_token %}
-                                                <button class="btn btn-danger">Eliminar</button>
+                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-ConfirmEliminarSeccion-{{ seccion.id }}">Eliminar</a>
                                             </form>
                                         </div>
                                     </div>
@@ -49,7 +47,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{% url 'editar_seccion' seccion.id %}">
+                                        <form method="POST" action="{% url "editar_seccion" seccion.id %}">
                                             {% csrf_token %}
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Nombre:</span>
@@ -65,6 +63,29 @@
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary">Guardar cambios</button>
                                             </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal de confirmación de eliminación para cada sección -->
+                        <div class="modal fade" id="Modal-ConfirmEliminarSeccion-{{ seccion.id }}" tabindex="-1" aria-labelledby="ModalLabel-ConfirmEliminarSeccion-{{ seccion.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalLabel-ConfirmEliminarSeccion-{{ seccion.id }}">Confirmar Eliminación</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Estás a punto de eliminar la sección "{{ seccion.nombre }}". Esta acción no se puede deshacer y se perderá todo su contenido.</p>
+                                        <p>¿Estás seguro de que deseas continuar?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <!-- Formulario de eliminación dentro del modal -->
+                                        <form method="POST" action="{% url "eliminar_seccion" seccion.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
                                         </form>
                                     </div>
                                 </div>
