@@ -194,4 +194,4 @@ def eliminar_cuenta(request):
 
 def error_404_view(request, exception):
     user = request.user
-    return render(request, 'base/404.html', {'user': user}, status=404)
+    return render(request, 'base/404.html', {'user': user, 'exception': exception}, status=404)
