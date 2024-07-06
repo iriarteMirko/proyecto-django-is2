@@ -57,7 +57,7 @@
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Descripción:</span>
                                                 <textarea name="descripcion" id="descripcion-{{ seccion.id }}" class="form-control {% if form.descripcion.errors %}is-invalid{% endif %}"
-                                                placeholder="Descripción de la sección" style="height: 150px;" required>{{ seccion.descripcion }}</textarea>
+                                                placeholder="Descripción de la sección" style="height: 150px;" maxlength="250" required>{{ seccion.descripcion }}</textarea>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -76,7 +76,7 @@
                                         <h5 class="modal-title" id="ModalLabel-ConfirmEliminarSeccion-{{ seccion.id }}">Confirmar Eliminación</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body alert alert-warning m-2">
                                         <p>Estás a punto de eliminar la sección "{{ seccion.nombre }}". Esta acción no se puede deshacer y se perderá todo su contenido.</p>
                                         <p>¿Estás seguro de que deseas continuar?</p>
                                     </div>
