@@ -1,24 +1,29 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<div class="container">
-    <div class="d-flex justify-content-center">
-        <h1 class="display-1 m-4">Perfil de {{ user.nombre }} {{ user.apellidos }}</h1>
-    </div>
-    <div class="card mx-auto" style="max-width: 800px;">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-5 text-center">
-                    <h5 class="display-5">{{ user.nombre }} {{ user.apellidos }}</h5>
-                    {% if user.es_estudiante %}
-                        <span class="badge bg-secondary m-4">Estudiante</span>
-                    {% elif user.es_profesor %}
-                        <span class="badge bg-secondary m-4">Profesor</span>
-                    {% endif %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Barra lateral izquierda -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
                     <img src="{% if user.imagen %} {{ user.imagen.url }} {% else %} https://imgur.com/CuXg45K.jpg {% endif %}" 
-                    class="rounded-circle img-fluid" alt="{{ user.nombre }} {{ user.apellidos }}">
+                    class="rounded-circle img-fluid mb-3" alt="{{ user.nombre }} {{ user.apellidos }}" style="width: 150px; height: 150px;">
+                    <h4>{{ user.nombre }} {{ user.apellidos }}</h4>
+                    {% if user.es_estudiante %}
+                        <span class="badge bg-secondary">Estudiante</span>
+                    {% elif user.es_profesor %}
+                        <span class="badge bg-secondary">Profesor</span>
+                    {% endif %}
                 </div>
-                <div class="col-md-5">
+            </div>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Información Personal</h4>
                     <p><strong>Nombre:</strong> {{ user.nombre }}</p>
                     <p><strong>Apellidos:</strong> {{ user.apellidos }}</p>
                     <p><strong>Código:</strong> {{ user.codigo }}</p>
