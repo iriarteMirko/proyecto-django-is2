@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.asesoria.middlewares.EliminarAsesoriasPasadasMiddleware', # Middleware personalizado para eliminar asesorías pasadas
 ]
 
 ROOT_URLCONF = 'mentorulima.urls'
