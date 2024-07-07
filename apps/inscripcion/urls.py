@@ -8,4 +8,5 @@ router.register(r'inscripciones', views.InscripcionViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
+    path('<int:curso_id>/<int:estudiante_id>/retirar-estudiante/', views.retirar_estudiante, name='retirar_estudiante'),
 ]
