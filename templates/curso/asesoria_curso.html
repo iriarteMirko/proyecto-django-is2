@@ -49,29 +49,33 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="#">
+                                        <form method="POST" action="{% url "editar_asesoria" asesoria.id %}">
                                             {% csrf_token %}
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Fecha:</span>
-                                                <input type="date" name="fecha" id="fecha-{{ asesoria.id }}" class="form-control {% if form.fecha.errors %}is-invalid{% endif %}" value="{{ asesoria.fecha|date:"Y-m-d" }}" required>
+                                                <input type="date" name="fecha" id="fecha-{{ asesoria.id }}" class="form-control {% if form.fecha.errors %}is-invalid{% endif %}" 
+                                                value="{{ asesoria.fecha|date:"Y-m-d" }}" required>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col">
                                                     <div class="input-group">
                                                         <span class="input-group-text">Hora inicio:</span>
-                                                        <input type="time" name="hora_inicio" id="hora_inicio-{{ asesoria.id }}" class="form-control {% if form.hora_inicio.errors %}is-invalid{% endif %}" value="{{ asesoria.hora_inicio|time:"H:i" }}" required>
+                                                        <input type="time" name="hora_inicio" id="hora_inicio-{{ asesoria.id }}" class="form-control {% if form.hora_inicio.errors %}is-invalid{% endif %}" 
+                                                        value="{{ asesoria.hora_inicio|time:"H:i" }}" required>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="input-group">
                                                         <span class="input-group-text">Hora fin:</span>
-                                                        <input type="time" name="hora_fin" id="hora_fin-{{ asesoria.id }}" class="form-control {% if form.hora_fin.errors %}is-invalid{% endif %}" value="{{ asesoria.hora_fin|time:"H:i" }}" required>
+                                                        <input type="time" name="hora_fin" id="hora_fin-{{ asesoria.id }}" class="form-control {% if form.hora_fin.errors %}is-invalid{% endif %}" 
+                                                        value="{{ asesoria.hora_fin|time:"H:i" }}" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Enlace:</span>
-                                                <input type="url" name="enlace" id="enlace-{{ asesoria.id }}" class="form-control {% if form.enlace.errors %}is-invalid{% endif %}" value="{{ asesoria.enlace }}" required>
+                                                <input type="url" name="enlace" id="enlace-{{ asesoria.id }}" class="form-control {% if form.enlace.errors %}is-invalid{% endif %}" 
+                                                value="{{ asesoria.enlace }}" required>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -90,14 +94,15 @@
                                         <h1 class="modal-title fs-5" id="ModalLabel-EliminarAsesoria-{{ asesoria.id }}">Eliminar Asesoría</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <p>¿Estás seguro de que quieres eliminar esta asesoría?</p>
-                                        <form method="POST" action="#">
+                                    <div class="modal-body alert alert-warning m-3">
+                                        <p class="mb-0">¿Estás seguro de que quieres eliminar esta asesoría?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- Formulario de eliminación dentro del modal -->
+                                        <form method="POST" action="{% url "eliminar_asesoria" asesoria.id %}"  class="d-inline">
                                             {% csrf_token %}
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                                            </div>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
                                         </form>
                                     </div>
                                 </div>
@@ -124,7 +129,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="#">
+                <form method="POST" action="{% url "crear_asesoria" curso.id %}">
                     {% csrf_token %}
                     <div class="input-group mb-3">
                         <span class="input-group-text">Fecha:</span>

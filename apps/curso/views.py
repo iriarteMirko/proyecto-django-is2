@@ -18,7 +18,6 @@ def mis_cursos(request):
     paginator = Paginator(cursos, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
     return render(request, 'curso/cursos_profesor.html', {'page_obj': page_obj})
 
 @login_required
@@ -50,7 +49,7 @@ def contenido_curso(request, curso_id, curso_nombre):
 @login_required
 def asesoria_curso(request, curso_id, curso_nombre):
     curso = get_object_or_404(Curso, id=curso_id)
-    asesorias = curso.asesoria_set.all()
+    asesorias = curso.asesoria_set.all().order_by('fecha', 'hora_inicio')
     return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'page': 'asesoria'})
 
 @login_required

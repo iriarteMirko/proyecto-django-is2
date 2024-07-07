@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from apps.curso.models import Curso
 from apps.seccion.models import Seccion
+from apps.asesoria.models import Asesoria
 
 class CursoFactory(ABC):
     @abstractmethod
@@ -19,3 +20,7 @@ class CursoConcreteFactory(CursoFactory):
     def create_seccion(self, curso, nombre, descripcion):
         seccion = Seccion.objects.create(curso=curso, nombre=nombre, descripcion=descripcion)
         return seccion
+    
+    def create_asesoria(self, curso, fecha, hora_inicio, hora_fin, enlace):
+        asesoria = Asesoria.objects.create(curso=curso, fecha=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin, enlace=enlace)
+        return asesoria
