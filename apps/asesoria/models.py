@@ -27,3 +27,26 @@ class Asesoria(models.Model):
             raise ValidationError("La fecha y hora de inicio deben ser mayores a la fecha y hora actual.")
         if datetime_fin <= datetime_inicio:
             raise ValidationError("La hora de fin debe ser mayor a la hora de inicio.")
+
+def validar_asesoria(request):
+    from datetime import datetime
+    fecha_str = request.POST.get('fecha')
+    hora_inicio_str = request.POST.get('hora_inicio')
+    hora_fin_str = request.POST.get('hora_fin')
+    enlace = request.POST.get('enlace')
+    
+    fecha = datetime.strptime(fecha_str, '%Y-%m-%d').date()
+    hora_inicio = datetime.strptime(hora_inicio_str, '%H:%M').time()
+    hora_fin = datetime.strptime(hora_fin_str, '%H:%M').time()
+    
+    datetime_actual = timezone.now()
+    datetime_inicio = timezone.make_aware(datetime.combine(fecha, hora_inicio))
+    datetime_fin = timezone.make_aware(datetime.combine(fecha, hora_fin))
+    
+    if datetime_inicio <= datetime_actual:
+        return "La fecha y hora de inicio deben ser mayores a la fecha y hora actual."
+    if datetime_fin <= datetime_inicio:
+        return "La hora de fin debe ser mayor a la hora de inicio."
+    if not enlace:
+        return "El enlace de la reunión es requerido."
+    return None

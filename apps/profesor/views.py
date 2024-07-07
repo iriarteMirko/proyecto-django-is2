@@ -69,7 +69,12 @@ def crear_asesoria(request, curso_id):
     factory = CursoConcreteFactory()
     if request.method == 'POST':
         from apps.curso.models import Curso
+        from apps.asesoria.models import validar_asesoria
         curso = get_object_or_404(Curso, id=curso_id)
+        error = validar_asesoria(request)
+        if error:
+            asesorias = curso.asesoria_set.all()
+            return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'error': error})
         fecha = request.POST.get('fecha')
         hora_inicio = request.POST.get('hora_inicio')
         hora_fin = request.POST.get('hora_fin')
@@ -80,5 +85,5 @@ def crear_asesoria(request, curso_id):
             return redirect('asesoria_curso', curso_id=curso.id, curso_nombre=curso.nombre)
         # Asesorías del curso
         asesorias = curso.asesoria_set.all()
-        return render(request, 'curso/asesoria_curso.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso, 'asesorias': asesorias})
+        return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'error': 'Datos no válidos. Intente nuevamente.'})
     return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias})
