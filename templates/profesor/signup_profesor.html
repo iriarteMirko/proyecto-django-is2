@@ -25,16 +25,16 @@
             {% if form.email.errors %} <p class="text-center" style="color:red">Correo inválido o ya existente</p> {% endif %}
             <div class="input-group mb-3">
                 <span class="input-group-text">Nombres/Apellidos:</span>
-                <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="50" placeholder="Nombres" required>
-                <input type="text" name="apellidos" id="apellidos" class="form-control {% if form.apellidos.errors %}is-invalid{% endif %}" maxlength="100" placeholder="Apellidos" required>
+                <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="20" placeholder="Nombres" required>
+                <input type="text" name="apellidos" id="apellidos" class="form-control {% if form.apellidos.errors %}is-invalid{% endif %}" maxlength="20" placeholder="Apellidos" required>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Profesión:</span>
-                <input type="text" name="profesion" id="profesion" class="form-control" maxlength="100" placeholder="Ingresar profesion" required>
+                <input type="text" name="profesion" id="profesion" class="form-control" maxlength="25" placeholder="Ingresar profesion" required>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Centro Laboral:</span>
-                <input type="text" name="centro_laboral" id="centro_laboral" class="form-control" maxlength="100" placeholder="Ingresar Centro Laboral" required>
+                <input type="text" name="centro_laboral" id="centro_laboral" class="form-control" maxlength="25" placeholder="Ingresar Centro Laboral" required>
             </div>
             {% if error %}
                 <p class="text-center mt-3" style="color:red">{{ error }}</p>
