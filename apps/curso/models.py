@@ -23,7 +23,7 @@ class Curso(models.Model):
         ('Avanzado', 'Avanzado'),
         ('Experto', 'Experto'),
     ]
-    nombre = models.CharField(max_length=100, blank=False, null=False)
+    nombre = models.CharField(max_length=50, blank=False, null=False)
     descripcion = models.TextField(max_length=500, blank=True, null=True)
     categoria = models.CharField(max_length=100, choices=CATEGORIA_OPCIONES, blank=False, null=False)
     nivel = models.CharField(max_length=100, choices=NIVEL_OPCIONES, blank=False, null=False)

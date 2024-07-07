@@ -1,10 +1,11 @@
 {% extends "base/base.html" %}
 
 {% block content %}
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <!-- Contenido principal -->
-        <div class="col-lg-10">
+        <div class="col-lg-7">
             <div class="row">
                 <!-- Barra lateral izquierda -->
                 <div class="col-md-4 mb-4">
@@ -22,49 +23,46 @@
                     </div>
                 </div>
                 <!-- Contenido principal -->
-                {% if user.es_estudiante %}
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>Información Personal</h4>
-                                <p><strong>Nombre:</strong> {{ user.nombre }}</p>
-                                <p><strong>Apellidos:</strong> {{ user.apellidos }}</p>
-                                <p><strong>Código:</strong> {{ user.codigo }}</p>
-                                <p><strong>Correo:</strong> {{ user.email }}</p>
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h4>Información Personal</h4>
+                            <p><strong>Nombre:</strong> {{ user.nombre }}</p>
+                            <p><strong>Apellidos:</strong> {{ user.apellidos }}</p>
+                            <p><strong>Código:</strong> {{ user.codigo }}</p>
+                            <p><strong>Correo:</strong> {{ user.email }}</p>
+                            {% if user.es_estudiante %}
                                 <p><strong>Carrera:</strong> {{ estudiante.carrera }}</p>
                                 <p><strong>Ciclo:</strong> {{ estudiante.ciclo }}</p>
-                                <h4 class="mt-4">Cursos Inscritos</h4>
-                                <ul class="list-group">
-                                    {% for inscripcion in inscripciones %}
-                                        <li class="list-group-item">{{ inscripcion.curso.nombre }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                {% elif user.es_profesor %}
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>Información Personal</h4>
-                                <p><strong>Nombre:</strong> {{ user.nombre }}</p>
-                                <p><strong>Apellidos:</strong> {{ user.apellidos }}</p>
-                                <p><strong>Código:</strong> {{ user.codigo }}</p>
-                                <p><strong>Correo:</strong> {{ user.email }}</p>
+                            {% elif user.es_profesor %}
                                 <p><strong>Profesión:</strong> {{ profesor.profesion }}</p>
                                 <p><strong>Centro laboral:</strong> {{ profesor.centro_laboral }}</p>
-                                <h4 class="mt-4">Cursos Creados</h4>
-                                <ul class="list-group">
-                                    {% for curso in cursos %}
-                                        <li class="list-group-item">{{ curso.nombre }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                {% endif %}
+                    <div class="card">
+                        <div class="card-body">
+                            {% if user.es_estudiante %}
+                                <h4>Cursos Inscritos</h4>
+                                <ul class="list-group">
+                                    {% for inscripcion in inscripciones %}
+                                        <li class="list-group-item text-truncate">{{ inscripcion.curso.nombre }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% elif user.es_profesor %}
+                                <h4>Cursos Creados</h4>
+                                <ul class="list-group">
+                                    {% for curso in cursos %}
+                                        <li class="list-group-item text-truncate">{{ curso.nombre }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
