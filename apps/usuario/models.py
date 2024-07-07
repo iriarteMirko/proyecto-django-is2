@@ -40,9 +40,9 @@ class UsuarioManager(BaseUserManager):
 
 class Usuario(AbstractBaseUser):
     codigo = models.CharField('Código', max_length=8, unique=True)
-    email = models.EmailField('Correo electrónico', max_length=100, unique=True)
-    nombre = models.CharField('Nombre', max_length=50)
-    apellidos = models.CharField('Apellidos', max_length=100)
+    email = models.EmailField('Correo electrónico', max_length=25, unique=True)
+    nombre = models.CharField('Nombre', max_length=20)
+    apellidos = models.CharField('Apellidos', max_length=20)
     imagen = models.ImageField('Imagen', upload_to='usuarios/', default='usuarios/default-avatar.jpg')
     activo = models.BooleanField('Activo', default=True)
     es_estudiante = models.BooleanField('Estudiante', default=False)

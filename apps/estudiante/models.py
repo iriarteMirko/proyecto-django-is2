@@ -18,7 +18,7 @@ class Estudiante(models.Model):
         ('Psicología', 'Psicología'),
     ]
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-    carrera = models.CharField(max_length=100, choices=CARRERA_OPCIONES, blank=False, null=False)
+    carrera = models.CharField(choices=CARRERA_OPCIONES, blank=False, null=False)
     ciclo = models.PositiveIntegerField(blank=False, null=False, choices=[(i, i) for i in range(1, 13)])
     
     class Meta:
