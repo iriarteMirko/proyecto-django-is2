@@ -53,7 +53,7 @@
                                             {% csrf_token %}
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Fecha:</span>
-                                                <input type="date" name="fecha" id="fecha-{{ asesoria.id }}" class="form-control {% if form.fecha.errors %}is-invalid{% endif %}" value="{{ asesoria.fecha|date:"Y/m/d" }}" required>
+                                                <input type="date" name="fecha" id="fecha-{{ asesoria.id }}" class="form-control {% if form.fecha.errors %}is-invalid{% endif %}" value="{{ asesoria.fecha|date:"Y-m-d" }}" required>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col">
