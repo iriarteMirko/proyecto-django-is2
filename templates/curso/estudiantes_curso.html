@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-primary px-4 py-2 me-2">Ver perfil</a>
+                                    <a href="{% url "ver_perfil" estudiante.usuario.id estudiante.usuario.nombre estudiante.usuario.apellidos %}" class="btn btn-primary px-4 py-2 me-2">Ver perfil</a>
                                     <a class="btn btn-danger px-4 py-2" data-bs-toggle="modal" data-bs-target="#confirmModal-{{ estudiante.id }}">Retirar del curso</a>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                         ¿Estás seguro de que quieres retirar a {{ estudiante.usuario.nombre }} {{ estudiante.usuario.apellidos }} del curso?
                                     </div>
                                     <div class="modal-footer">
-                                        <form method="POST" action="{% url 'retirar_estudiante' curso.id estudiante.id %}">
+                                        <form method="POST" action="{% url "retirar_estudiante" curso.id estudiante.id %}">
                                             {% csrf_token %}
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                             <button type="submit" class="btn btn-danger">Retirar</button>
