@@ -33,10 +33,10 @@
                             <p><strong>Correo:</strong> {{ user.email }}</p>
                             {% if user.es_estudiante %}
                                 <p><strong>Carrera:</strong> {{ estudiante.carrera }}</p>
-                                <p><strong>Ciclo:</strong> {{ estudiante.ciclo }}</p>
+                                <p class="mb-0"><strong>Ciclo:</strong> {{ estudiante.ciclo }}</p>
                             {% elif user.es_profesor %}
                                 <p><strong>Profesión:</strong> {{ profesor.profesion }}</p>
-                                <p><strong>Centro laboral:</strong> {{ profesor.centro_laboral }}</p>
+                                <p class="mb-0"><strong>Centro laboral:</strong> {{ profesor.centro_laboral }}</p>
                             {% endif %}
                         </div>
                     </div>
@@ -45,16 +45,24 @@
                             {% if user.es_estudiante %}
                                 <h4>Cursos Inscritos</h4>
                                 <ul class="list-group">
-                                    {% for inscripcion in inscripciones %}
-                                        <li class="list-group-item text-truncate">{{ inscripcion.curso.nombre }}</li>
-                                    {% endfor %}
+                                    {% if inscripciones %}
+                                        {% for inscripcion in inscripciones %}
+                                            <li class="list-group-item text-truncate">{{ inscripcion.curso.nombre }}</li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="list-group-item text-truncate">No tiene cursos inscritos</li>
+                                    {% endif %}
                                 </ul>
                             {% elif user.es_profesor %}
                                 <h4>Cursos Creados</h4>
                                 <ul class="list-group">
-                                    {% for curso in cursos %}
-                                        <li class="list-group-item text-truncate">{{ curso.nombre }}</li>
-                                    {% endfor %}
+                                    {% if cursos %}
+                                        {% for curso in cursos %}
+                                            <li class="list-group-item text-truncate">{{ curso.nombre }}</li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="list-group-item text-truncate">No tiene cursos creados</li>
+                                    {% endif %}
                                 </ul>
                             {% endif %}
                         </div>
