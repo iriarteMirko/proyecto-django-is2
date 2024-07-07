@@ -2,52 +2,67 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row">
-        <!-- Barra lateral izquierda -->
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body text-center">
-                    <img src="{% if user.imagen %} {{ user.imagen.url }} {% else %} https://imgur.com/CuXg45K.jpg {% endif %}" 
-                    class="rounded-circle img-fluid mb-3" alt="{{ user.nombre }} {{ user.apellidos }}" style="width: 150px; height: 150px;">
-                    <h4>{{ user.nombre }} {{ user.apellidos }}</h4>
-                    {% if user.es_estudiante %}
-                        <span class="badge bg-secondary">Estudiante</span>
-                    {% elif user.es_profesor %}
-                        <span class="badge bg-secondary">Profesor</span>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        
+    <div class="row justify-content-center">
         <!-- Contenido principal -->
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <h4>Información Personal</h4>
-                    <p><strong>Nombre:</strong> {{ user.nombre }}</p>
-                    <p><strong>Apellidos:</strong> {{ user.apellidos }}</p>
-                    <p><strong>Código:</strong> {{ user.codigo }}</p>
-                    <p><strong>Correo:</strong> {{ user.email }}</p>
-                    {% if user.es_estudiante %}
-                        <p><strong>Carrera:</strong> {{ estudiante.carrera }}</p>
-                        <p><strong>Ciclo:</strong> {{ estudiante.ciclo }}</p>
-                        <h5 class="mt-4">Cursos Inscritos</h5>
-                        <ul class="list-group">
-                            {% for inscripcion in inscripciones %}
-                                <li class="list-group-item">{{ inscripcion.curso.nombre }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% elif user.es_profesor %}
-                        <p><strong>Profesión:</strong> {{ profesor.profesion }}</p>
-                        <p><strong>Centro laboral:</strong> {{ profesor.centro_laboral }}</p>
-                        <h5 class="mt-4">Cursos Creados</h5>
-                        <ul class="list-group">
-                            {% for curso in cursos %}
-                                <li class="list-group-item">{{ curso.nombre }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
+        <div class="col-lg-10">
+            <div class="row">
+                <!-- Barra lateral izquierda -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <img src="{% if user.imagen %} {{ user.imagen.url }} {% else %} https://imgur.com/CuXg45K.jpg {% endif %}" 
+                            class="rounded-circle img-fluid mb-3" alt="{{ user.nombre }} {{ user.apellidos }}" style="width: 150px; height: 150px;">
+                            <h4>{{ user.nombre }} {{ user.apellidos }}</h4>
+                            {% if user.es_estudiante %}
+                                <span class="badge bg-primary">Estudiante</span>
+                            {% elif user.es_profesor %}
+                                <span class="badge bg-primary">Profesor</span>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
+                <!-- Contenido principal -->
+                {% if user.es_estudiante %}
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Información Personal</h4>
+                                <p><strong>Nombre:</strong> {{ user.nombre }}</p>
+                                <p><strong>Apellidos:</strong> {{ user.apellidos }}</p>
+                                <p><strong>Código:</strong> {{ user.codigo }}</p>
+                                <p><strong>Correo:</strong> {{ user.email }}</p>
+                                <p><strong>Carrera:</strong> {{ estudiante.carrera }}</p>
+                                <p><strong>Ciclo:</strong> {{ estudiante.ciclo }}</p>
+                                <h4 class="mt-4">Cursos Inscritos</h4>
+                                <ul class="list-group">
+                                    {% for inscripcion in inscripciones %}
+                                        <li class="list-group-item">{{ inscripcion.curso.nombre }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% elif user.es_profesor %}
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Información Personal</h4>
+                                <p><strong>Nombre:</strong> {{ user.nombre }}</p>
+                                <p><strong>Apellidos:</strong> {{ user.apellidos }}</p>
+                                <p><strong>Código:</strong> {{ user.codigo }}</p>
+                                <p><strong>Correo:</strong> {{ user.email }}</p>
+                                <p><strong>Profesión:</strong> {{ profesor.profesion }}</p>
+                                <p><strong>Centro laboral:</strong> {{ profesor.centro_laboral }}</p>
+                                <h4 class="mt-4">Cursos Creados</h4>
+                                <ul class="list-group">
+                                    {% for curso in cursos %}
+                                        <li class="list-group-item">{{ curso.nombre }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
