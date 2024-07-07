@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Perfil de {{ user.nombre }} {{ user.apellidos }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <img src="{% if user.imagen %} {{ user.imagen.url }} {% else %} https://imgur.com/CuXg45K.jpg {% endif %}" 
+                    class="rounded-circle" alt="{{ user.nombre }} {{ user.apellidos }}" style="width: 150px; height: 150px;">
+                </div>
+                <div class="col-md-9">
+                    <h5><strong>Nombre:</strong> {{ user.nombre }} {{ user.apellidos }}</h5>
+                    <p><strong>Código:</strong> {{ user.codigo }}</p>
+                    <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+                    {% if user.es_estudiante %}
+                        <p><strong>Carrera:</strong> {{ estudiante.carrera }}</p>
+                        <p><strong>Ciclo:</strong> {{ estudiante.ciclo }}</p>
+                        <h5 class="mt-4">Cursos Inscritos</h5>
+                        <ul class="list-group">
+                            {% for inscripcion in inscripciones %}
+                                <li class="list-group-item">{{ inscripcion.curso.nombre }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% elif user.es_profesor %}
+                        <p><strong>Profesión:</strong> {{ profesor.profesion }}</p>
+                        <p><strong>Centro laboral:</strong> {{ profesor.centro_laboral }}</p>
+                        <h5 class="mt-4">Cursos Creados</h5>
+                        <ul class="list-group">
+                            {% for curso in cursos %}
+                                <li class="list-group-item">{{ curso.nombre }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

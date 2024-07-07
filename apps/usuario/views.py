@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
@@ -49,6 +49,21 @@ def mi_perfil(request):
         profesor = user.profesor
         contexto['profesor'] = profesor
     return render(request, 'usuario/perfil.html', contexto)
+
+def ver_perfil(request, usuario_id, usuario_nombre, usuario_apellidos):
+    user = get_object_or_404(Usuario, id=usuario_id)
+    contexto = {'user': user}
+    if user.es_estudiante:
+        estudiante = user.estudiante
+        inscripciones = estudiante.inscripcion_set.all()
+        contexto['estudiante'] = estudiante
+        contexto['inscripciones'] = inscripciones
+    elif user.es_profesor:
+        profesor = user.profesor
+        cursos = profesor.curso_set.all()
+        contexto['profesor'] = profesor
+        contexto['cursos'] = cursos
+    return render(request, 'usuario/ver_perfil.html', contexto)
 
 @login_required
 def editar_perfil(request):
