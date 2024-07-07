@@ -121,15 +121,15 @@
                                         <h5 class="modal-title" id="ModalLabel-ConfirmEliminarSeccion-{{ seccion.id }}">Confirmar Eliminación</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body alert alert-warning m-2">
-                                        <p>Estás a punto de eliminar la sección "{{ seccion.nombre }}". Esta acción no se puede deshacer y se perderá todo su contenido.</p>
-                                        <p>¿Estás seguro de que deseas continuar?</p>
+                                    <div class="modal-body alert alert-warning m-3">
+                                        <p class="mb-0">Estás a punto de eliminar la sección "{{ seccion.nombre }}". Esta acción no se puede deshacer y se perderá todo su contenido.</p>
+                                        <p class="mb-0">¿Estás seguro de que deseas eliminar la sección?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                         <!-- Formulario de eliminación dentro del modal -->
                                         <form method="POST" action="{% url "eliminar_seccion" seccion.id %}" class="d-inline">
                                             {% csrf_token %}
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                             <button type="submit" class="btn btn-danger">Eliminar</button>
                                         </form>
                                     </div>

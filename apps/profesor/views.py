@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
@@ -52,7 +52,7 @@ def crear_seccion(request, curso_id):
     factory = CursoConcreteFactory()
     if request.method == 'POST':
         from apps.curso.models import Curso
-        curso = Curso.objects.get(id=curso_id)
+        curso = get_object_or_404(Curso, id=curso_id)
         nombre = request.POST.get('nombre')
         descripcion = request.POST.get('descripcion')
         # Crear sección
@@ -63,3 +63,22 @@ def crear_seccion(request, curso_id):
         secciones = curso.seccion_set.all()
         return render(request, 'curso/contenido_curso.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso, 'secciones': secciones})
     return render(request, 'curso/contenido_curso.html', {'curso': curso, 'secciones': secciones})
+
+@login_required
+def crear_asesoria(request, curso_id):
+    factory = CursoConcreteFactory()
+    if request.method == 'POST':
+        from apps.curso.models import Curso
+        curso = get_object_or_404(Curso, id=curso_id)
+        fecha = request.POST.get('fecha')
+        hora_inicio = request.POST.get('hora_inicio')
+        hora_fin = request.POST.get('hora_fin')
+        enlace = request.POST.get('enlace')
+        # Crear asesoría
+        asesoria = factory.create_asesoria(curso=curso, fecha=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin, enlace=enlace)
+        if asesoria:
+            return redirect('asesoria_curso', curso_id=curso.id, curso_nombre=curso.nombre)
+        # Asesorías del curso
+        asesorias = curso.asesoria_set.all()
+        return render(request, 'curso/asesoria_curso.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso, 'asesorias': asesorias})
+    return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias})
