@@ -1,0 +1,27 @@
+<div class="modal fade" id="Modal-AgregarMaterial-{{ seccion.id }}" tabindex="-1" aria-labelledby="ModalLabel-AgregarMaterial-{{ seccion.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel-AgregarMaterial-{{ seccion.id }}">Agregar Material</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="{% url 'agregar_material' seccion.id %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre:</span>
+                        <input type="text" name="nombre" id="nombre" class="form-control" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Archivo:</span>
+                        <input type="file" name="archivo" id="archivo" class="form-control" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Añadir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
