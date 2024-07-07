@@ -7,7 +7,7 @@
         <!-- Barra lateral -->
         <div class="col-md-3 my-3">
             <div class="col-12 mb-3">
-                <h1 class="card-title" style="max-width: 70%;">{{ curso.nombre }}</h1>
+                <h1 class="card-title text-wrap">{{ curso.nombre }}</h1>
                 <h5 class="text-secondary">Curso</h5>
             </div>
             <ul class="list-group mb-3 custom-sidebar card">
@@ -33,12 +33,20 @@
 </main>
 
 <style>
+    .card-title {
+        word-wrap: break-word;
+    }
     .card-text a {
         display: block;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: 100%;
+    }
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 </style>
 
