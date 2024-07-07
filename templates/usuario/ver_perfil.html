@@ -2,17 +2,23 @@
 
 {% block content %}
 <div class="container">
-    <div class="my-3 d-flex justify-content-between align-items-center">
-        <h1 class="display-1">{{ user.nombre }} {{ user.apellidos }}</h1>
+    <div class="d-flex justify-content-center">
+        <h1 class="display-1 m-4">Perfil de {{ user.nombre }} {{ user.apellidos }}</h1>
     </div>
-    <div class="card">
+    <div class="card mx-auto" style="max-width: 800px;">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3 text-center">
+                <div class="col-md-5 text-center">
+                    <h5 class="display-5">{{ user.nombre }} {{ user.apellidos }}</h5>
+                    {% if user.es_estudiante %}
+                        <span class="badge bg-secondary m-4">Estudiante</span>
+                    {% elif user.es_profesor %}
+                        <span class="badge bg-secondary m-4">Profesor</span>
+                    {% endif %}
                     <img src="{% if user.imagen %} {{ user.imagen.url }} {% else %} https://imgur.com/CuXg45K.jpg {% endif %}" 
-                    class="rounded-circle" alt="{{ user.nombre }} {{ user.apellidos }}" style="width: 300px; height: 300px;">
+                    class="rounded-circle img-fluid" alt="{{ user.nombre }} {{ user.apellidos }}">
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-5">
                     <p><strong>Nombre:</strong> {{ user.nombre }}</p>
                     <p><strong>Apellidos:</strong> {{ user.apellidos }}</p>
                     <p><strong>Código:</strong> {{ user.codigo }}</p>
