@@ -7,7 +7,7 @@
         <div class="w-100 mt-auto" style="max-width: 525px;">
             <h1>Iniciar Sesión</h1>
             <p class="pb-3 mb-3 mb-lg-4">¿Aún no tienes una cuenta? &nbsp; <a href="/signup">Registrate aquí!</a></p>
-            <form method="POST" action="/signin/">
+            <form method="POST" action="{% url "signin" %}">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="codigo" class="form-label">Código:</label>
