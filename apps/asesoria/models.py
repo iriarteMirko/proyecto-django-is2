@@ -12,12 +12,12 @@ class Asesoria(models.Model):
     tema = models.CharField(max_length=200, blank=True, help_text="Tema principal de la asesoría")
     notas = models.TextField(max_length=500, blank=True, help_text="Notas adicionales sobre la asesoría")
     
-    def __str__(self):
-        return f"Asesoría de {self.curso.nombre} - {self.fecha} de {self.hora_inicio} a {self.hora_fin}"
-    
     class Meta:
         verbose_name = "Asesoría"
         verbose_name_plural = "Asesorías"
+    
+    def __str__(self):
+        return f"Asesoría de {self.curso.nombre} - {self.fecha} de {self.hora_inicio} a {self.hora_fin}"
     
     def clean(self):
         super().clean()
