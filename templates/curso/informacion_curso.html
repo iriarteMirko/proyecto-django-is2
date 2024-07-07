@@ -13,24 +13,24 @@
             </div>
             <div class="card custom-card mb-0">
                 <div class="mb-3">
-                    <h4 class="card-title">Descripción:</h4>
+                    <h5 class="card-title">Descripción:</h5>
                     <p class="card-text">{{ curso.descripcion }}</p>
                 </div>
-                <div class="mb-3">
-                    <h4 class="card-title">Categoría:</h4>
+                <div class="card-text d-flex align-items-center mb-4">
+                    <h5 class="card-title">Categoría:</h5>
                     <p class="card-text">{{ curso.categoria }}</p>
                 </div>
-                <div class="mb-3">
-                    <h4 class="card-title">Nivel:</h4>
+                <div class="card-text d-flex align-items-center mb-4">
+                    <h5 class="card-title">Nivel:</h5>
                     <p class="card-text">{{ curso.nivel }}</p>
                 </div>
-                <div class="mb-3">
-                    <h4 class="card-title">Fecha de creación:</h4>
-                    <p class="card-text">{{ curso.fecha_creacion }}</p>
+                <div class="card-text d-flex align-items-center mb-4">
+                    <h5 class="card-title">Fecha de creación:</h5>
+                    <p class="card-text">{{ curso.fecha_creacion|date:"d/m/Y" }}</p>
                 </div>
-                <div class="mb-0">
-                    <h4 class="card-title">Última modificación:</h4>
-                    <p class="card-text">{{ curso.ultima_modificacion }}</p>
+                <div class="card-text d-flex align-items-center mb-0">
+                    <h5 class="card-title">Última modificación:</h5>
+                    <p class="card-text">{{ curso.ultima_modificacion|date:"d/m/Y" }}</p>
                 </div>
             </div>
         </div>
