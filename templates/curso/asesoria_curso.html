@@ -8,12 +8,145 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="card-title mb-0">Asesoría</h1>
-                <a class="btn btn-success px-4 py-2" href="">Agregar asesoría</a>
+                <a class="btn btn-success px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-AgregarAsesoria">Agregar asesoría</a>
             </div>
             <div class="card custom-card mb-0">
+                {% if asesorias %}
+                    <div class="row">
+                        {% for asesoria in asesorias %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Asesoría del {{ asesoria.fecha }} a las {{ asesoria.hora_inicio }}</h5>
+                                    <p class="card-text"><strong>Tema:</strong> {{ asesoria.tema }}</p>
+                                    <p class="card-text"><strong>Notas:</strong> {{ asesoria.notas }}</p>
+                                    <p class="card-text"><strong>Enlace:</strong> <a href="{{ asesoria.enlace }}" target="_blank">{{ asesoria.enlace }}</a></p>
+                                    <div class="d-flex justify-content-between">
+                                        <!-- Botón para editar asesoría -->
+                                        <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarAsesoria-{{ asesoria.id }}">Editar</a>
+                                        <!-- Botón para eliminar asesoría -->
+                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-EliminarAsesoria-{{ asesoria.id }}">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal para editar asesoría específica -->
+                        <div class="modal fade" id="Modal-EditarAsesoria-{{ asesoria.id }}" tabindex="-1" aria-labelledby="ModalLabel-EditarAsesoria-{{ asesoria.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="ModalLabel-EditarAsesoria-{{ asesoria.id }}">Editar Asesoría</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="#">
+                                            {% csrf_token %}
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Fecha:</span>
+                                                <input type="date" name="fecha" id="fecha-{{ asesoria.id }}" class="form-control {% if form.fecha.errors %}is-invalid{% endif %}" value="{{ asesoria.fecha }}" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Hora inicio:</span>
+                                                <input type="time" name="hora_inicio" id="hora_inicio-{{ asesoria.id }}" class="form-control {% if form.hora_inicio.errors %}is-invalid{% endif %}" value="{{ asesoria.hora_inicio }}" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Hora fin:</span>
+                                                <input type="time" name="hora_fin" id="hora_fin-{{ asesoria.id }}" class="form-control {% if form.hora_fin.errors %}is-invalid{% endif %}" value="{{ asesoria.hora_fin }}" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Enlace:</span>
+                                                <input type="url" name="enlace" id="enlace-{{ asesoria.id }}" class="form-control {% if form.enlace.errors %}is-invalid{% endif %}" value="{{ asesoria.enlace }}" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Tema:</span>
+                                                <input type="text" name="tema" id="tema-{{ asesoria.id }}" class="form-control {% if form.tema.errors %}is-invalid{% endif %}" value="{{ asesoria.tema }}" maxlength="200">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Notas:</span>
+                                                <textarea name="notas" id="notas-{{ asesoria.id }}" class="form-control {% if form.notas.errors %}is-invalid{% endif %}" maxlength="500">{{ asesoria.notas }}</textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal para eliminar asesoría específica -->
+                        <div class="modal fade" id="Modal-EliminarAsesoria-{{ asesoria.id }}" tabindex="-1" aria-labelledby="ModalLabel-EliminarAsesoria-{{ asesoria.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="ModalLabel-EliminarAsesoria-{{ asesoria.id }}">Eliminar Asesoría</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Estás seguro de que quieres eliminar esta asesoría?</p>
+                                        <form method="POST" action="#">
+                                            {% csrf_token %}
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
                 <div class="mb-0">
                     <p class="card-text">Aquí puedes incluir la asesoria del curso.</p>
                 </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar asesoría -->
+<div class="modal fade" id="Modal-AgregarAsesoria" tabindex="-1" aria-labelledby="ModalLabel-AgregarAsesoria" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel-AgregarAsesoria">Agregar Asesoría</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="#">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Fecha:</span>
+                        <input type="date" name="fecha" id="fecha" class="form-control {% if form.fecha.errors %}is-invalid{% endif %}" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Hora inicio:</span>
+                        <input type="time" name="hora_inicio" id="hora_inicio" class="form-control {% if form.hora_inicio.errors %}is-invalid{% endif %}" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Hora fin:</span>
+                        <input type="time" name="hora_fin" id="hora_fin" class="form-control {% if form.hora_fin.errors %}is-invalid{% endif %}" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Enlace:</span>
+                        <input type="url" name="enlace" id="enlace" class="form-control {% if form.enlace.errors %}is-invalid{% endif %}" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Tema:</span>
+                        <input type="text" name="tema" id="tema" class="form-control {% if form.tema.errors %}is-invalid{% endif %}" maxlength="200">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Notas:</span>
+                        <textarea name="notas" id="notas" class="form-control {% if form.notas.errors %}is-invalid{% endif %}" maxlength="500"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+                        <button class="btn btn-primary">Agregar asesoría</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

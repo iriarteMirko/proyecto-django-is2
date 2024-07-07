@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from apps.curso.models import Curso
@@ -20,9 +21,20 @@ class Asesoria(models.Model):
         verbose_name = "Asesoría"
         verbose_name_plural = "Asesorías"
 
+    def clean(self):
+        super().clean()
+        fecha_hora_actual = timezone.now()
+        fecha_hora_inicio = timezone.make_aware(timezone.datetime.combine(self.fecha, self.hora_inicio))
+        fecha_hora_fin = timezone.make_aware(timezone.datetime.combine(self.fecha, self.hora_fin))
+
+        if fecha_hora_inicio <= fecha_hora_actual:
+            raise ValidationError("La fecha y hora de inicio deben ser mayores a la fecha y hora actual.")
+        if fecha_hora_fin <= fecha_hora_inicio:
+            raise ValidationError("La hora de fin debe ser mayor a la hora de inicio.")
+
 @receiver(post_save, sender=Asesoria)
 def auto_delete_past_asesoria(sender, instance, **kwargs):
     now = timezone.now()
-    current_datetime = timezone.make_aware(timezone.datetime.combine(instance.fecha, instance.hora_fin))
-    if current_datetime < now:
+    fecha_hora_fin = timezone.make_aware(timezone.datetime.combine(instance.fecha, instance.hora_fin))
+    if fecha_hora_fin < now:
         instance.delete()
