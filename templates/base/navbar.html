@@ -1,14 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
     <div class="container-fluid ms-3">
-        {% if user.es_estudiante == True %}
-            <a class="navbar-brand me-5" href="{% url "inicio_estudiante" %}">MentorULima</a>
-        {% elif user.es_profesor == True %}
-            <a class="navbar-brand me-5" href="{% url "inicio_profesor" %}">MentorULima</a>
+        {% if request.user.is_authenticated %}
+            {% if request.user.es_estudiante %}
+                <a class="navbar-brand me-5" href="{% url "inicio_estudiante" %}">MentorULima</a>
+            {% elif request.user.es_profesor %}
+                <a class="navbar-brand me-5" href="{% url "inicio_profesor" %}">MentorULima</a>
+            {% else %}
+                <a class="navbar-brand me-5" href="/">MentorULima</a>
+            {% endif %}
         {% else %}
             <a class="navbar-brand me-5" href="/">MentorULima</a>
         {% endif %}
-        <form class="d-flex" role="buscar">
-            <input class="form-control me-2" type="buscar" placeholder="Buscar" aria-label="Buscar">
+        
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
@@ -17,8 +22,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                {% if user.is_authenticated %}
-                    {% if user.es_estudiante == True %}
+                {% if request.user.is_authenticated %}
+                    {% if request.user.es_estudiante %}
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="{% url "inicio_estudiante" %}">Inicio</a>
                     </li>
@@ -32,7 +37,7 @@
                         <a class="nav-link" href="{% url "perfil" %}">Perfil</a>
                     </li>
                     {% endif %}
-                    {% if user.es_profesor == True %}
+                    {% if request.user.es_profesor %}
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="{% url "inicio_profesor" %}">Inicio</a>
                     </li>
