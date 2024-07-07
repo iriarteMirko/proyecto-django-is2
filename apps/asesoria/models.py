@@ -8,9 +8,7 @@ class Asesoria(models.Model):
     fecha = models.DateField(blank=False, null=False, help_text="Fecha de la asesoría")
     hora_inicio = models.TimeField(blank=False, null=False, help_text="Hora de inicio de la asesoría")
     hora_fin = models.TimeField(blank=False, null=False, help_text="Hora de fin de la asesoría")
-    enlace = models.URLField(max_length=250, blank=False, null=False, help_text="Enlace de la reunión")
-    tema = models.CharField(max_length=200, blank=True, help_text="Tema principal de la asesoría")
-    notas = models.TextField(max_length=500, blank=True, help_text="Notas adicionales sobre la asesoría")
+    enlace = models.URLField(max_length=200, blank=False, null=False, help_text="Enlace de la reunión")
     
     class Meta:
         verbose_name = "Asesoría"
