@@ -8,7 +8,7 @@
     <div class="card p-xl-3">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="card-title mb-0 text-truncate" style="max-width: 70%;">{{ curso.nombre }}</h1>
+                <h1 class="card-title" style="max-width: 70%;">{{ curso.nombre }}</h1>
                 <a class="btn btn-secondary px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-EditarCurso">Editar Curso</a>
             </div>
             <div class="card custom-card mb-0">
@@ -16,27 +16,27 @@
                     <h5 class="card-title">Descripción:</h5>
                     <p class="card-text">{{ curso.descripcion }}</p>
                 </div>
-                <div class="card-text d-flex align-items-center mb-4">
-                    <h5 class="card-title">Categoría:</h5>
-                    <p class="card-text">{{ curso.categoria }}</p>
+                <div class="mb-3 d-flex align-items-baseline">
+                    <h5 class="card-title me-2">Categoría:</h5>
+                    <p class="card-text mb-0">{{ curso.categoria }}</p>
                 </div>
-                <div class="card-text d-flex align-items-center mb-4">
-                    <h5 class="card-title">Nivel:</h5>
-                    <p class="card-text">{{ curso.nivel }}</p>
+                <div class="mb-3 d-flex align-items-baseline">
+                    <h5 class="card-title me-2">Nivel:</h5>
+                    <p class="card-text mb-0">{{ curso.nivel }}</p>
                 </div>
-                <div class="card-text d-flex align-items-center mb-4">
-                    <h5 class="card-title">Fecha de creación:</h5>
-                    <p class="card-text">{{ curso.fecha_creacion|date:"d/m/Y" }}</p>
+                <div class="mb-3 d-flex align-items-baseline">
+                    <h5 class="card-title me-2">Fecha de creación:</h5>
+                    <p class="card-text mb-0">{{ curso.fecha_creacion|date:"d/m/Y" }}</p>
                 </div>
-                <div class="card-text d-flex align-items-center mb-0">
-                    <h5 class="card-title">Última modificación:</h5>
-                    <p class="card-text">{{ curso.ultima_modificacion|date:"d/m/Y" }}</p>
+                <div class="d-flex align-items-baseline">
+                    <h5 class="card-title me-2">Última modificación:</h5>
+                    <p class="card-text mb-0">{{ curso.ultima_modificacion|date:"d/m/Y" }}</p>
                 </div>
             </div>
         </div>
     </div>
     <!-- Eliminar curso -->
-    <div class="card p-xl-3">
+    <div class="card p-xl-3 mt-3">
         <form method="POST" action="{% url "eliminar_curso" curso.id %}">
             {% csrf_token %}
             <div class="card-body">
