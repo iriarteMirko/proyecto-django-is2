@@ -10,20 +10,29 @@
                 <h1 class="card-title mb-0">Asesoría</h1>
                 <a class="btn btn-success px-4 py-2" data-bs-toggle="modal" data-bs-target="#Modal-AgregarAsesoria">Agregar asesoría</a>
             </div>
-            <div class="card custom-card mb-0">
+            <div class="card custom-card mb-0 pb-0">
                 {% if asesorias %}
                     <div class="row">
                         {% for asesoria in asesorias %}
-                        <div class="col-md-6 mb-4">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Asesoría del {{ asesoria.fecha }} a las {{ asesoria.hora_inicio }}</h5>
-                                    <p class="card-text"><strong>Enlace:</strong> <a href="{{ asesoria.enlace }}" target="_blank">{{ asesoria.enlace }}</a></p>
-                                    <div class="d-flex justify-content-between">
-                                        <!-- Botón para editar asesoría -->
-                                        <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarAsesoria-{{ asesoria.id }}">Editar</a>
-                                        <!-- Botón para eliminar asesoría -->
-                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-EliminarAsesoria-{{ asesoria.id }}">Eliminar</button>
+                                    <h5 class="card-title">Asesoría: {{ asesoria.fecha }}</h5>
+                                    <p class="card-text">
+                                        <strong>Horario:</strong>
+                                        {{ asesoria.hora_inicio }} - {{ asesoria.hora_fin }}
+                                    </p>
+                                    <p class="card-text">
+                                        <strong>Enlace:</strong>
+                                        <a href="{{ asesoria.enlace }}" target="_blank" title="{{ asesoria.enlace }}">{{ asesoria.enlace }}</a>
+                                    </p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex justify-content-between">
+                                            <!-- Botón para editar asesoría -->
+                                            <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarAsesoria-{{ asesoria.id }}">Editar</a>
+                                            <!-- Botón para eliminar asesoría -->
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-EliminarAsesoria-{{ asesoria.id }}">Eliminar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +105,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                <div class="mb-0">
+                <div class="mb-3">
                     <p class="card-text">Aquí puedes incluir la asesoria del curso.</p>
                 </div>
                 {% endif %}
@@ -149,5 +158,15 @@
         </div>
     </div>
 </div>
+
+<style>
+    .card-text a {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+</style>
 
 {% endblock %}
