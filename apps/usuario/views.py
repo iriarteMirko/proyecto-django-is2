@@ -22,7 +22,6 @@ def inicio_user(request):
     cursos_creados = []
     estudiantes_inscritos = []
     if user.es_estudiante:
-        from apps.curso.models import Curso
         from apps.inscripcion.models import Inscripcion
         from apps.asesoria.models import Asesoria
         inscripciones = Inscripcion.objects.filter(estudiante=user.estudiante)

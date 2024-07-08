@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<div class="container mt-5">
-    <div class="text-center">
-        <h1>Bienvenido {{ user.first_name }}</h1>
+<div class="container py-4">
+    <div class="text-center my-3">
+        <h1>Bienvenido {{ user.nombre }} {{ user.apellidos }}</h1>
     </div>
     {% if user.es_estudiante %}
     <!-- Si el usuario es estudiante -->
