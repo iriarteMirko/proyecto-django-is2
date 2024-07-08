@@ -28,10 +28,6 @@ def signup_profesor(request):
     return render(request, 'profesor/signup_profesor.html', {'form': form})
 
 @login_required
-def inicio_profesor(request):
-    return render(request, 'profesor/inicio_profesor.html')
-
-@login_required
 def crear_curso(request):
     factory = CursoConcreteFactory()
     if request.method == 'POST':

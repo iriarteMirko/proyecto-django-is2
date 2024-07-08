@@ -14,6 +14,34 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 def inicio(request):
     return render(request, 'usuario/inicio.html')
 
+@login_required
+def inicio_user(request):
+    user = request.user
+    cursos_inscritos = []
+    asesorias_disponibles = []
+    cursos_creados = []
+    estudiantes_inscritos = []
+    if user.es_estudiante:
+        from apps.curso.models import Curso
+        from apps.inscripcion.models import Inscripcion
+        from apps.asesoria.models import Asesoria
+        inscripciones = Inscripcion.objects.filter(estudiante=user.estudiante)
+        cursos_inscritos = [inscripcion.curso for inscripcion in inscripciones]
+        asesorias_disponibles = Asesoria.objects.filter(curso__in=cursos_inscritos)
+    elif user.es_profesor:
+        from apps.curso.models import Curso
+        from apps.estudiante.models import Estudiante
+        cursos_creados = Curso.objects.filter(profesor=user.profesor)
+        estudiantes_inscritos = Estudiante.objects.filter(inscripcion__curso__in=cursos_creados).distinct()
+    context = {
+        'user': user,
+        'cursos_inscritos': cursos_inscritos,
+        'asesorias_disponibles': asesorias_disponibles,
+        'cursos_creados': cursos_creados,
+        'estudiantes_inscritos': estudiantes_inscritos,
+    }
+    return render(request, 'usuario/inicio_user.html', context)
+
 def signup(request):
     return render(request, 'usuario/signup.html')
 
@@ -24,12 +52,9 @@ def signin(request):
         user = authenticate(request, username=codigo, password=password)
         if user is not None:
             login(request, user)
-            if user.es_estudiante == True:
-                return redirect('inicio_estudiante')
-            elif user.es_profesor == True:
-                return redirect('inicio_profesor')
-            else:
+            if user.is_staff == True:
                 return redirect(reverse('admin:index'))
+            return redirect('inicio_user')
         return render(request, 'usuario/signin.html', {'form': AuthenticationForm, 'error': 'Código o contraseña incorrectos.'})
     return render(request, 'usuario/signin.html', {'form': AuthenticationForm})
 

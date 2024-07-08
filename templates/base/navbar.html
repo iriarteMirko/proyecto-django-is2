@@ -1,13 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
     <div class="container-fluid ms-3">
         {% if request.user.is_authenticated %}
-            {% if request.user.es_estudiante %}
-                <a class="navbar-brand me-5" href="{% url "inicio_estudiante" %}">MentorULima</a>
-            {% elif request.user.es_profesor %}
-                <a class="navbar-brand me-5" href="{% url "inicio_profesor" %}">MentorULima</a>
-            {% else %}
-                <a class="navbar-brand me-5" href="/">MentorULima</a>
-            {% endif %}
+            <a class="navbar-brand me-5" href="{% url "inicio_user" %}">MentorULima</a>
         {% else %}
             <a class="navbar-brand me-5" href="/">MentorULima</a>
         {% endif %}
@@ -25,7 +19,7 @@
                 {% if request.user.is_authenticated %}
                     {% if request.user.es_estudiante %}
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="{% url "inicio_estudiante" %}">Inicio</a>
+                        <a class="nav-link" href="{% url "inicio_user" %}">Inicio</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="{% url "buscar_cursos" %}">Buscar cursos</a>
@@ -39,7 +33,7 @@
                     {% endif %}
                     {% if request.user.es_profesor %}
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="{% url "inicio_profesor" %}">Inicio</a>
+                        <a class="nav-link" href="{% url "inicio_user" %}">Inicio</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="{% url "cursos_profesor" %}">Cursos</a>

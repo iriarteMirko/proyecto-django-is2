@@ -28,10 +28,6 @@ def signup_estudiante(request):
     return render(request, 'estudiante/signup_estudiante.html', {'form': form})
 
 @login_required
-def inicio_estudiante(request):
-    return render(request, 'estudiante/inicio_estudiante.html')
-
-@login_required
 def buscar_curso(request):
     from apps.curso.models import Curso
     cursos = Curso.objects.all()
