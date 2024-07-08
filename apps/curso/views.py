@@ -15,11 +15,11 @@ class CursoViewSet(viewsets.ModelViewSet):
 def mis_cursos(request):
     cursos = Curso.objects.filter(profesor=request.user.profesor).order_by('fecha_creacion').reverse()
     if not cursos:
-        return render(request, 'curso/cursos_profesor.html')
+        return render(request, 'curso/lista_cursos.html')
     paginator = Paginator(cursos, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'curso/cursos_profesor.html', {'page_obj': page_obj})
+    return render(request, 'curso/lista_cursos.html', {'page_obj': page_obj})
 
 @login_required
 def informacion_curso(request, curso_id, curso_slug):
@@ -39,7 +39,7 @@ def editar_curso(request, curso_id):
 def eliminar_curso(request, curso_id):
     curso = get_object_or_404(Curso, id=curso_id)
     curso.delete()
-    return redirect('cursos_profesor')
+    return redirect('lista_cursos')
 
 @login_required
 def contenido_curso(request, curso_id, curso_slug):

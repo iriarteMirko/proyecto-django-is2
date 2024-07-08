@@ -42,9 +42,9 @@ def mis_cursos(request):
     from apps.inscripcion.models import Inscripcion
     inscripciones = Inscripcion.objects.filter(estudiante=request.user.estudiante).order_by('fecha_inscripcion')
     if not inscripciones:
-        return render(request, 'estudiante/cursos_estudiante.html')
+        return render(request, 'curso/lista_cursos.html')
     cursos = [inscripcion.curso for inscripcion in inscripciones]
-    return render(request, 'estudiante/cursos_estudiante.html', {'cursos': cursos})
+    return render(request, 'curso/lista_cursos.html', {'cursos': cursos})
 
 @login_required
 def detalle_curso(request, curso_id):
