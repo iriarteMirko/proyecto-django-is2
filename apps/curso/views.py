@@ -29,7 +29,7 @@ def mis_cursos(request):
 def buscar_cursos(request):
     query = request.GET.get('q', '')
     cursos = Curso.objects.filter(nombre__icontains=query).order_by('fecha_creacion').reverse()
-    paginator = Paginator(cursos, 8)
+    paginator = Paginator(cursos, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'curso/buscar_cursos.html', {'page_obj': page_obj, 'query': query})
