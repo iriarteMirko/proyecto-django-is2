@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Avg
+from django.utils.text import slugify
 from apps.profesor.models import Profesor
 
 class Curso(models.Model):
@@ -31,10 +32,16 @@ class Curso(models.Model):
     fecha_creacion = models.DateField(auto_now_add=True)
     ultima_modificacion = models.DateField(auto_now=True)
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
     
     class Meta:
         verbose_name = 'Curso'
         verbose_name_plural = 'Cursos'
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.nombre)
+        super(Curso, self).save(*args, **kwargs)
     
     def __str__(self):
         return self.nombre

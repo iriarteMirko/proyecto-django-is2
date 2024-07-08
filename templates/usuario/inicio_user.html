@@ -20,7 +20,7 @@
                             {% for curso in cursos_inscritos %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 {{ curso.nombre }}
-                                <a href="{% url 'informacion_curso' curso.id curso.nombre %}" class="btn btn-primary btn-sm">Ver Curso</a>
+                                <a href="{% url 'informacion_curso' curso.id curso.slug %}" class="btn btn-primary btn-sm">Ver Curso</a>
                             </li>
                             {% endfor %}
                         </ul>
@@ -70,7 +70,7 @@
                             {% for curso in cursos_creados %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 {{ curso.nombre }}
-                                <a href="{% url 'informacion_curso' curso.id curso.nombre %}" class="btn btn-primary btn-sm">Ver Curso</a>
+                                <a href="{% url 'informacion_curso' curso.id curso.slug %}" class="btn btn-primary btn-sm">Ver Curso</a>
                             </li>
                             {% endfor %}
                         </ul>
@@ -99,7 +99,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <a href="{% url 'ver_perfil' estudiante.usuario.id estudiante.usuario.nombre estudiante.usuario.apellidos %}" class="btn btn-primary px-4 py-2 me-2">Ver perfil</a>
+                                        <a href="{% url 'ver_perfil' estudiante.usuario.id estudiante.usuario.slug %}" class="btn btn-primary px-4 py-2 me-2">Ver perfil</a>
                                     </div>
                                 </div>
                             </div>

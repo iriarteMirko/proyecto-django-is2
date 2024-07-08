@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.exceptions import ValidationError
 
@@ -48,6 +49,7 @@ class Usuario(AbstractBaseUser):
     es_estudiante = models.BooleanField('Estudiante', default=False)
     es_profesor = models.BooleanField('Profesor', default=False)
     es_administrador = models.BooleanField('Administrador', default=False)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
     
     objects = UsuarioManager()
     
@@ -60,6 +62,11 @@ class Usuario(AbstractBaseUser):
     
     def __str__(self):
         return self.codigo
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(f'{self.nombre} {self.apellidos}')
+        super(Usuario, self).save(*args, **kwargs)
     
     def clean(self):
         if self.es_estudiante and self.es_profesor:

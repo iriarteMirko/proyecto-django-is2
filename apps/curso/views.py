@@ -21,7 +21,7 @@ def mis_cursos(request):
     return render(request, 'curso/cursos_profesor.html', {'page_obj': page_obj})
 
 @login_required
-def informacion_curso(request, curso_id, curso_nombre):
+def informacion_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id)
     return render(request, 'curso/informacion_curso.html', {'curso': curso, 'page': 'informacion'})
 
@@ -32,7 +32,7 @@ def editar_curso(request, curso_id):
         form = CursoForm(request.POST, instance=curso)
         if form.is_valid():
             form.save()
-    return redirect('informacion_curso', curso_id=curso.id, curso_nombre=curso.nombre)
+    return redirect('informacion_curso', curso_id=curso.id, curso_slug=curso.slug)
 
 @login_required
 def eliminar_curso(request, curso_id):
@@ -41,19 +41,19 @@ def eliminar_curso(request, curso_id):
     return redirect('cursos_profesor')
 
 @login_required
-def contenido_curso(request, curso_id, curso_nombre):
+def contenido_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id)
     secciones = curso.seccion_set.all()
     return render(request, 'curso/contenido_curso.html', {'curso': curso, 'secciones': secciones, 'page': 'contenido'})
 
 @login_required
-def asesoria_curso(request, curso_id, curso_nombre):
+def asesoria_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id)
     asesorias = curso.asesoria_set.all().order_by('fecha', 'hora_inicio')
     return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'page': 'asesoria'})
 
 @login_required
-def estudiantes_curso(request, curso_id, curso_nombre):
+def estudiantes_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id)
     inscripciones = curso.inscripcion_set.all()
     estudiantes = [inscripcion.estudiante for inscripcion in inscripciones]
