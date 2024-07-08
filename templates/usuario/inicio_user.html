@@ -19,8 +19,8 @@
                         <ul class="list-group">
                             {% for curso in cursos_inscritos %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ curso.nombre }}
-                                <a href="{% url 'informacion_curso' curso.id curso.slug %}" class="btn btn-primary btn-sm">Ver Curso</a>
+                                <h5 class="mb-1">{{ curso.nombre }}</h5>
+                                <a href="{% url 'informacion_curso' curso.id curso.slug %}" class="btn btn-primary px-4 py-2 me-2">Ver Curso</a>
                             </li>
                             {% endfor %}
                         </ul>
