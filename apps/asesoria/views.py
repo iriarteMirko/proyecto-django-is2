@@ -27,6 +27,12 @@ def editar_asesoria(request, asesoria_id):
 
 @login_required
 def eliminar_asesoria(request, asesoria_id):
+    user = request.user
+    if user.es_estudiante:
+        return render(request, 'base/404.html')
     asesoria = get_object_or_404(Asesoria, id=asesoria_id)
+    profesor = asesoria.curso.profesor
+    if profesor != request.user.profesor:
+        return render(request, 'base/404.html')
     asesoria.delete()
     return redirect('asesoria_curso', curso_id=asesoria.curso.id, curso_slug=asesoria.curso.slug)

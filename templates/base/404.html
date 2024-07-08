@@ -14,12 +14,8 @@
             </div>
         </div>
         <div class="col">
-            {% if user.es_estudiante == True %}
-            <a class="btn btn-outline-dark btn-lg px-4 py-2 w-100" href="{% url 'inicio_estudiante' %}">
-                Inicio
-            </a>
-            {% elif user.es_profesor == True %}
-            <a class="btn btn-outline-dark btn-lg px-4 py-2 w-100" href="{% url 'inicio_profesor' %}">
+            {% if user.es_estudiante == True  or user.es_profesor == True %}
+            <a class="btn btn-outline-dark btn-lg px-4 py-2 w-100" href="{% url 'inicio_user' %}">
                 Inicio
             </a>
             {% else %}
