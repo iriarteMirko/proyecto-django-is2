@@ -1,4 +1,4 @@
-from django.http import HttpResponseForbidden
+from django.shortcuts import render
 
 class VistaBase:
     def procesar_solicitud(self, request, *args, **kwargs):
@@ -10,7 +10,7 @@ class ProfesorDecorator(VistaBase):
         
     def procesar_solicitud(self, request, *args, **kwargs):
         if not request.user.es_profesor:
-            return HttpResponseForbidden("Acceso denegado.")
+            return render(request, 'base/404.html', status=404)
         return self.vista_envuelta.procesar_solicitud(request, *args, **kwargs)
 
 class EstudianteDecorator(VistaBase):
@@ -19,5 +19,5 @@ class EstudianteDecorator(VistaBase):
         
     def procesar_solicitud(self, request, *args, **kwargs):
         if not request.user.es_estudiante:
-            return HttpResponseForbidden("Acceso denegado.")
+            return render(request, 'base/404.html', status=404)
         return self.vista_envuelta.procesar_solicitud(request, *args, **kwargs)
