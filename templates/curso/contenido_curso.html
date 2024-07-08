@@ -1,7 +1,6 @@
 {% extends "curso/detalle_curso.html" %}
 
 {% block innercontent %}
-
 <!-- Contenido del curso -->
 <div id="contenido-curso" class="content">
     <div class="card p-xl-3">
@@ -18,7 +17,7 @@
                             <h2 class="accordion-header" id="heading{{ forloop.counter }}">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
                                 data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
-                                <h5><b>{{ seccion.nombre }}</b></h1>
+                                <h5><b>{{ seccion.nombre }}</b></h5>
                                 </button>
                             </h2>
                             <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}">
@@ -28,18 +27,58 @@
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <p class="card-text"><strong>Materiales:</strong></p>
-                                        
+                                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal-AgregarMaterial-{{ seccion.id }}">Añadir material</a>
                                     </div>
+                                    <ul class="list-group mt-3">
+                                        {% for material in seccion.materiales.all %}
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                {{ material.nombre }}
+                                                <div>
+                                                    <a href="{{ material.archivo.url }}" class="btn btn-sm btn-info">Descargar</a>
+                                                    <a class="btn btn-sm btn-danger" href="{% url 'eliminar_material' material.id %}">X</a>
+                                                </div>
+                                            </li>
+                                        {% empty %}
+                                            <li class="list-group-item">No hay materiales en esta sección.</li>
+                                        {% endfor %}
+                                    </ul>
                                     <!-- Botones de cada sección -->
                                     <div class="d-flex justify-content-between mt-3">
-                                        <a class="btn btn-primary" href="#">Añadir material</a>
                                         <div>
                                             <!-- Botón para editar sección -->
                                             <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarSeccion-{{ seccion.id }}">Editar</a>
                                             <!-- Botón para eliminar sección -->
                                             <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-ConfirmEliminarSeccion-{{ seccion.id }}">Eliminar</a>
-                                            </form>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal para agregar material a una sección -->
+                        <div class="modal fade" id="Modal-AgregarMaterial-{{ seccion.id }}" tabindex="-1" aria-labelledby="ModalLabel-AgregarMaterial-{{ seccion.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="ModalLabel-AgregarMaterial-{{ seccion.id }}">Agregar Material</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="{% url 'agregar_material' seccion.id %}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Nombre:</span>
+                                                <input type="text" name="nombre" id="nombre" class="form-control" maxlength="100" required>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Archivo:</span>
+                                                <input type="file" name="archivo" id="archivo" class="form-control" required>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Añadir material</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +92,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{% url "editar_seccion" seccion.id %}">
+                                        <form method="POST" action="{% url 'editar_seccion' seccion.id %}">
                                             {% csrf_token %}
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Nombre:</span>

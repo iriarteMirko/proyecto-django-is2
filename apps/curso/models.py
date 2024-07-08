@@ -32,10 +32,6 @@ class Curso(models.Model):
     ultima_modificacion = models.DateField(auto_now=True)
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     
-    class Meta:
-        verbose_name = 'Curso'
-        verbose_name_plural = 'Cursos'
-    
     def __str__(self):
         return self.nombre
     
@@ -43,3 +39,11 @@ class Curso(models.Model):
         promedio = self.calificacion_set.aggregate(Avg('calificacion'))['calificacion__avg']
         self.calificacion_promedio = promedio if promedio is not None else 0
         self.save()
+
+class Seccion(models.Model):
+    curso = models.ForeignKey(Curso, related_name='secciones', on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField(max_length=500, blank=True, null=True)
+    
+    def __str__(self):
+        return self.nombre

@@ -21,6 +21,8 @@ urlpatterns = [
     path('inscripcion/', include('apps.inscripcion.urls')),
     path('', include('apps.calificacion.urls')),
     path('calificacion/', include('apps.calificacion.urls')),
+    path('', include('apps.material.urls')),
+    path('material/', include('apps.material.urls')),
 ]
 
 if settings.DEBUG:
