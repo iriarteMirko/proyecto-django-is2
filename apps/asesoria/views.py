@@ -22,7 +22,7 @@ def editar_asesoria(request, asesoria_id):
         form = AsesoriaForm(request.POST, instance=asesoria)
         if form.is_valid():
             form.save()
-            return redirect('asesoria_curso', curso_id=curso.id, curso_nombre=curso.nombre)
+            return redirect('asesoria_curso', curso_id=curso.id, curso_slug=curso.slug)
     asesorias = curso.asesoria_set.all().order_by('fecha', 'hora_inicio')
     return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'page': 'asesoria'})
 
@@ -30,4 +30,4 @@ def editar_asesoria(request, asesoria_id):
 def eliminar_asesoria(request, asesoria_id):
     asesoria = get_object_or_404(Asesoria, id=asesoria_id)
     asesoria.delete()
-    return redirect('asesoria_curso', curso_id=asesoria.curso.id, curso_nombre=asesoria.curso.nombre)
+    return redirect('asesoria_curso', curso_id=asesoria.curso.id, curso_slug=asesoria.curso.slug)

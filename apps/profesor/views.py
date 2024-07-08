@@ -54,7 +54,7 @@ def crear_seccion(request, curso_id):
         # Crear sección
         seccion = factory.create_seccion(curso=curso, nombre=nombre, descripcion=descripcion)
         if seccion:
-            return redirect('contenido_curso', curso_id=curso.id, curso_nombre=curso.nombre)
+            return redirect('contenido_curso', curso_id=curso.id, curso_slug=curso.slug)
         # Secciones del curso
         secciones = curso.seccion_set.all()
         return render(request, 'curso/contenido_curso.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso, 'secciones': secciones})
@@ -78,7 +78,7 @@ def crear_asesoria(request, curso_id):
         # Crear asesoría
         asesoria = factory.create_asesoria(curso=curso, fecha=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin, enlace=enlace)
         if asesoria:
-            return redirect('asesoria_curso', curso_id=curso.id, curso_nombre=curso.nombre)
+            return redirect('asesoria_curso', curso_id=curso.id, curso_slug=curso.slug)
         # Asesorías del curso
         asesorias = curso.asesoria_set.all()
         return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'error': 'Datos no válidos. Intente nuevamente.'})

@@ -14,4 +14,4 @@ def retirar_estudiante(request, curso_id, estudiante_id):
     curso = get_object_or_404(Curso, id=curso_id)
     inscripcion = get_object_or_404(Inscripcion, curso=curso, estudiante_id=estudiante_id)
     inscripcion.delete()
-    return redirect('estudiantes_curso', curso_id=curso.id, curso_nombre=curso.nombre)
+    return redirect('estudiantes_curso', curso_id=curso.id, curso_slug=curso.slug)
