@@ -53,7 +53,11 @@ def buscar_cursos(request):
 @login_required
 def informacion_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id, slug=curso_slug)
-    return render(request, 'curso/informacion_curso.html', {'curso': curso, 'page': 'informacion'})
+    is_inscrito = False
+    if request.user.es_estudiante:
+        from apps.inscripcion.models import Inscripcion
+        is_inscrito = Inscripcion.objects.filter(curso=curso, estudiante=request.user.estudiante).exists()
+    return render(request, 'curso/informacion_curso.html', {'curso': curso, 'page': 'informacion', 'is_inscrito': is_inscrito})
 
 @login_required
 def editar_curso(request, curso_id):

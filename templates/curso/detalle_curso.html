@@ -20,9 +20,11 @@
                 <li class="list-group-item">
                     <a href="{% url "asesoria_curso" curso.id curso.slug %}" class="{% if page == "asesoria" %}active{% endif %}">Asesoría</a>
                 </li>
+                {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
                 <li class="list-group-item">
                     <a href="{% url "estudiantes_curso" curso.id curso.slug %}" class="{% if page == "estudiantes" %}active{% endif %}">Estudiantes</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
         <div class="col-md-9 my-3">
