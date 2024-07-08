@@ -13,7 +13,10 @@ class CursoViewSet(viewsets.ModelViewSet):
 
 @login_required
 def mis_cursos(request):
-    cursos = Curso.objects.filter(profesor=request.user.profesor).order_by('fecha_creacion').reverse()
+    if request.user.es_profesor:
+        cursos = Curso.objects.filter(profesor=request.user.profesor).order_by('fecha_creacion').reverse()
+    else:
+        cursos = Curso.objects.filter(estudiantes=request.user.estudiante).order_by('fecha_creacion').reverse()
     if not cursos:
         return render(request, 'curso/lista_cursos.html')
     paginator = Paginator(cursos, 8)
