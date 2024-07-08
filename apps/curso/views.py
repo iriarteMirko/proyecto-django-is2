@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.db.models import Q
 from rest_framework import viewsets
 from .serializer import CursoSerializer
 from .form import CursoForm
@@ -26,15 +28,13 @@ def mis_cursos(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'curso/lista_cursos.html', {'page_obj': page_obj})
 
-@login_required
 def buscar_cursos(request):
-    cursos = Curso.objects.all().order_by('fecha_creacion').reverse()
-    if not cursos:
-        return render(request, 'curso/lista_cursos.html')
+    query = request.GET.get('q', '')
+    cursos = Curso.objects.filter(nombre__icontains=query).order_by('fecha_creacion').reverse()
     paginator = Paginator(cursos, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'curso/lista_cursos.html', {'page_obj': page_obj})
+    return render(request, 'curso/buscar_cursos.html', {'page_obj': page_obj, 'query': query})
 
 @login_required
 def informacion_curso(request, curso_id, curso_slug):

@@ -5,9 +5,8 @@
         {% else %}
             <a class="navbar-brand me-5" href="/">MentorULima</a>
         {% endif %}
-        
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+        <form class="d-flex" method="GET" action="{% url "buscar_cursos" %}">
+            <input class="form-control me-2" type="search" name="q" id="navbar-search" placeholder="Buscar cursos..." aria-label="Buscar">
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
