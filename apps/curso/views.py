@@ -16,7 +16,19 @@ def mis_cursos(request):
     if request.user.es_profesor:
         cursos = Curso.objects.filter(profesor=request.user.profesor).order_by('fecha_creacion').reverse()
     else:
-        cursos = Curso.objects.filter(estudiantes=request.user.estudiante).order_by('fecha_creacion').reverse()
+        from apps.inscripcion.models import Inscripcion
+        inscripciones = Inscripcion.objects.filter(estudiante=request.user.estudiante)
+        cursos = Curso.objects.filter(inscripcion__in=inscripciones).order_by('fecha_creacion').reverse()
+    if not cursos:
+        return render(request, 'curso/lista_cursos.html')
+    paginator = Paginator(cursos, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'curso/lista_cursos.html', {'page_obj': page_obj})
+
+@login_required
+def buscar_cursos(request):
+    cursos = Curso.objects.all().order_by('fecha_creacion').reverse()
     if not cursos:
         return render(request, 'curso/lista_cursos.html')
     paginator = Paginator(cursos, 8)

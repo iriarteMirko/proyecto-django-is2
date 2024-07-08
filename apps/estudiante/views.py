@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from rest_framework import viewsets
 from .serializer import EstudianteSerializer
 from .models import Estudiante
@@ -26,33 +25,6 @@ def signup_estudiante(request):
         return render(request, 'estudiante/signup_estudiante.html', {'form': form, 'error': 'Datos no válidos. Intente nuevamente.'})
     form = RegistroEstudianteForm()
     return render(request, 'estudiante/signup_estudiante.html', {'form': form})
-
-@login_required
-def buscar_curso(request):
-    from apps.curso.models import Curso
-    cursos = Curso.objects.all()
-    paginator = Paginator(cursos, 8)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    
-    return render(request, 'estudiante/buscar_cursos.html', {'page_obj': page_obj})
-
-@login_required
-def mis_cursos(request):
-    from apps.inscripcion.models import Inscripcion
-    inscripciones = Inscripcion.objects.filter(estudiante=request.user.estudiante).order_by('fecha_inscripcion')
-    if not inscripciones:
-        return render(request, 'curso/lista_cursos.html')
-    cursos = [inscripcion.curso for inscripcion in inscripciones]
-    return render(request, 'curso/lista_cursos.html', {'cursos': cursos})
-
-@login_required
-def detalle_curso(request, curso_id):
-    from apps.curso.models import Curso
-    curso = get_object_or_404(Curso, id=curso_id)
-    secciones = curso.seccion_set.all()
-    return render(request, 'estudiante/detalle_curso.html', {'curso': curso, 'secciones': secciones})
-
 
 @login_required
 def inscribir_curso(request, curso_id):
