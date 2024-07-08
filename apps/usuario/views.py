@@ -10,6 +10,7 @@ from .models import Usuario
 class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
     queryset = Usuario.objects.all()
+    lookup_field = 'slug'
 
 def inicio(request):
     return render(request, 'usuario/inicio.html')

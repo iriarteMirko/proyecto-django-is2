@@ -9,6 +9,7 @@ from .models import Curso
 class CursoViewSet(viewsets.ModelViewSet):
     serializer_class = CursoSerializer
     queryset = Curso.objects.all()
+    lookup_field = 'slug'
 
 @login_required
 def mis_cursos(request):

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
-from curso.models import Curso
+from apps.curso.models import Curso
 
 class Command(BaseCommand):
     help = 'Genera slugs para cursos existentes'

@@ -49,7 +49,7 @@ class Usuario(AbstractBaseUser):
     es_estudiante = models.BooleanField('Estudiante', default=False)
     es_profesor = models.BooleanField('Profesor', default=False)
     es_administrador = models.BooleanField('Administrador', default=False)
-    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    slug = models.SlugField(max_length=100, unique=False, blank=True)
     
     objects = UsuarioManager()
     

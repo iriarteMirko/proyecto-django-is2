@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
-from usuario.models import Usuario
+from apps.usuario.models import Usuario
 
 class Command(BaseCommand):
     help = 'Genera slugs para usuarios existentes'
