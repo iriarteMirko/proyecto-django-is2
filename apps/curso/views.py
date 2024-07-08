@@ -5,11 +5,27 @@ from rest_framework import viewsets
 from .serializer import CursoSerializer
 from .form import CursoForm
 from .models import Curso
+from apps.usuario.decorators import VistaBase, ProfesorDecorator
 
 class CursoViewSet(viewsets.ModelViewSet):
     serializer_class = CursoSerializer
     queryset = Curso.objects.all()
     lookup_field = 'slug'
+
+class EditarCursoVista(VistaBase):
+    def procesar_solicitud(self, request, curso_id, *args, **kwargs):
+        curso = get_object_or_404(Curso, id=curso_id)
+        if request.method == 'POST':
+            form = CursoForm(request.POST, instance=curso)
+            if form.is_valid():
+                form.save()
+        return redirect('informacion_curso', curso_id=curso.id, curso_slug=curso.slug)
+
+class EliminarCursoVista(VistaBase):
+    def procesar_solicitud(self, request, curso_id, *args, **kwargs):
+        curso = get_object_or_404(Curso, id=curso_id)
+        curso.delete()
+        return redirect('lista_cursos')
 
 @login_required
 def mis_cursos(request):
@@ -41,18 +57,15 @@ def informacion_curso(request, curso_id, curso_slug):
 
 @login_required
 def editar_curso(request, curso_id):
-    curso = get_object_or_404(Curso, id=curso_id)
-    if request.method == 'POST':
-        form = CursoForm(request.POST, instance=curso)
-        if form.is_valid():
-            form.save()
-    return redirect('informacion_curso', curso_id=curso.id, curso_slug=curso.slug)
+    vista = EditarCursoVista()
+    vistaDecorator = ProfesorDecorator(vista)
+    return vistaDecorator.procesar_solicitud(request, curso_id)
 
 @login_required
 def eliminar_curso(request, curso_id):
-    curso = get_object_or_404(Curso, id=curso_id)
-    curso.delete()
-    return redirect('lista_cursos')
+    vista = EliminarCursoVista()
+    vistaDecorator = ProfesorDecorator(vista)
+    return vistaDecorator.procesar_solicitud(request, curso_id)
 
 @login_required
 def contenido_curso(request, curso_id, curso_slug):
