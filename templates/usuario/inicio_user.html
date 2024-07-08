@@ -6,87 +6,91 @@
     <div class="text-center">
         <h1>Bienvenido {{ user.first_name }}</h1>
     </div>
-    
     {% if user.es_estudiante %}
     <!-- Si el usuario es estudiante -->
-    <div class="card mt-4">
-        <div class="card-header">
-            <h3>Cursos Inscritos</h3>
-        </div>
-        <div class="card-body">
-            {% if cursos_inscritos %}   
-                <ul class="list-group">
-                    {% for curso in cursos_inscritos %}
-                    <li class="list-group-item">
-                        {{ curso.nombre }}
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No estás inscrito en ningún curso.</p>
-            {% endif %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Cursos Inscritos</h3>
+                </div>
+                <div class="card-body">
+                    {% if cursos_inscritos %}
+                        <ul class="list-group">
+                            {% for curso in cursos_inscritos %}
+                            <li class="list-group-item">
+                                {{ curso.nombre }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No estás inscrito en ningún curso.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Asesorías Disponibles</h3>
+                </div>
+                <div class="card-body">
+                    {% if asesorias_disponibles %}
+                        <ul class="list-group">
+                            {% for asesoria in asesorias_disponibles %}
+                            <li class="list-group-item">
+                                <strong>Curso:</strong> {{ asesoria.curso.nombre }} <br>
+                                <strong>Fecha:</strong> {{ asesoria.fecha|date:"d/m/Y" }} <br>
+                                <strong>Hora:</strong> {{ asesoria.hora_inicio|time:"H:i" }} - {{ asesoria.hora_fin|time:"H:i" }} <br>
+                                <a href="{{ asesoria.enlace }}" class="btn btn-primary mt-2" target="_blank">Unirse</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No hay asesorías disponibles.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="card mt-4">
-        <div class="card-header">
-            <h3>Asesorías Disponibles</h3>
-        </div>
-        <div class="card-body">
-            {% if asesorias_disponibles %}
-                <ul class="list-group">
-                    {% for asesoria in asesorias_disponibles %}
-                    <li class="list-group-item">
-                        <strong>Curso:</strong> {{ asesoria.curso.nombre }} <br>
-                        <strong>Fecha:</strong> {{ asesoria.fecha|date:"d/m/Y" }} <br>
-                        <strong>Hora:</strong> {{ asesoria.hora_inicio|time:"H:i" }} - {{ asesoria.hora_fin|time:"H:i" }} <br>
-                        <a href="{{ asesoria.enlace }}" class="btn btn-primary mt-2" target="_blank">Unirse</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No hay asesorías disponibles.</p>
-            {% endif %}
-        </div>
-    </div>
-
     {% elif user.es_profesor %}
     <!-- Si el usuario es profesor -->
-    <div class="card mt-4">
-        <div class="card-header">
-            <h3>Cursos Creados</h3>
-        </div>
-        <div class="card-body">
-            {% if cursos_creados %}
-                <ul class="list-group">
-                    {% for curso in cursos_creados %}
-                    <li class="list-group-item">
-                        {{ curso.nombre }}
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No has creado ningún curso.</p>
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="card mt-4">
-        <div class="card-header">
-            <h3>Estudiantes Inscritos</h3>
-        </div>
-        <div class="card-body">
-            {% if estudiantes_inscritos %}
-                <ul class="list-group">
-                    {% for estudiante in estudiantes_inscritos %}
-                    <li class="list-group-item">
-                        {{ estudiante.usuario.first_name }} {{ estudiante.usuario.last_name }} - {{ estudiante.carrera }} (Ciclo: {{ estudiante.ciclo }})
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No tienes estudiantes inscritos en tus cursos.</p>
-            {% endif %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Cursos Creados</h3>
+                </div>
+                <div class="card-body">
+                    {% if cursos_creados %}
+                        <ul class="list-group">
+                            {% for curso in cursos_creados %}
+                            <li class="list-group-item">
+                                {{ curso.nombre }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No has creado ningún curso.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Estudiantes Inscritos</h3>
+                </div>
+                <div class="card-body">
+                    {% if estudiantes_inscritos %}
+                        <ul class="list-group">
+                            {% for estudiante in estudiantes_inscritos %}
+                            <li class="list-group-item">
+                                {{ estudiante.usuario.first_name }} {{ estudiante.usuario.last_name }} - {{ estudiante.carrera }} (Ciclo: {{ estudiante.ciclo }})
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No tienes estudiantes inscritos en tus cursos.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
     
