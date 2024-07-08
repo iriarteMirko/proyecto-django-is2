@@ -22,7 +22,7 @@ def signup_estudiante(request):
                 return render(request, 'estudiante/signup_estudiante.html', {'form': form, 'error': 'El código debe ser un número entero.'})
             user = authenticate(codigo=codigo, password=password)
             login(request, user)
-            return redirect('inicio_estudiante')
+            return redirect('inicio_user')
         return render(request, 'estudiante/signup_estudiante.html', {'form': form, 'error': 'Datos no válidos. Intente nuevamente.'})
     form = RegistroEstudianteForm()
     return render(request, 'estudiante/signup_estudiante.html', {'form': form})

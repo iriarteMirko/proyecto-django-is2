@@ -20,7 +20,7 @@ def signup_profesor(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(codigo=codigo, password=password)
             login(request, user)
-            return redirect('inicio_profesor')
+            return redirect('inicio_user')
         else:
             return render(request, 'profesor/signup_profesor.html', {'form': form, 'error': 'Datos no válidos. Intente nuevamente.'})
     else:
