@@ -76,7 +76,7 @@ def mi_perfil(request):
     return render(request, 'usuario/perfil.html', contexto)
 
 def ver_perfil(request, usuario_id, usuario_slug):
-    user = get_object_or_404(Usuario, id=usuario_id)
+    user = get_object_or_404(Usuario, id=usuario_id, slug=usuario_slug)
     contexto = {'user': user}
     if user.es_estudiante:
         estudiante = user.estudiante
