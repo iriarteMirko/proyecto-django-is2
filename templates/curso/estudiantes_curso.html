@@ -18,7 +18,7 @@
                                 <div class="d-flex align-items-center">
                                     <img src="{% if estudiante.usuario.imagen %} {{ estudiante.usuario.imagen.url }} {% else %} https://imgur.com/CuXg45K.jpg {% endif %}" 
                                     class="rounded-circle me-3" alt="{{ estudiante.usuario.nombre }} {{ estudiante.usuario.apellidos }}" style="width: 75px; height: 75px;">
-                                    <div>
+                                    <div class="text-truncate" style="max-width: 250px;">
                                         <h5 class="mb-1">{{ estudiante.usuario.nombre }} {{ estudiante.usuario.apellidos }}</h5>
                                         <p class="mb-1">Carrera: {{ estudiante.carrera }}</p>
                                         <small>Ciclo: {{ estudiante.ciclo }}</small>
