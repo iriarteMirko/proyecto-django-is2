@@ -28,6 +28,15 @@ class Asesoria(models.Model):
         if datetime_fin <= datetime_inicio:
             raise ValidationError("La hora de fin debe ser mayor a la hora de inicio.")
 
+def validar_profesor(request, asesoria):
+    user = request.user
+    if user.es_estudiante:
+        return "No tienes permisos para realizar esta acción."
+    profesor = asesoria.curso.profesor
+    if profesor != request.user.profesor:
+        return "No tienes permisos para realizar esta acción."
+    return None
+
 def validar_asesoria(request):
     from datetime import datetime
     fecha_str = request.POST.get('fecha')

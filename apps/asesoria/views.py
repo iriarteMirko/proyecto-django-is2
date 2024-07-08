@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from .serializer import AsesoriaSerializer
-from .models import Asesoria, validar_asesoria
+from .models import Asesoria, validar_profesor, validar_asesoria
 from .form import AsesoriaForm
 
 class AsesoriaViewSet(viewsets.ModelViewSet):
@@ -12,6 +12,9 @@ class AsesoriaViewSet(viewsets.ModelViewSet):
 @login_required
 def editar_asesoria(request, asesoria_id):
     asesoria = get_object_or_404(Asesoria, id=asesoria_id)
+    error = validar_profesor(request, asesoria)
+    if error:
+        return render(request, 'base/404.html', {'error': error})
     curso = asesoria.curso
     if request.method == 'POST':
         error = validar_asesoria(request)
@@ -27,12 +30,9 @@ def editar_asesoria(request, asesoria_id):
 
 @login_required
 def eliminar_asesoria(request, asesoria_id):
-    user = request.user
-    if user.es_estudiante:
-        return render(request, 'base/404.html')
     asesoria = get_object_or_404(Asesoria, id=asesoria_id)
-    profesor = asesoria.curso.profesor
-    if profesor != request.user.profesor:
-        return render(request, 'base/404.html')
+    error = validar_profesor(request, asesoria)
+    if error:
+        return render(request, 'base/404.html', {'error': error})
     asesoria.delete()
     return redirect('asesoria_curso', curso_id=asesoria.curso.id, curso_slug=asesoria.curso.slug)
