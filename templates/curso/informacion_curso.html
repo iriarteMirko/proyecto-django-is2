@@ -21,7 +21,7 @@
                         <button type="submit" class="btn btn-success px-4 py-2">Inscribirse</button>
                     </form>
                     {% else %}
-                    <form method="POST" action="{% url "desinscribir_curso" curso.id %}">
+                    <form method="POST" action="{% url "retirar_curso" curso.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger px-4 py-2">Retirarse del curso</button>
                     </form>

@@ -13,15 +13,20 @@ class InscripcionViewSet(viewsets.ModelViewSet):
 def inscribir_curso(request, curso_id):
     curso = get_object_or_404(Curso, id=curso_id)
     estudiante = request.user.estudiante
-    curso.estudiantes.add(estudiante)
-    return redirect('detalle_curso', curso_id=curso.id)
+    inscripcion, created = Inscripcion.objects.get_or_create(curso=curso, estudiante=estudiante)
+    if inscripcion:
+        inscripcion.save()
+    if created:
+        return redirect('informacion_curso', curso_id=curso.id, curso_slug=curso.slug)
+    return redirect('buscar_cursos')
 
 @login_required
 def retirar_curso(request, curso_id):
     curso = get_object_or_404(Curso, id=curso_id)
     estudiante = request.user.estudiante
-    curso.estudiantes.remove(estudiante)
-    return redirect('detalle_curso', curso_id=curso.id)
+    inscripcion = get_object_or_404(Inscripcion, curso=curso, estudiante=estudiante)
+    inscripcion.delete()
+    return redirect('buscar_cursos')
 
 @login_required
 def retirar_estudiante(request, curso_id, estudiante_id):
