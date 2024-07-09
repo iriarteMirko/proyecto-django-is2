@@ -34,14 +34,14 @@ class AsesoriaModelTests(TestCase):
             hora_fin=self.hora_fin,
             enlace='http://reunion.zoom/123456'
         )
-
+    
     def test_crear_asesoria(self):
         self.assertEqual(self.asesoria.curso.nombre, 'Matemáticas')
         self.assertEqual(self.asesoria.fecha, self.fecha)
         self.assertEqual(self.asesoria.hora_inicio, self.hora_inicio)
         self.assertEqual(self.asesoria.hora_fin, self.hora_fin)
         self.assertEqual(self.asesoria.enlace, 'http://reunion.zoom/123456')
-
+    
     def test_editar_asesoria(self):
         self.client.login(codigo='20191629', password='profesor123')
         nueva_fecha = self.fecha + timezone.timedelta(days=2)
@@ -59,7 +59,7 @@ class AsesoriaModelTests(TestCase):
         self.assertEqual(self.asesoria.hora_fin, nueva_hora_fin)
         self.assertEqual(self.asesoria.enlace, 'http://reunion.zoom/789012')
         self.assertRedirects(response, reverse('asesoria_curso', args=[self.curso.id, self.curso.slug]))
-
+    
     def test_eliminar_asesoria(self):
         self.client.login(codigo='20191629', password='profesor123')
         response = self.client.post(reverse('eliminar_asesoria', args=[self.asesoria.id]))

@@ -19,8 +19,6 @@ urlpatterns = [
     path('asesoria/', include('apps.asesoria.urls')),
     path('', include('apps.inscripcion.urls')),
     path('inscripcion/', include('apps.inscripcion.urls')),
-    path('', include('apps.calificacion.urls')),
-    path('calificacion/', include('apps.calificacion.urls')),
 ]
 
 if settings.DEBUG:
