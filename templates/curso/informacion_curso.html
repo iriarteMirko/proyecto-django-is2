@@ -49,6 +49,26 @@
                     <h5 class="card-title me-2">Última modificación:</h5>
                     <p class="card-text mb-0">{{ curso.ultima_modificacion|date:"d/m/Y" }}</p>
                 </div>
+                {% if request.user.es_estudiante %}
+                <div class="list-group mt-3">
+                    <div class="list-group-item list-group-item-action mb-0">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <img src="{% if curso.profesor.usuario.imagen %} {{ curso.profesor.usuario.imagen.url }} {% else %} https://imgur.com/CuXg45K.jpg {% endif %}" 
+                                class="rounded-circle me-3" alt="{{ curso.profesor.usuario.nombre }} {{ curso.profesor.usuario.apellidos }}" style="width: 75px; height: 75px;">
+                                <div class="text-truncate" style="max-width: 250px;">
+                                    <h5 class="mb-1">{{ curso.profesor.usuario.nombre }} {{ curso.profesor.usuario.apellidos }}</h5>
+                                    <p class="mb-1">Profesión: {{ curso.profesor.profesion }}</p>
+                                    <small>Centro Laboral: {{ curso.profesor.centro_laboral }}</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <a href="{% url "ver_perfil" curso.profesor.usuario.id curso.profesor.usuario.slug %}" class="btn btn-primary px-4 py-2 me-2">Ver perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
