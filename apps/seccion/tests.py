@@ -7,22 +7,9 @@ from apps.profesor.models import Profesor
 
 class SeccionTests(TestCase):
     def setUp(self):
-        self.user = Usuario.objects.create_user(
-            codigo='20230001',
-            email='testuser@example.com',
-            password='12345',
-            nombre='Test',
-            apellidos='User',
-            es_profesor=True
-        )
+        self.user = Usuario.objects.create_user(codigo='20230001', email='testuser@example.com', password='12345', nombre='Test', apellidos='User', es_profesor=True)
         self.profesor = Profesor.objects.create(usuario=self.user, profesion='Ingeniero', centro_laboral='Universidad')
-        self.curso = Curso.objects.create(
-            nombre='Curso de Prueba',
-            descripcion='Descripción del curso',
-            categoria='Desarrollo',
-            nivel='Intermedio',
-            profesor=self.profesor
-        )
+        self.curso = Curso.objects.create(nombre='Curso de Prueba', descripcion='Descripción del curso', categoria='Desarrollo', nivel='Intermedio', profesor=self.profesor)
         self.seccion = Seccion.objects.create(curso=self.curso, nombre='Sección de Prueba', descripcion='Descripción de la sección')
     
     def test_editar_seccion(self):
