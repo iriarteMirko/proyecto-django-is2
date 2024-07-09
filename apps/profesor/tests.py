@@ -16,7 +16,7 @@ class ProfesorTests(TestCase):
         )
         self.profesor = Profesor.objects.create(usuario=self.user, profesion='Ingeniero', centro_laboral='Universidad')
     
-    def test_profesor_creacion(self):
+    def test_profesor_registro(self):
         self.assertEqual(self.profesor.usuario, self.user)
         self.assertEqual(self.profesor.profesion, 'Ingeniero')
         self.assertEqual(self.profesor.centro_laboral, 'Universidad')

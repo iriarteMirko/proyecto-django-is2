@@ -16,7 +16,7 @@ class EstudianteTests(TestCase):
         )
         self.estudiante = Estudiante.objects.create(usuario=self.user, carrera='Ingeniería de Sistemas', ciclo=5)
     
-    def test_estudiante_creacion(self):
+    def test_estudiante_registro(self):
         self.assertEqual(self.estudiante.usuario, self.user)
         self.assertEqual(self.estudiante.carrera, 'Ingeniería de Sistemas')
         self.assertEqual(self.estudiante.ciclo, 5)
