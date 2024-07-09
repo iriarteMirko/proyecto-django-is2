@@ -7,7 +7,6 @@ from apps.profesor.models import Profesor
 
 class SeccionTests(TestCase):
     def setUp(self):
-        # Configuración inicial para las pruebas
         self.user = Usuario.objects.create_user(
             codigo='20230001',
             email='testuser@example.com',
