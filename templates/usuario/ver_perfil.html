@@ -47,7 +47,10 @@
                                 <ul class="list-group">
                                     {% if inscripciones %}
                                         {% for inscripcion in inscripciones %}
-                                            <li class="list-group-item text-truncate">{{ inscripcion.curso.nombre }}</li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center text-truncate">
+                                                {{ inscripcion.curso.nombre }}
+                                                <a href="{% url 'informacion_curso' inscripcion.curso.id inscripcion.curso.slug %}" class="btn btn-primary btn-sm">Ver curso</a>
+                                            </li>
                                         {% endfor %}
                                     {% else %}
                                         <li class="list-group-item text-truncate">No tiene cursos inscritos</li>
@@ -58,7 +61,10 @@
                                 <ul class="list-group">
                                     {% if cursos %}
                                         {% for curso in cursos %}
-                                            <li class="list-group-item text-truncate">{{ curso.nombre }}</li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center text-truncate">
+                                                {{ curso.nombre }}
+                                                <a href="{% url 'informacion_curso' curso.id curso.slug %}" class="btn btn-primary btn-sm">Ver curso</a>
+                                            </li>
                                         {% endfor %}
                                     {% else %}
                                         <li class="list-group-item text-truncate">No tiene cursos creados</li>
