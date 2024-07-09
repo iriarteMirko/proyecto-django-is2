@@ -27,6 +27,7 @@
                                     <strong>Horario:</strong>
                                     {{ asesoria.hora_inicio|time:"H:i" }} - {{ asesoria.hora_fin|time:"H:i" }}
                                 </p>
+                                {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
                                 <div class="card-text d-flex align-items-center mb-4">
                                     <strong>Enlace: </strong>
                                     <a href="{{ asesoria.enlace }}" target="_blank" title="{{ asesoria.enlace }}" class="ms-2">{{ asesoria.enlace }}</a>
@@ -34,13 +35,16 @@
                                 <div class="mt-auto">
                                     <div class="d-flex justify-content-between">
                                         <!-- Botón para editar asesoría -->
-                                        {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
                                         <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarAsesoria-{{ asesoria.id }}">Editar</a>
                                         <!-- Botón para eliminar asesoría -->
                                         <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-EliminarAsesoria-{{ asesoria.id }}">Eliminar</button>
-                                        {% endif %}
                                     </div>
                                 </div>
+                                {% else %}
+                                <div class="card-text d-flex align-items-center">
+                                    <a href="{{ asesoria.enlace }}" class="btn btn-success btn-block" target="_blank">Unirse</a>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
