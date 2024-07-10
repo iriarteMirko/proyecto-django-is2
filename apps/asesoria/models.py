@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from apps.curso.models import Curso
 
 class Asesoria(models.Model):
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='asesorias')
     fecha = models.DateField(blank=False, null=False, help_text="Fecha de la asesoría")
     hora_inicio = models.TimeField(blank=False, null=False, help_text="Hora de inicio de la asesoría")
     hora_fin = models.TimeField(blank=False, null=False, help_text="Hora de fin de la asesoría")

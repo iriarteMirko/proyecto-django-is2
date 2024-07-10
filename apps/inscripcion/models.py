@@ -4,8 +4,8 @@ from apps.estudiante.models import Estudiante
 
 
 class Inscripcion(models.Model):
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='inscripciones')
+    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name='inscripciones')
     fecha_inscripcion = models.DateField(auto_now_add=True)
     
     class Meta:

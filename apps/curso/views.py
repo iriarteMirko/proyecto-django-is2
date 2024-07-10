@@ -75,19 +75,18 @@ def eliminar_curso(request, curso_id):
 @login_required
 def contenido_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id, slug=curso_slug)
-    secciones = curso.seccion_set.all()
-    materiales = Material.objects.filter(seccion__in=secciones)
-    return render(request, 'curso/contenido_curso.html', {'curso': curso, 'secciones': secciones, 'materiales': materiales, 'page': 'contenido'})
+    secciones = curso.secciones.all()
+    return render(request, 'curso/contenido_curso.html', {'curso': curso, 'secciones': secciones, 'page': 'contenido'})
 
 @login_required
 def asesoria_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id, slug=curso_slug)
-    asesorias = curso.asesoria_set.all().order_by('fecha', 'hora_inicio')
+    asesorias = curso.asesorias.all().order_by('fecha', 'hora_inicio')
     return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'page': 'asesoria'})
 
 @login_required
 def estudiantes_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id, slug=curso_slug)
-    inscripciones = curso.inscripcion_set.all()
+    inscripciones = curso.inscripciones.all()
     estudiantes = [inscripcion.estudiante for inscripcion in inscripciones]
     return render(request, 'curso/estudiantes_curso.html', {'curso': curso, 'estudiantes': estudiantes, 'page': 'estudiantes'})

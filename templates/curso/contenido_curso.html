@@ -31,20 +31,26 @@
                                 <div class="mb-3">
                                     <p class="card-text"><strong>Materiales:</strong></p>
                                     <div class="row">
-                                        {% for material in materiales %}
-                                            {% if material.seccion == seccion %}
+                                        {% if seccion.materiales.all %}
+                                            {% for material in seccion.materiales.all %}
                                             <div class="col-md-6 mb-3">
                                                 <div class="card">
                                                     <div class="card-body">
+                                                        {% if material.archivo %}
                                                         <h5 class="card-title"><a href="{{ material.archivo.url }}" class="text-decoration-none text-primary">{{ material.nombre }}</a></h5>
+                                                        {% else %}  
+                                                        <h5 class="card-title">{{ material.nombre }} (Sin archivo asociado)</h5>
+                                                        {% endif %}
                                                         {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
                                                         <a href="{% url "eliminar_material" material.id %}" class="btn btn-danger">Eliminar</a>
                                                         {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
-                                            {% endif %}
-                                        {% endfor %}
+                                            {% endfor %}
+                                        {% else %}
+                                        <p class="card-text mb-3">No hay materiales en esta sección.</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <!-- Botones de cada material -->
