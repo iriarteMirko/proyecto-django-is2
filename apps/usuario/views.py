@@ -21,7 +21,7 @@ def inicio_user(request):
     cursos_inscritos = []
     asesorias_disponibles = []
     cursos_creados = []
-    estudiantes_inscritos = []
+    estudiantes_inscritos = set()  # Usamos un set para eliminar duplicados
     if user.es_estudiante:
         from apps.inscripcion.models import Inscripcion
         from apps.asesoria.models import Asesoria
@@ -30,17 +30,19 @@ def inicio_user(request):
         asesorias_disponibles = Asesoria.objects.filter(curso__in=cursos_inscritos)
     elif user.es_profesor:
         from apps.curso.models import Curso
-        from apps.estudiante.models import Estudiante
+        from apps.inscripcion.models import Inscripcion
         cursos_creados = Curso.objects.filter(profesor=user.profesor)
-        estudiantes_inscritos = Estudiante.objects.filter(inscripcion__curso__in=cursos_creados).distinct()
+        inscripciones = Inscripcion.objects.filter(curso__in=cursos_creados)
+        estudiantes_inscritos.update(inscripcion.estudiante for inscripcion in inscripciones)
     context = {
         'user': user,
         'cursos_inscritos': cursos_inscritos,
         'asesorias_disponibles': asesorias_disponibles,
         'cursos_creados': cursos_creados,
-        'estudiantes_inscritos': estudiantes_inscritos,
+        'estudiantes_inscritos': list(estudiantes_inscritos),  # Convertimos el set de nuevo a una lista
     }
     return render(request, 'usuario/inicio_user.html', context)
+
 
 def signup(request):
     return render(request, 'usuario/signup.html')
@@ -80,12 +82,12 @@ def ver_perfil(request, usuario_id, usuario_slug):
     contexto = {'user': user}
     if user.es_estudiante:
         estudiante = user.estudiante
-        inscripciones = estudiante.inscripcion_set.all()
+        inscripciones = estudiante.inscripciones.all()
         contexto['estudiante'] = estudiante
         contexto['inscripciones'] = inscripciones
     elif user.es_profesor:
         profesor = user.profesor
-        cursos = profesor.curso_set.all()
+        cursos = profesor.cursos.all()
         contexto['profesor'] = profesor
         contexto['cursos'] = cursos
     return render(request, 'usuario/ver_perfil.html', contexto)

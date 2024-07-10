@@ -30,28 +30,24 @@
                                 </div>
                                 <div class="card custom-card">
                                     <p class="card-text mb-2"><strong>Materiales:</strong></p>
-                                    <div class="row">
-                                        {% if seccion.materiales.all %}
-                                            {% for material in seccion.materiales.all %}
-                                            <div class="col mb-0">
-                                                <div class="card mb-0">
-                                                    <div class="card-body pt-3 pb-3">
-                                                        {% if material.archivo %}
-                                                        <h5 class="card-title"><a href="{{ material.archivo.url }}" class="text-decoration-none text-primary">{{ material.nombre }}</a></h5>
-                                                        {% else %}  
-                                                        <h5 class="card-title">{{ material.nombre }} (Sin archivo asociado)</h5>
-                                                        {% endif %}
-                                                        {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
-                                                        <a href="{% url "eliminar_material" material.id %}" class="btn btn-danger">Eliminar</a>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        {% else %}
-                                        <p class="card-text mb-3">No hay materiales en esta sección.</p>
-                                        {% endif %}
-                                    </div>
+                                    {% if seccion.materiales.all %}
+                                        {% for material in seccion.materiales.all %}
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center text-truncate">
+                                            {% if material.archivo %}
+                                            <h5 class="card-title"><a href="{{ material.archivo.url }}" class="text-decoration-none text-primary">{{ material.nombre }}</a></h5>
+                                            {% else %}  
+                                            <h5 class="card-title">{{ material.nombre }} (Sin archivo asociado)</h5>
+                                            {% endif %}
+                                            {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
+                                            <a href="{% url "eliminar_material" material.id %}" class="btn btn-danger">Eliminar</a>
+                                            {% endif %}
+                                            </li>
+                                        </ul>
+                                        {% endfor %}
+                                    {% else %}
+                                    <p class="card-text">No hay materiales en esta sección.</p>
+                                    {% endif %}
                                 </div>
                                 <!-- Botones de cada material -->
                                 {% if request.user.es_profesor and curso.profesor == request.user.profesor %}

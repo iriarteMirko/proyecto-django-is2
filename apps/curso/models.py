@@ -29,7 +29,7 @@ class Curso(models.Model):
     nivel = models.CharField(max_length=100, choices=NIVEL_OPCIONES, blank=False, null=False)
     fecha_creacion = models.DateField(auto_now_add=True)
     ultima_modificacion = models.DateField(auto_now=True)
-    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
+    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE, related_name='cursos')
     slug = models.SlugField(max_length=100, unique=False, blank=False, null=False)
     
     class Meta:
