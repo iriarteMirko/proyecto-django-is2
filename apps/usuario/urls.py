@@ -22,6 +22,3 @@ urlpatterns = [
     path('perfil/eliminar/', views.eliminar_cuenta, name='eliminar_cuenta'),
     
 ]
-
-# Configuración de la vista personalizada para errores 404
-handler404 = 'apps.usuario.views.error_404_view'
