@@ -19,7 +19,7 @@ class EditarAsesoriaVista(VistaBase):
                 return render(request, 'base/404.html', {'error': error})
             error = validar_asesoria(request)
             if error:
-                asesorias = asesoria.curso.asesoria_set.all().order_by('fecha', 'hora_inicio')
+                asesorias = asesoria.curso.asesorias.all().order_by('fecha', 'hora_inicio')
                 return render(request, 'curso/asesoria_curso.html', {'curso': asesoria.curso, 'asesorias': asesorias, 'page': 'asesoria', 'error': error})
             form = AsesoriaForm(request.POST, instance=asesoria)
             if form.is_valid():

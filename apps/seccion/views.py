@@ -19,7 +19,7 @@ class EditarSeccionVista(VistaBase):
                 form.save()
                 return redirect('contenido_curso', curso_id=seccion.curso.id, curso_slug=seccion.curso.slug)
         curso = seccion.curso
-        secciones = curso.seccion_set.all()
+        secciones = curso.secciones.all()
         return render(request, 'curso/contenido_curso.html', {'curso': curso, 'secciones': secciones, 'page': 'contenido'})
 
 class EliminarSeccionVista(VistaBase):

@@ -25,17 +25,17 @@
                         </h2>
                         <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}">
                             <div class="accordion-body">
-                                <div class="mb-3">
+                                <div class="card custom-card">
                                     <p class="card-text"><strong>Descripción:</strong> {{ seccion.descripcion }}</p>
                                 </div>
-                                <div class="mb-3">
-                                    <p class="card-text"><strong>Materiales:</strong></p>
+                                <div class="card custom-card">
+                                    <p class="card-text mb-2"><strong>Materiales:</strong></p>
                                     <div class="row">
                                         {% if seccion.materiales.all %}
                                             {% for material in seccion.materiales.all %}
-                                            <div class="col-md-6 mb-3">
-                                                <div class="card">
-                                                    <div class="card-body">
+                                            <div class="col mb-0">
+                                                <div class="card mb-0">
+                                                    <div class="card-body pt-3 pb-3">
                                                         {% if material.archivo %}
                                                         <h5 class="card-title"><a href="{{ material.archivo.url }}" class="text-decoration-none text-primary">{{ material.nombre }}</a></h5>
                                                         {% else %}  
