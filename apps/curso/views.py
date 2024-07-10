@@ -35,7 +35,7 @@ def mis_cursos(request):
     else:
         from apps.inscripcion.models import Inscripcion
         inscripciones = Inscripcion.objects.filter(estudiante=request.user.estudiante)
-        cursos = Curso.objects.filter(inscripcion__in=inscripciones).order_by('fecha_creacion').reverse()
+        cursos = Curso.objects.filter(inscripciones__in=inscripciones).order_by('fecha_creacion').reverse()
     if not cursos:
         return render(request, 'curso/lista_cursos.html')
     paginator = Paginator(cursos, 8)
