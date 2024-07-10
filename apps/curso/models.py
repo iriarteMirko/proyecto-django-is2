@@ -30,7 +30,7 @@ class Curso(models.Model):
     fecha_creacion = models.DateField(auto_now_add=True)
     ultima_modificacion = models.DateField(auto_now=True)
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=100, unique=False, blank=True)
+    slug = models.SlugField(max_length=100, unique=False, blank=False, null=False)
     
     class Meta:
         verbose_name = 'Curso'

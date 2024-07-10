@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from .serializer import CursoSerializer
 from .form import CursoForm
 from .models import Curso
+from apps.material.models import Material
 from apps.usuario.decorators import VistaBase, ProfesorDecorator
 
 class CursoViewSet(viewsets.ModelViewSet):
@@ -75,7 +76,8 @@ def eliminar_curso(request, curso_id):
 def contenido_curso(request, curso_id, curso_slug):
     curso = get_object_or_404(Curso, id=curso_id, slug=curso_slug)
     secciones = curso.seccion_set.all()
-    return render(request, 'curso/contenido_curso.html', {'curso': curso, 'secciones': secciones, 'page': 'contenido'})
+    materiales = Material.objects.filter(seccion__in=secciones)
+    return render(request, 'curso/contenido_curso.html', {'curso': curso, 'secciones': secciones, 'materiales': materiales, 'page': 'contenido'})
 
 @login_required
 def asesoria_curso(request, curso_id, curso_slug):

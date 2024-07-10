@@ -30,12 +30,53 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p class="card-text"><strong>Materiales:</strong></p>
-                                    
+                                    <ul>
+                                        {% for material in seccion.materiales.all %}
+                                        <li>
+                                            {% if material.archivo %}
+                                            <a href="{{ material.archivo.url }}" class="btn btn-primary" download>{{ material.nombre }}</a>
+                                            {% else %}
+                                            <span>{{ material.nombre }} (Sin archivo asociado)</span>
+                                            {% endif %}
+                                            {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
+                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-ConfirmEliminarMaterial-{{ material.id }}">Eliminar</a>
+                                            {% endif %}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
-                                <!-- Botones de cada sección -->
+                                <!-- Botones de cada material -->
                                 {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
                                 <div class="d-flex justify-content-between mt-3">
-                                    <a class="btn btn-primary" href="#">Añadir material</a>
+                                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal-AgregarMaterial">Agregar material</a>
+                                    <!-- Modal para agregar material -->
+                                    <div class="modal fade" id="Modal-AgregarMaterial" tabindex="-1" aria-labelledby="ModalLabel-AgregarMaterial" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="ModalLabel-AgregarMaterial">Agregar Material</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="POST" action="{% url "agregar_material" seccion.id %}" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text">Nombre:</span>
+                                                            <input type="text" name="nombre" id="nombre" class="form-control" 
+                                                            maxlength="30" placeholder="Nombre" required>
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="file" name="archivo" id="archivo" class="form-control" required>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+                                                            <button type="submit" class="btn btn-primary">Agregar material</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div>
                                         <!-- Botón para editar sección -->
                                         <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-EditarSeccion-{{ seccion.id }}">Editar</a>
