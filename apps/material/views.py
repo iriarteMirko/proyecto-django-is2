@@ -20,7 +20,7 @@ def agregar_material(request, seccion_id):
             material = form.save(commit=False)
             material.seccion = seccion
             material.save()
-            return redirect('contenido_curso', curso_id=seccion.curso.id, curso_slug=seccion.curso.slug)
+    return redirect('contenido_curso', curso_id=seccion.curso.id, curso_slug=seccion.curso.slug)
 
 @login_required
 def eliminar_material(request, material_id):

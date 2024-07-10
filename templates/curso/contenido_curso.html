@@ -31,26 +31,28 @@
                                 <div class="mb-3">
                                     <p class="card-text"><strong>Materiales:</strong></p>
                                     <div class="row">
-                                        {% for material in seccion.materiales.all %}
-                                        <div class="col-md-6 mb-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title"><a href="{{ material.archivo.url }}" class="text-decoration-none text-primary">{{ material.nombre }}</a></h5>
-                                                    {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
-                                                    <a class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#Modal-ConfirmEliminarMaterial-{{ material.id }}">Eliminar</a>
-                                                    {% endif %}
+                                        {% for material in materiales %}
+                                            {% if material.seccion == seccion %}
+                                            <div class="col-md-6 mb-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><a href="{{ material.archivo.url }}" class="text-decoration-none text-primary">{{ material.nombre }}</a></h5>
+                                                        {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
+                                                        <a href="{% url "eliminar_material" material.id %}" class="btn btn-danger">Eliminar</a>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
                                 </div>
                                 <!-- Botones de cada material -->
                                 {% if request.user.es_profesor and curso.profesor == request.user.profesor %}
                                 <div class="d-flex justify-content-between mt-3">
-                                    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal-AgregarMaterial">Agregar material</a>
+                                    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal-AgregarMaterial-{{ seccion.id }}">Agregar material</a>
                                     <!-- Modal para agregar material -->
-                                    <div class="modal fade" id="Modal-AgregarMaterial" tabindex="-1" aria-labelledby="ModalLabel-AgregarMaterial" aria-hidden="true">
+                                    <div class="modal fade" id="Modal-AgregarMaterial-{{ seccion.id }}" tabindex="-1" aria-labelledby="ModalLabel-AgregarMaterial-{{ seccion.id }}" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
