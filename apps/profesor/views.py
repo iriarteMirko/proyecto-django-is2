@@ -56,7 +56,7 @@ def crear_seccion(request, curso_id):
         if seccion:
             return redirect('contenido_curso', curso_id=curso.id, curso_slug=curso.slug)
         # Secciones del curso
-        secciones = curso.seccion_set.all()
+        secciones = curso.secciones.all()
         return render(request, 'curso/contenido_curso.html', {'error': 'Datos no válidos. Intente nuevamente.', 'curso': curso, 'secciones': secciones})
     return render(request, 'curso/contenido_curso.html', {'curso': curso, 'secciones': secciones})
 
@@ -69,7 +69,7 @@ def crear_asesoria(request, curso_id):
         curso = get_object_or_404(Curso, id=curso_id)
         error = validar_asesoria(request)
         if error:
-            asesorias = curso.asesoria_set.all()
+            asesorias = curso.asesorias.all()
             return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'error': error})
         fecha = request.POST.get('fecha')
         hora_inicio = request.POST.get('hora_inicio')
@@ -80,6 +80,6 @@ def crear_asesoria(request, curso_id):
         if asesoria:
             return redirect('asesoria_curso', curso_id=curso.id, curso_slug=curso.slug)
         # Asesorías del curso
-        asesorias = curso.asesoria_set.all()
+        asesorias = curso.asesorias.all()
         return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias, 'error': 'Datos no válidos. Intente nuevamente.'})
     return render(request, 'curso/asesoria_curso.html', {'curso': curso, 'asesorias': asesorias})
