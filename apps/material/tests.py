@@ -35,16 +35,19 @@ class MaterialTestCase(TestCase):
         )
         self.client = Client()
         self.client.login(username='testuser', password='12345')
+
     def test_agregar_material(self):
         # Create a simple uploaded file for testing
         material_file = SimpleUploadedFile(self.temp_file.name, self.temp_file.read(), content_type='text/plain')
+
         response = self.client.post(reverse('agregar_material', kwargs={'seccion_id': self.seccion.id}), {
             'nombre': 'Test Material',
             'archivo': material_file
         })
+
         self.assertEqual(response.status_code, 302)  # Redirection after successful creation
         self.assertTrue(Material.objects.filter(nombre='Test Material').exists())
-    
+
     def test_eliminar_material(self):
         # Create a material instance
         material = Material.objects.create(
@@ -52,6 +55,8 @@ class MaterialTestCase(TestCase):
             nombre='Material para Eliminar',
             archivo=SimpleUploadedFile(self.temp_file.name, self.temp_file.read(), content_type='text/plain')
         )
+
         response = self.client.post(reverse('eliminar_material', kwargs={'material_id': material.id}))
+
         self.assertEqual(response.status_code, 302)  # Redirection after successful deletion
         self.assertFalse(Material.objects.filter(nombre='Material para Eliminar').exists())
