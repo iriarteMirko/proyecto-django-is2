@@ -4,7 +4,7 @@ from django.utils import timezone
 from apps.curso.models import Curso
 from apps.profesor.models import Profesor
 from apps.usuario.models import Usuario
-from .models import Asesoria
+from apps.asesoria.models import Asesoria
 
 class AsesoriaModelTests(TestCase):
     def setUp(self):
