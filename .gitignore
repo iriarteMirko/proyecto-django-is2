@@ -1,5 +1,5 @@
 # Ignorar archivos
-
+*.jpg
 *.jpeg
 *.png
 *.gif
