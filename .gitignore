@@ -1,11 +1,7 @@
 # Ignorar archivos
-*.jpg
+#*.jpg
 *.jpeg
 *.png
-*.gif
-*.svg
-*.ico
-*.webp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
