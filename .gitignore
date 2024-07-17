@@ -1,7 +1,6 @@
 # Ignorar archivos
-*.jpg
-*.jpeg
-*.png
+media/materiales/
+media/usuarios/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
