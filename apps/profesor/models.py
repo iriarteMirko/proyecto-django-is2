@@ -4,8 +4,8 @@ from django.core.exceptions import ValidationError
 
 class Profesor(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-    profesion = models.CharField(max_length=25, blank=False, null=False)
-    centro_laboral = models.CharField(max_length=25, blank=False, null=False)
+    profesion = models.CharField(max_length=35, blank=False, null=False)
+    centro_laboral = models.CharField(max_length=35, blank=False, null=False)
     
     class Meta:
         verbose_name = 'Profesor'

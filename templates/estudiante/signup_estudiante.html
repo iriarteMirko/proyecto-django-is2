@@ -25,8 +25,8 @@
             {% if form.email.errors %} <p class="text-center" style="color:red">Correo inválido o ya existente</p> {% endif %}
             <div class="input-group mb-3">
                 <span class="input-group-text">Nombres/Apellidos:</span>
-                <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="20" placeholder="Nombres" required>
-                <input type="text" name="apellidos" id="apellidos" class="form-control {% if form.apellidos.errors %}is-invalid{% endif %}" maxlength="20" placeholder="Apellidos" required>
+                <input type="text" name="nombre" id="nombre" class="form-control {% if form.nombre.errors %}is-invalid{% endif %}" maxlength="35" placeholder="Nombres" required>
+                <input type="text" name="apellidos" id="apellidos" class="form-control {% if form.apellidos.errors %}is-invalid{% endif %}" maxlength="35" placeholder="Apellidos" required>
             </div>
             <div class="input-group mb-3">
                 <label class="input-group-text" for="carrera">Carrera:</label>

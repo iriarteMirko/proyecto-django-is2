@@ -20,15 +20,15 @@
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="email">Email:</label>
-                        <input class="form-control" type="email" name="email" value="{{ user.email }}" id="email" maxlength="25" placeholder="Email" required>
+                        <input class="form-control" type="email" name="email" value="{{ user.email }}" id="email" maxlength="35" placeholder="Email" required>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="nombre">Nombre:</label>
-                        <input class="form-control" type="text" name="nombre" value="{{ user.nombre }}" id="nombre" maxlength="20" placeholder="Nombre" required>
+                        <input class="form-control" type="text" name="nombre" value="{{ user.nombre }}" id="nombre" maxlength="35" placeholder="Nombre" required>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="apellidos">Apellidos:</label>
-                        <input class="form-control" type="text" name="apellidos" value="{{ user.apellidos }}" id="apellidos" maxlength="20" placeholder="Apellidos" required>
+                        <input class="form-control" type="text" name="apellidos" value="{{ user.apellidos }}" id="apellidos" maxlength="35" placeholder="Apellidos" required>
                     </div>
                     {% if user.es_estudiante == True %}
                     <div class="col-sm-6">
@@ -70,11 +70,11 @@
                     {% elif user.es_profesor == True %}
                     <div class="col-sm-6">
                         <label class="form-label" for="profesion">Profesión:</label>
-                        <input class="form-control" type="text" name="profesion" value="{{ profesor.profesion }}" id="profesion" maxlength="25" placeholder="Profesión" required>
+                        <input class="form-control" type="text" name="profesion" value="{{ profesor.profesion }}" id="profesion" maxlength="35" placeholder="Profesión" required>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="centro_laboral">Centro Laboral:</label>
-                        <input class="form-control" type="text" name="centro_laboral" value="{{ profesor.centro_laboral }}" id="centro_laboral" maxlength="25" placeholder="Centro Laboral" required>
+                        <input class="form-control" type="text" name="centro_laboral" value="{{ profesor.centro_laboral }}" id="centro_laboral" maxlength="35" placeholder="Centro Laboral" required>
                     </div>
                     {% endif %}
                     <div class="col-12 d-flex justify-content-end pt-3">
@@ -156,7 +156,7 @@
                 <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
                     <div class="col-sm-6">
                         <label class="form-label" for="password">Contraseña Actual:</label>
-                        <input class="form-control" type="password" name="password" id="password" maxlength="25">
+                        <input class="form-control" type="password" name="password" id="password" maxlength="15">
                     </div>
                     <div class="col-sm-6">
                         <label class="form"></label>
